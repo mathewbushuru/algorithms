@@ -107,6 +107,60 @@ Output: `[1,2,3,4]`
 >Input: `head = [-1,5,3,4,0]`
 Output: `[-1,0,3,4,5]`
 
+Solution
+
+![147](./leetcode/imgs/147.jpeg)
+
+`JavaScript`
+
+```sh
+// provided in problem
+function ListNode(val, next) {
+  this.val = val === undefined ? 0 : val;
+  this.next = next === undefined ? null : next;
+}
+
+const insertionSortList = function (head) {
+  // special case
+  if (head === null) {
+    return null;
+  }
+
+  // start of sorted list
+  let dummyHead = new ListNode(0);
+  dummyHead.next = head;
+
+  // last node in sorted portion of list
+  let lastSorted = head;
+
+  // node to be inserted in iteration
+  let curr = head.next;
+
+  while (curr !== null) {
+    if (lastSorted.val <= curr.val) {
+      // curr in correct position already so just move pointer
+      lastSorted = lastSorted.next;
+    } else {
+      // find correct position to insert curr
+      let prev = dummyHead.next;
+
+      while (prev.next.val <= curr.val) {
+        prev = prev.next;
+      }
+
+      // insert curr just where prev stopped
+      lastSorted.next = curr.next;
+      curr.next = prev.next;
+      prev.next = curr;
+    }
+
+    curr = lastSorted.next;
+  }
+
+  return dummyHead.next;
+};
+```
+
 ---
 
 ## Data Structures
