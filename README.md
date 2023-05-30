@@ -64,7 +64,7 @@ Repeat until the array is sorted
 
 `Javascript`
 
-```sh
+```js
 function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
     const currVal = array[i];
@@ -113,7 +113,7 @@ Solution
 
 `JavaScript`
 
-```sh
+```js
 // provided in problem
 function ListNode(val, next) {
   this.val = val === undefined ? 0 : val;
