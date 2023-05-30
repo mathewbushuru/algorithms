@@ -1,6 +1,6 @@
 # Comprehensive Algorithms and Data Structures.
 
-This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you found this information valuable. Feel free to fork/clone or let me know how I can improve it. 
+This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you found this information valuable. Feel free to fork, clone or build on it.
 
 *Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages*
 
@@ -57,7 +57,34 @@ Repeat until the array is sorted
 - continue for all the remaining unsorted elements, comparing and shifting as necessary
 - Once we reach the end of the array, it will be fully sorted
 
-*Time Complexity:* O(n^2)
+**Implementation**
+```sh
+function insertionSort(array) {
+  for (let i = 1; i < array.length; i++) {
+    const currVal = array[i];
+
+    let j = i - 1;
+    while (j >= 0 && array[j] > currVal) {
+      array[j + 1] = array[j];
+      j -= 1;
+    }
+
+    array[j + 1] = currVal;
+  }
+  return array;
+}
+
+const arr = [9, 3, 5, 1, 7, 2, 8, 4];
+
+// [ 1, 2, 3, 4, 5, 7, 8, 9]
+console.log(insertionSort(arr));
+```
+
+Time Complexity:
+- Best case: O(n)
+- Average and Worst case:  (O(n^2))
+
+Space Complexity: O(1)
 
 ---
 
