@@ -18,13 +18,16 @@ This repository houses my solutions and detailed explanations to popular algorit
 ├────  linked-lists/
 │       ├── JavaScript/
 │       ├── ...
+├── Leetcode
+├────  1-two-sum/
+│       ├── ...
 ```
 
 ## Table of Contents
 - [Algorithms](#algorithms)
-  - [Binary Search](#binary-search)
   - [Sorting algorithms](#sorting-algorithms)
     - [Insertion Sort](#insertion-sort)
+  - [Binary Search](#binary-search)
 - [Data Structures](#data-structures)
   - [Linked Lists](#linked-lists)
 
@@ -83,7 +86,7 @@ const arr = [9, 3, 5, 1, 7, 2, 8, 4];
 console.log(insertionSort(arr));
 ```
 
-Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py)
+Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/java/insertionSort.java), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/java/insertionSort.java)
 
 Time Complexity:
 - Best case: O(n)
