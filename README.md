@@ -161,6 +161,11 @@ const insertionSortList = function (head) {
 };
 ```
 
+Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py),
+
+Time complexity: O(n^2)
+Space complexity: O(1)
+
 ---
 
 ## Data Structures
