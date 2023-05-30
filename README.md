@@ -161,9 +161,10 @@ const insertionSortList = function (head) {
 };
 ```
 
-Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py),
+Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/python/insertion_sort_list.py),  [`C`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/c/insertionSortList.c)
 
 Time complexity: O(n^2)
+
 Space complexity: O(1)
 
 ---
