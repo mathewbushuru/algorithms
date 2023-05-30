@@ -1,6 +1,6 @@
 # Comprehensive Algorithms and Data Structures.
 
-This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you found this information valuable. Feel free to fork, clone or build on it.
+This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you find this information valuable. Feel free to fork, clone or build on it.
 
 *Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages*
 
@@ -39,7 +39,7 @@ This repository houses my solutions and detailed explanations to popular algorit
 
 ### Insertion Sort
 
-Insertion sort builds the final sorted array, one element at a time by shifting elements to the right until the correct position in the sorted portion of the array is found.
+Insertion sort builds the final sorted array, one element at a time by shifting elements to the right until the correct position in the sorted portion of the array is found. An intuitive way that I have seen it being described is it is like sorting a hand of playing cards - take a card, find its correct place within sorted cards, and insert it at that location.
 
 **Algorithm**
 
@@ -93,6 +93,19 @@ Time Complexity:
 - Average and Worst case:  (O(n^2))
 
 Space Complexity: O(1)
+
+**Leetcode 147 (Medium) - [Insertion Sort List](https://leetcode.com/problems/insertion-sort-list/)**
+> Given the `head` of a singly-linked linked list, sort the list using insertion sort, and return the sorted list's head.
+
+> The steps of the insertion sort algorithm:
+Insertion sort iterates, consuming one element each repetition and growing a sorted output list. At each iteration, insertion sort removes one element from the input data, finds the location it belongs in the input data and inserts it there.
+It repeats until no input elements remain.
+
+>Input: `head = [4,2,1,3]`
+Output: `[1,2,3,4]`
+
+>Input: `head = [-1,5,3,4,0]`
+Output: `[-1,0,3,4,5]`
 
 ---
 
