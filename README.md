@@ -58,6 +58,9 @@ Repeat until the array is sorted
 - Once we reach the end of the array, it will be fully sorted
 
 **Implementation**
+
+`Javascript`
+
 ```sh
 function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
@@ -79,6 +82,8 @@ const arr = [9, 3, 5, 1, 7, 2, 8, 4];
 // [ 1, 2, 3, 4, 5, 7, 8, 9]
 console.log(insertionSort(arr));
 ```
+
+Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py)
 
 Time Complexity:
 - Best case: O(n)
