@@ -209,7 +209,7 @@ console.log(binarySearch(arr, 4));
 
 ```
 
-Other implementations:
+Other implementations: [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/c/binarySearch.c), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/java/BinarySearch.java)
 
 Time complexity: O(log(n))
 
