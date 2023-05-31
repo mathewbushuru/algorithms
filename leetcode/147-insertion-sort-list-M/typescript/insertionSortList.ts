@@ -32,6 +32,7 @@ function insertionSortList(head: ListNode | null): ListNode | null {
       curr.next = prev.next;
       prev.next = curr;
     }
+    curr = lastSorted.next;
   }
 
   return dummyHead.next;
