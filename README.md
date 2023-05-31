@@ -211,6 +211,46 @@ console.log(binarySearch(arr, 4));
 
 Time complexity: O(log(n))
 
+Space complexity: O(1)
+
+We can also use recursion for a more elegant solution but a worse space complexity.
+
+```js
+function binarySearchRecursive(array, target) {
+  return binarySearchRecursiveHelper(array, target, 0, array.length - 1);
+}
+
+function binarySearchRecursiveHelper(array, target, low, high) {
+  if (low > high) {
+    // target element not found
+    return -1;
+  }
+
+  // find middle index
+  let mid = Math.floor((low + high) / 2);
+
+  if (array[mid] === target) {
+    // target element found at middle index
+    return mid;
+  } else if (array[mid] < target) {
+    // search in right half
+    return binarySearchRecursiveHelper(array, target, mid + 1, high);
+  } else {
+    // search in left half
+    return binarySearchRecursiveHelper(array, target, low, mid - 1);
+  }
+}
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+
+// 5
+console.log(binarySearchRecursive(arr, 6));
+```
+
+Time complexity: O(log(n))
+
+Space complexity: O(log(n)). Each recursive call adds a new frame to the call stack containing the local variables and parameters of each function call. The depth of the recursive calls corresponds to the number of times the search space is halved until the base case is reached.
+
 ---
 
 # Data Structures
