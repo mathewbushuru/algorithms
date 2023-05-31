@@ -209,6 +209,8 @@ console.log(binarySearch(arr, 4));
 
 ```
 
+Other implementations:
+
 Time complexity: O(log(n))
 
 Space complexity: O(1)
