@@ -142,7 +142,7 @@ const insertionSortList = function (head) {
       lastSorted = lastSorted.next;
     } else {
       // find correct position to insert curr
-      let prev = dummyHead.next;
+      let prev = dummyHead;
 
       while (prev.next.val <= curr.val) {
         prev = prev.next;
@@ -271,6 +271,8 @@ Output: `[-1,-1]`
 Algorithm: Use binary search due to the requirement of O(log(n)) complexity and since the array is already sorted.
 
 Solution
+
+![34](./leetcode/imgs/34.jpeg)
 
 `JavaScript`
 

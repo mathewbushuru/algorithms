@@ -36,7 +36,7 @@ const insertionSortList = function (head) {
       lastSorted = lastSorted.next;
     } else {
       // find correct position to insert curr
-      let prev = dummyHead.next;
+      let prev = dummyHead;
 
       while (prev.next.val <= curr.val) {
         prev = prev.next;
