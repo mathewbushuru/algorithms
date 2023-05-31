@@ -44,5 +44,6 @@ def insertionSortList(head):
             lastSorted.next = curr.next
             curr.next = prev.next
             prev.next = curr
+        curr = lastSorted.next
 
     return dummyHead.next
