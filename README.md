@@ -89,8 +89,8 @@ console.log(insertionSort(arr));
 Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/java/insertionSort.java), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/c/insertion_sort.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/typescript/insertionSort.ts)
 
 Time Complexity:
-- Best case: O(n)
-- Average and Worst case:  (O(n^2))
+- Best case: `O(n)`
+- Average and Worst case:  `(O(n^2))`
 
 Space Complexity: O(1)
 
@@ -163,9 +163,9 @@ const insertionSortList = function (head) {
 
 Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/python/insertion_sort_list.py),  [`C`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/c/insertionSortList.c), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/java/Solution.java), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/typescript/insertionSortList.ts)
 
-Time complexity: O(n^2)
+Time complexity: `O(n^2)`
 
-Space complexity: O(1)
+Space complexity: `O(1)`
 
 ## Binary Search
 
@@ -211,9 +211,9 @@ console.log(binarySearch(arr, 4));
 
 Other implementations: [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/c/binarySearch.c), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/java/BinarySearch.java), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/python/binarySearch.py), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/typescript/binarySearch.ts)
 
-Time complexity: O(log(n))
+Time complexity: `O(log(n))`
 
-Space complexity: O(1)
+Space complexity: `O(1)`
 
 We can also use recursion for a more elegant solution but a worse space complexity.
 
@@ -249,9 +249,9 @@ const arr = [1, 2, 3, 4, 5, 6, 7, 8];
 console.log(binarySearchRecursive(arr, 6));
 ```
 
-Time complexity: O(log(n))
+Time complexity: `O(log(n))`
 
-Space complexity: O(log(n)). Each recursive call adds a new frame to the call stack containing the local variables and parameters of each function call. The depth of the recursive calls corresponds to the number of times the search space is halved until the base case is reached.
+Space complexity: `O(log(n))`. Each recursive call adds a new frame to the call stack containing the local variables and parameters of each function call. The depth of the recursive calls corresponds to the number of times the search space is halved until the base case is reached.
 
 **Leetcode 34 (Medium) - [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)**
 
@@ -268,7 +268,7 @@ Output: `[-1,-1]`
 > Input: `nums = []`, `target = 0`
 Output: `[-1,-1]`
 
-Algorithm: Use binary search due to the requirement of O(log(n)) complexity and since the array is already sorted.
+Algorithm: Use binary search due to the requirement of `O(log(n))` complexity and since the array is already sorted.
 
 Solution
 
@@ -320,6 +320,71 @@ var searchRange = function (nums, target) {
 // [3,4]
 console.log(searchRange([5, 7, 7, 8, 8, 10], 8));
 ```
+
+Time complexity: `O(log(n))`
+
+Space complexity: `O(1)`
+
+**Leetcode 69 (Easy) - [Sqrt(x)](https://leetcode.com/problems/sqrtx/)**
+
+> Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
+
+> You must not use any built-in exponent function or operator. For example, do not use `pow(x, 0.5)` in c++ or `x ** 0.5` in python
+
+> Input: `x = 4`
+Output: `2`
+Explanation: `The square root of 4 is 2, so we return 2.`
+
+> Input: `x = 8`
+Output: `2`
+Explanation: `The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.`
+
+Algorithm: Use binary search to find, the largest int `mid` such that  `mid * mid <= x`
+
+Solution
+
+![69](./leetcode/imgs/69.jpeg)
+
+`JavaScript`
+
+```js
+var mySqrt = function (x) {
+  if (x === 0) {
+    return 0;
+  }
+
+  let left = 1;
+  // sqrt(x) cannot be bigger than x/2 for any int x
+  let right = Math.floor(x / 2) + 1;
+
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    const square = mid * mid;
+
+    if (square === x) {
+      return mid;
+    } else if (square < x) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+
+  // exited loop without finding  exact square root
+  // right  pointer holds floor value of square root
+  return right;
+};
+
+// 2
+console.log(mySqrt(4));
+
+// 2
+console.log(mySqrt(8));
+```
+
+Time complexity: `O(log(x))`
+
+Space complexity: `O(1)`
 
 ---
 
