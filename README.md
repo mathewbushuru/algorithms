@@ -15,9 +15,10 @@ This repository houses my solutions and detailed explanations to popular algorit
 ├────  sorting-algorithms/
 │       ├── ...
 ├── Data Structures
-├────  linked-lists/
-│       ├── JavaScript/
-│       ├── ...
+├────  trees/
+├───────  binary-trees/
+│         ├── JavaScript/
+│         ├── ...
 ├── Leetcode
 ├────  1-two-sum/
 │       ├── ...
@@ -29,7 +30,9 @@ This repository houses my solutions and detailed explanations to popular algorit
     - [Insertion Sort](#insertion-sort)
   - [Binary Search](#binary-search)
 - [Data Structures](#data-structures)
-  - [Linked Lists](#linked-lists)
+  - [Trees](#trees)
+    - [Binary Trees](#binary-trees)
+    - [Binary Search Trees](#binary-search-trees)
 
   ---
 
@@ -606,5 +609,195 @@ Time complexity: `O(nlog(n))` where n is max pile size.
 ---
 
 # Data Structures
+
+## Trees
+
+A tree is a hierarchical data structure that represents a collection of elements called nodes. The nodes are connected by edges to form a tree-like structure. They enable efficient organization and retrieval of data.
+
+The root is a special node that serves as the top-most node in a hierarchy. Each node in the tree, except for the root, has exactly one parent node and zero or more child nodes. Nodes directly connected to a particular node are called its children, and the node that connects to its children is called the parent.
+
+### Binary Trees
+
+This is a tree in which each node has at most two children, referred to as the left child and the right child. Each child node is either a leaf node (having no children) or an internal node (having one or more children). 
+
+A complete binary tree is one in which each level of the tree is completely filled except the last level, and all nodes appear as far left as possible . A full/extended binary tree is one where no node has only one child - each node has either zero or two children. A perfect binary tree is both full and complete.
+
+Binary tree traversal is the process of visiting each node in the tree exactly once. Three common methods of traversing binary trees are in-order traversal, pre-order traversal, and post-order traversal.
+
+- In-order: Nodes are visited in the order 'left subtree' - 'parent node' - 'right subtree'. The left node is visited first, followed by the parent node, then the right child. This is used in binary search trees because it visits the nodes in ascending order if the tree is structured properly.
+- Pre-order: Nodes are visited in the order 'parent node' - 'left subtree' - 'right subtree'. The parent node is visited before its children. It is useful for creating a copy of the tree, as the order of visiting the nodes allows for easy replication of the structure.
+- Post-order: Nodes are visited in the order 'left subtree' - 'right subtree' - 'parent node'. The children are visited before the parent node. This is used in deleting nodes as it ensures the node is only deleted after its children have been deleted.
+
+![binary-tree-traversal](./data-structures/imgs/binary-tree-traversal.jpeg)
+
+Note that trees can also be traversed in level-order (breadth-first algorithm.)
+
+We can reconstruct a binary tree if given at least two traversal results. First traversal must be the in-order result, and the second can be either pre-order or post-order traversal. The in-order traversal helps us identify left and right child nodes, and the pre/post-order determines the root node. First element in pre-order traversal is the root node, while the last in post-order is the root node.
+
+**Implementation** 
+
+`JavaScript`
+
+```js
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinaryTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value) {
+    const newNode = new Node(value);
+
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+
+  insertNode(node, newNode) {
+    if (newNode.value < node.value) {
+      // if tree required to be a binary search tree, then smaller values to left subtree
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      // newNode is larger, insert in right subtree
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode);
+      }
+    }
+  }
+
+  delete(value) {
+    this.root = this.deleteNode(this.root, value);
+  }
+
+  deleteNode(node, value) {
+    if (node === null) {
+      return null;
+    }
+
+    if (value < node.value) {
+      node.left = this.deleteNode(node.left, value);
+    } else if (value > node.value) {
+      node.right = this.deleteNode(node.right, value);
+    } else {
+      // delete current node
+      if (node.left === null && node.right === null) {
+        // has no children
+        node = null;
+      } else if (node.left === null) {
+        //has one right child
+        node = node.right;
+      } else if (node.right === null) {
+        // has one left child
+        node = node.left;
+      } else {
+        // has two children
+        const minRight = this.findMinNode(node.right);
+        // minRight is larger than all left subtree values
+        // and ofc smaller than all right subtree values
+        node.value = minRight.value;
+        node.right = this.deleteNode(node.right, minRight.value);
+      }
+    }
+    return node;
+  }
+
+  findMinNode(node) {
+    if (node.left === null) {
+      // nothing in left subtree, so parent is automatically the min
+      return node;
+    } else {
+      return this.findMinNode(node.left);
+    }
+  }
+
+  inOrderTraversal(callbackFn) {
+    this.inOrderTraversalNode(this.root, callbackFn);
+  }
+
+  inOrderTraversalNode(node, callbackFn) {
+    if (node !== null) {
+      this.inOrderTraversalNode(node.left, callbackFn);
+      callbackFn(node.value);
+      this.inOrderTraversalNode(node.right, callbackFn);
+    }
+  }
+
+  preOrderTraversal(callbackFn) {
+    this.preOrderTraversalNode(this.root, callbackFn);
+  }
+
+  preOrderTraversalNode(node, callbackFn) {
+    if (node !== null) {
+      callbackFn(node.value);
+      this.preOrderTraversalNode(node.left, callbackFn);
+      this.preOrderTraversalNode(node.right, callbackFn);
+    }
+  }
+
+  postOrderTraversal(callbackFn) {
+    this.postOrderTraversalNode(this.root, callbackFn);
+  }
+
+  postOrderTraversalNode(node, callbackFn) {
+    if (node !== null) {
+      this.postOrderTraversalNode(node.left, callbackFn);
+      this.postOrderTraversalNode(node.right, callbackFn);
+      callbackFn(node.value);
+    }
+  }
+}
+```
+
+An example binary tree (BST) is shown below
+
+![binary-tree-traversal2](./data-structures/imgs/binary-tree-traversal2.jpeg)
+
+```js
+const binaryTree = new BinaryTree();
+
+binaryTree.insert(8);
+binaryTree.insert(3);
+binaryTree.insert(10);
+binaryTree.insert(1);
+binaryTree.insert(6);
+binaryTree.insert(14);
+binaryTree.insert(4);
+binaryTree.insert(7);
+binaryTree.insert(13);
+
+console.log("In order traversal");
+// 1 3 4 6 7 8 10 13 14
+binaryTree.inOrderTraversal((value) => console.log(value));
+console.log("---");
+
+console.log("Pre order traversal");
+// 8 3 1 6 4 7 10 14 13
+binaryTree.preOrderTraversal((value) => console.log(value));
+console.log("---");
+
+console.log("Post order traversal");
+// 1 4 7 6 3 13 14 10 8
+binaryTree.postOrderTraversal((value) => console.log(value));
+console.log("---");
+```
+
+### Binary Search Trees
+
+This is  a binary tree with  a special property: For every node, the value of each node in its left subtree is less than its value, and the value of each node in is right subtree is greater than its value.
 
 ---
