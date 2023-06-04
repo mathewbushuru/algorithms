@@ -1,6 +1,6 @@
 # Comprehensive Algorithms and Data Structures.
 
-This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you find this information valuable. Feel free to fork, clone or build on it.
+This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you find this information valuable.
 
 *Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages*
 
@@ -8,27 +8,30 @@ This repository houses my solutions and detailed explanations to popular algorit
 ```sh
 ├── README.md
 ├── Algorithms
-├────  binary-search/
-│       ├── JavaScript/
-│       ├── .../
-│       ├── Python
 ├────  sorting-algorithms/
-│       ├── ...
+├───────  insertion-sort/
+│          ├── JavaScript/
+│          ├── .../
+├────  search-algorithms/
+├───────  binary-search/
+│          ├── JavaScript/
+│          ├── .../
 ├── Data Structures
 ├────  trees/
 ├───────  binary-trees/
-│         ├── JavaScript/
-│         ├── ...
+│          ├── JavaScript/
+│          ├── ...
 ├── Leetcode
 ├────  1-two-sum/
-│       ├── ...
+│        ├── ...
 ```
 
 ## Table of Contents
 - [Algorithms](#algorithms)
-  - [Sorting algorithms](#sorting-algorithms)
+  - [Sorting Algorithms](#sorting-algorithms)
     - [Insertion Sort](#insertion-sort)
-  - [Binary Search](#binary-search)
+  - [Search Algorithms](#search-algorithms)
+    - [Binary Search](#binary-search)
 - [Data Structures](#data-structures)
   - [Trees](#trees)
     - [Binary Trees](#binary-trees)
@@ -234,7 +237,9 @@ Time complexity: `O(n)` where `n` is the number of intervals. We visit each inte
 
 Space complexity: `O(n)`
 
-## Binary Search
+## Search Algorithms
+
+### Binary Search
 
 Binary search is a divide and conquer algorithm used to efficiently search for a specific element in a sorted array. It works by repeatedly dividing the search space in half, eliminating the half that cannot contain the target element.
 
@@ -793,6 +798,13 @@ console.log("---");
 console.log("Post order traversal");
 // 1 4 7 6 3 13 14 10 8
 binaryTree.postOrderTraversal((value) => console.log(value));
+console.log("---");
+
+binaryTree.delete(6);
+
+console.log("In order traversal after deleting 6");
+// 1 3 4 7 8 10 13 14
+binaryTree.inOrderTraversal((value) => console.log(value));
 console.log("---");
 ```
 

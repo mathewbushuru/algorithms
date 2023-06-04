@@ -147,3 +147,10 @@ console.log("Post order traversal");
 // 1 4 7 6 3 13 14 10 8
 binaryTree.postOrderTraversal((value) => console.log(value));
 console.log("---");
+
+binaryTree.delete(6);
+
+console.log("In order traversal after deleting 6");
+// 1 3 4 7 8 10 13 14
+binaryTree.inOrderTraversal((value) => console.log(value));
+console.log("---");
