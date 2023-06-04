@@ -811,6 +811,23 @@ console.log("---");
 
 Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts)
 
+The complexities of this implementation are:
+
+1. Node insertion
+
+- The average and worst time complexity of inserting a node in a binary tree in `O(log(n))` for balanced trees and `O(n)` for skewed trees. Each insertion in a balanced binary tree reduces search space by half, while it may require traversing through all the nodes in a skewed tree.
+- The space complexity is `O(1)` as we are not using any data structures that grow the size of the tree.
+
+2. Node deletion
+
+- The average and worst time complexity if `O(log(n))` for balanced trees and `O(n)` for skewed trees.
+
+3. Traversal operations
+
+- In-order, pre-order and post-order traversals visit each node in the binary tree once. 
+- The time complexity is `O(n)` where n is the number of nodes in the tree.
+- The space complexity is `O(h)` where h is the height of the tree. The recursive calls for traversing the tree occupies space in the call stack, and the maximum depth of the recursive call corresponds to the height of the tree.
+
 ### Binary Search Trees
 
 This is  a binary tree with  a special property: For every node, the value of each node in its left subtree is less than its value, and the value of each node in is right subtree is greater than its value.
