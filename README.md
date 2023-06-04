@@ -714,6 +714,7 @@ class BinaryTree {
         const minRight = this.findMinNode(node.right);
         // minRight is larger than all left subtree values
         // and ofc smaller than all right subtree values
+        // alternative would be to use max value in left subtree
         node.value = minRight.value;
         node.right = this.deleteNode(node.right, minRight.value);
       }
@@ -807,6 +808,8 @@ console.log("In order traversal after deleting 6");
 binaryTree.inOrderTraversal((value) => console.log(value));
 console.log("---");
 ```
+
+Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts)
 
 ### Binary Search Trees
 

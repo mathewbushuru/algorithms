@@ -1,5 +1,9 @@
-class Node {
-  constructor(value) {
+class TreeNode {
+  value: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
@@ -7,12 +11,14 @@ class Node {
 }
 
 class BinaryTree {
+  root: TreeNode | null;
+
   constructor() {
     this.root = null;
   }
 
-  insert(value) {
-    const newNode = new Node(value);
+  insert(value: number): void {
+    const newNode = new TreeNode(value);
 
     if (this.root === null) {
       this.root = newNode;
@@ -21,16 +27,14 @@ class BinaryTree {
     }
   }
 
-  insertNode(node, newNode) {
+  insertNode(node: TreeNode, newNode: TreeNode) {
     if (newNode.value < node.value) {
-      // if tree required to be a binary search tree, then smaller values to left subtree
       if (node.left === null) {
         node.left = newNode;
       } else {
         this.insertNode(node.left, newNode);
       }
     } else {
-      // newNode is larger, insert in right subtree
       if (node.right === null) {
         node.right = newNode;
       } else {
@@ -39,11 +43,11 @@ class BinaryTree {
     }
   }
 
-  delete(value) {
+  delete(value: number): void {
     this.root = this.deleteNode(this.root, value);
   }
 
-  deleteNode(node, value) {
+  deleteNode(node: TreeNode | null, value: number): TreeNode | null {
     if (node === null) {
       return null;
     }
@@ -53,22 +57,14 @@ class BinaryTree {
     } else if (value > node.value) {
       node.right = this.deleteNode(node.right, value);
     } else {
-      // delete current node
       if (node.left === null && node.right === null) {
-        // has no children
         node = null;
       } else if (node.left === null) {
-        //has one right child
         node = node.right;
       } else if (node.right === null) {
-        // has one left child
         node = node.left;
       } else {
-        // has two children
         const minRight = this.findMinNode(node.right);
-        // minRight is larger than all left subtree values
-        // and ofc smaller than all right subtree values
-        // alternative would be to use max value in left subtree
         node.value = minRight.value;
         node.right = this.deleteNode(node.right, minRight.value);
       }
@@ -76,20 +72,22 @@ class BinaryTree {
     return node;
   }
 
-  findMinNode(node) {
+  findMinNode(node: TreeNode): TreeNode {
     if (node.left === null) {
-      // nothing in left subtree, so parent is automatically the min
       return node;
     } else {
       return this.findMinNode(node.left);
     }
   }
 
-  inOrderTraversal(callbackFn) {
+  inOrderTraversal(callbackFn: (value: number) => void): void {
     this.inOrderTraversalNode(this.root, callbackFn);
   }
 
-  inOrderTraversalNode(node, callbackFn) {
+  inOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
     if (node !== null) {
       this.inOrderTraversalNode(node.left, callbackFn);
       callbackFn(node.value);
@@ -97,26 +95,32 @@ class BinaryTree {
     }
   }
 
-  preOrderTraversal(callbackFn) {
+  preOrderTraversal(callbackFn: (value: number) => void): void {
     this.preOrderTraversalNode(this.root, callbackFn);
   }
 
-  preOrderTraversalNode(node, callbackFn) {
+  preOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
     if (node !== null) {
       callbackFn(node.value);
-      this.preOrderTraversalNode(node.left, callbackFn);
-      this.preOrderTraversalNode(node.right, callbackFn);
+      this.inOrderTraversalNode(node.left, callbackFn);
+      this.inOrderTraversalNode(node.right, callbackFn);
     }
   }
 
-  postOrderTraversal(callbackFn) {
+  postOrderTraversal(callbackFn: (value: number) => void): void {
     this.postOrderTraversalNode(this.root, callbackFn);
   }
 
-  postOrderTraversalNode(node, callbackFn) {
+  postOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
     if (node !== null) {
-      this.postOrderTraversalNode(node.left, callbackFn);
-      this.postOrderTraversalNode(node.right, callbackFn);
+      this.inOrderTraversalNode(node.left, callbackFn);
+      this.inOrderTraversalNode(node.right, callbackFn);
       callbackFn(node.value);
     }
   }
@@ -135,23 +139,19 @@ binaryTree.insert(7);
 binaryTree.insert(13);
 
 console.log("In order traversal");
-// 1 3 4 6 7 8 10 13 14
 binaryTree.inOrderTraversal((value) => console.log(value));
 console.log("---");
 
 console.log("Pre order traversal");
-// 8 3 1 6 4 7 10 14 13
 binaryTree.preOrderTraversal((value) => console.log(value));
 console.log("---");
 
 console.log("Post order traversal");
-// 1 4 7 6 3 13 14 10 8
 binaryTree.postOrderTraversal((value) => console.log(value));
 console.log("---");
 
 binaryTree.delete(6);
 
 console.log("In order traversal after deleting 6");
-// 1 3 4 7 8 10 13 14
 binaryTree.inOrderTraversal((value) => console.log(value));
 console.log("---");
