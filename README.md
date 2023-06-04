@@ -826,7 +826,7 @@ The complexities of this implementation are:
 
 - In-order, pre-order and post-order traversals visit each node in the binary tree once. 
 - The time complexity is `O(n)` where n is the number of nodes in the tree.
-- The space complexity is `O(h)` where h is the height of the tree. The recursive calls for traversing the tree occupies space in the call stack, and the maximum depth of the recursive call corresponds to the height of the tree.
+- The space complexity is `O(h)` where h is the height of the tree. The recursive calls for traversing the tree occupies space in the call stack, and the maximum depth of the recursive call corresponds to the height of the tree. For a skewed tree, the space complexity degrades to `O(n)`
 
 ### Binary Search Trees
 
