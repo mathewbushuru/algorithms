@@ -769,6 +769,8 @@ class BinaryTree {
 }
 ```
 
+Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/java/BinaryTreeTestdrive.java)
+
 An example binary tree (BST) is shown below
 
 ![binary-tree-traversal2](./data-structures/imgs/binary-tree-traversal2.jpeg)
@@ -808,8 +810,6 @@ console.log("In order traversal after deleting 6");
 binaryTree.inOrderTraversal((value) => console.log(value));
 console.log("---");
 ```
-
-Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts)
 
 The complexities of this implementation are:
 
