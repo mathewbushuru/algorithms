@@ -875,6 +875,25 @@ Time complexity: `O(n)` We visit each node in the tree.
 
 Space complexity: `O(h)` = `O(log(n))` for the average case. In worst case, the depth of recursion can be upto number of nodes for a skewed tree - `O(n)`
 
+**Leetcode 102 (Medium) - [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)**
+
+> Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+
+> Input: `root = [3,9,20,null,null,15,7]`
+Output: `[[3],[9,20],[15,7]]`
+
+> Input: `root = [1]`
+Output: `[[1]]`
+
+> Input: `root = []`
+Output: `[]` 
+
+Algorithm: Use Breadth-First Search (BFS) to traverse the binary tree level by level
+
+Solution
+
+`JavaScript`
+
 **Leetcode 104 (Easy) - [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)**
 
 > Given the `root` of a binary tree, return its maximum depth. 

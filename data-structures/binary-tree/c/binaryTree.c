@@ -1,7 +1,7 @@
 // gcc binaryTree.c -o binaryTree && ./binaryTree
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h>  //for malloc function, free function and NULL pointer
 
 struct Node
 {
@@ -24,6 +24,7 @@ struct Node *createNode(int value)
     return newNode;
 }
 
+// node is a pointer to a pointer (double pointer)
 void insert(struct Node **node, int value)
 {
     if (*node == NULL)
