@@ -641,7 +641,7 @@ We can reconstruct a binary tree if given at least two traversal results. First 
 
 For example, if we are given two arrays with the preorder and inorder traversal results, we use the preorder array to find the root node (first element in array). We then locate the index of this root node in the inorder traversal array. Elements to the left of the root in the inorder array are from the left subtree. Similarly, those to the right of the root node form the right subtree. We recursively select elements from the preorder array and create its left and right subtrees from the inorder array.
 
-![binary-tree-reconstruction](./data-structures/imgs/binary-tree-reconstruction.jpeg)
+![binary-tree-reconstruction](./data-structures/imgs/binary-tree-reconstruction3.jpeg)
 
 **Implementation** 
 
