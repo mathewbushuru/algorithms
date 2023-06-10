@@ -633,7 +633,7 @@ Binary tree traversal is the process of visiting each node in the tree exactly o
 - Pre-order: Nodes are visited in the order 'parent node' - 'left subtree' - 'right subtree'. The parent node is visited before its children. It is useful for creating a copy of the tree, as the order of visiting the nodes allows for easy replication of the structure.
 - Post-order: Nodes are visited in the order 'left subtree' - 'right subtree' - 'parent node'. The children are visited before the parent node. This is used in deleting nodes as it ensures the node is only deleted after its children have been deleted.
 
-![binary-tree-traversal](./data-structures/imgs/binary-tree-traversal.jpeg)
+![binary-tree-traversal](./data-structures/imgs/binary-tree-traversal3.jpeg)
 
 Note that trees can also be traversed in level-order (breadth-first algorithm.)
 
