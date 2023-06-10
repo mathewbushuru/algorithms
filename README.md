@@ -769,7 +769,7 @@ class BinaryTree {
 }
 ```
 
-Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/java/BinaryTreeTestdrive.java), [`C - most challenging so far`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c)
+Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/java/BinaryTreeTestdrive.java), [`C - most challenging so far`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c),[`Python`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/python/binaryTree.py)
 
 An example binary tree (BST) is shown below
 
