@@ -68,14 +68,14 @@ Repeat until the array is sorted
 
 **Implementation**
 
-`Javascript`
+`TypeScript`
 
-```js
-function insertionSort(array) {
+```ts
+ function insertionSort(array: number[]): number[] {
   for (let i = 1; i < array.length; i++) {
     const currVal = array[i];
 
-    let j = i - 1;
+    let j: number = i - 1;
     while (j >= 0 && array[j] > currVal) {
       array[j + 1] = array[j];
       j -= 1;
@@ -86,13 +86,46 @@ function insertionSort(array) {
   return array;
 }
 
-const arr = [9, 3, 5, 1, 7, 2, 8, 4];
+const arr: number[] = [9, 3, 5, 1, 7, 2, 8, 4];
+const sortedArr: number[] = insertionSort(arr);
 
-// [ 1, 2, 3, 4, 5, 7, 8, 9]
-console.log(insertionSort(arr));
+// [1, 2, 3, 4, 5, 7, 8, 9]
+console.log(sortedArr);
 ```
 
-Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/java/insertionSort.java), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/c/insertion_sort.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/typescript/insertionSort.ts)
+`Java`
+
+```java
+public class insertionSort {
+    public static void main(String[] args) {
+        int[] arr = { 9, 3, 5, 1, 7, 2, 8, 4 };
+        sort(arr);
+        // 1 2 3 4 5 6 7 8 9
+        printArray(arr);
+    }
+
+    public static void sort(int[] array) {
+        for (int i = 1; i < array.length; i++) {
+            int currVal = array[i];
+            int j = i - 1;
+            while (j >= 0 && array[j] > currVal) {
+                array[j + 1] = array[j];
+                j--;
+            }
+            array[j + 1] = currVal;
+        }
+    }
+
+    public static void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
+}
+```
+
+Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/c/insertion_sort.c), [`JavaScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/javascript/insertionSort.js)
 
 Time Complexity:
 - Best case: `O(n)`
@@ -117,57 +150,98 @@ Solution
 
 ![147](./leetcode/imgs/147.jpeg)
 
-`JavaScript`
+`TypeScript`
 
-```js
-// provided in problem
-function ListNode(val, next) {
-  this.val = val === undefined ? 0 : val;
-  this.next = next === undefined ? null : next;
+```ts
+class ListNode {
+  val: number;
+  next: ListNode | null;
+
+  constructor(val: number) {
+    this.val = val;
+    this.next = null;
+  }
 }
 
-const insertionSortList = function (head) {
-  // special case
+function insertionSortList(head: ListNode | null): ListNode | null {
   if (head === null) {
     return null;
   }
 
-  // start of sorted list
-  let dummyHead = new ListNode(0);
+  const dummyHead: ListNode = new ListNode(0);
+
   dummyHead.next = head;
 
-  // last node in sorted portion of list
-  let lastSorted = head;
-
-  // node to be inserted in iteration
-  let curr = head.next;
+  let lastSorted: ListNode = head;
+  let curr: ListNode | null = head.next;
 
   while (curr !== null) {
     if (lastSorted.val <= curr.val) {
-      // curr in correct position already so just move pointer
-      lastSorted = lastSorted.next;
+      lastSorted = lastSorted.next!;
     } else {
-      // find correct position to insert curr
-      let prev = dummyHead;
-
-      while (prev.next.val <= curr.val) {
+      let prev: ListNode = dummyHead;
+      while (prev.next !== null && prev.next.val <= curr.val) {
         prev = prev.next;
       }
-
-      // insert curr just where prev stopped
       lastSorted.next = curr.next;
       curr.next = prev.next;
       prev.next = curr;
     }
-
     curr = lastSorted.next;
   }
 
   return dummyHead.next;
-};
+}
 ```
 
-Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/python/insertion_sort_list.py),  [`C`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/c/insertionSortList.c), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/java/Solution.java), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/typescript/insertionSortList.ts)
+`Java`
+
+```java
+class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        ListNode dummyHead = new ListNode(0);
+
+        dummyHead.next = head;
+
+        ListNode lastSorted = head;
+        ListNode curr = head.next;
+
+        while (curr != null) {
+            if (lastSorted.val <= curr.val) {
+                lastSorted = lastSorted.next;
+            } else {
+                ListNode prev = dummyHead;
+                while (prev.next.val <= curr.val) {
+                    prev = prev.next;
+                }
+                lastSorted.next = curr.next;
+                curr.next = prev.next;
+                prev.next = curr;
+            }
+
+            curr = lastSorted.next;
+        }
+
+        return dummyHead.next;
+    }
+}
+
+```
+
+Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/python/insertion_sort_list.py),  [`C`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/c/insertionSortList.c), [`JavaScript`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/javascript/insertionSortList.js)
 
 Time complexity: `O(n^2)`
 
@@ -245,43 +319,75 @@ Binary search is a divide and conquer algorithm used to efficiently search for a
 
 **Implementation**
 
-`JavaScript`
+`TypeScript`
 
-```js
-function binarySearch(array, target) {
-  // lowest index of search space
-  let low = 0;
-  // highest index of search space
-  let high = array.length - 1;
+```ts
+function binarySearch(array: number[], target: number): number {
+  let low: number = 0;
+  let high: number = array.length - 1;
 
   while (low <= high) {
-    // find the middle index
-    let mid = Math.floor((low + high) / 2);
+    let mid: number = Math.floor((low + high) / 2);
 
     if (array[mid] === target) {
-      // target element found at middle index
       return mid;
     } else if (array[mid] < target) {
-      // update lower bound to search in right half
       low = mid + 1;
     } else {
-      // update upper bound to search in lower half
       high = mid - 1;
     }
   }
 
-  // if we reach here, target was not found
   return -1;
 }
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+const arr: number[] = [2, 4, 6, 8, 10, 12, 14, 16];
+const target: number = 10;
 
-// 3
-console.log(binarySearch(arr, 4));
+console.log(binarySearch(arr, target));
 
 ```
 
-Other implementations: [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/c/binarySearch.c), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/java/BinarySearch.java), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/python/binarySearch.py), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/typescript/binarySearch.ts)
+`Java`
+
+```java
+public class BinarySearch {
+    public static void main(String[] args) {
+        int[] arr = { 2, 4, 6, 8, 10, 12, 14, 16 };
+        int target = 10;
+
+        int result = binarySearch(arr, target);
+
+        if (result == -1) {
+            System.out.println("Target element not found.");
+        } else {
+            System.out.println("Target element found at " + result + ".");
+        }
+    }
+
+    public static int binarySearch(int[] array, int target) {
+        int low = 0;
+        int high = array.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (array[mid] == target) {
+                return mid;
+            } else if (array[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return -1;
+    }
+}
+
+```
+
+Other implementations: [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/c/binarySearch.c), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/python/binarySearch.py), [`JavaScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/javascript/binarySearch.js)
 
 Time complexity: `O(log(n))`
 
@@ -645,11 +751,15 @@ For example, if we are given two arrays with the preorder and inorder traversal 
 
 **Implementation** 
 
-`JavaScript`
+`TypeScript`
 
-```js
-class Node {
-  constructor(value) {
+```ts
+class TreeNode {
+  value: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+
+  constructor(value: number) {
     this.value = value;
     this.left = null;
     this.right = null;
@@ -657,12 +767,14 @@ class Node {
 }
 
 class BinaryTree {
+  root: TreeNode | null;
+
   constructor() {
     this.root = null;
   }
 
-  insert(value) {
-    const newNode = new Node(value);
+  insert(value: number): void {
+    const newNode = new TreeNode(value);
 
     if (this.root === null) {
       this.root = newNode;
@@ -671,16 +783,14 @@ class BinaryTree {
     }
   }
 
-  insertNode(node, newNode) {
+  insertNode(node: TreeNode, newNode: TreeNode) {
     if (newNode.value < node.value) {
-      // if tree required to be a binary search tree, then smaller values to left subtree
       if (node.left === null) {
         node.left = newNode;
       } else {
         this.insertNode(node.left, newNode);
       }
     } else {
-      // newNode is larger, insert in right subtree
       if (node.right === null) {
         node.right = newNode;
       } else {
@@ -689,11 +799,11 @@ class BinaryTree {
     }
   }
 
-  delete(value) {
+  delete(value: number): void {
     this.root = this.deleteNode(this.root, value);
   }
 
-  deleteNode(node, value) {
+  deleteNode(node: TreeNode | null, value: number): TreeNode | null {
     if (node === null) {
       return null;
     }
@@ -703,22 +813,14 @@ class BinaryTree {
     } else if (value > node.value) {
       node.right = this.deleteNode(node.right, value);
     } else {
-      // delete current node
       if (node.left === null && node.right === null) {
-        // has no children
         node = null;
       } else if (node.left === null) {
-        //has one right child
         node = node.right;
       } else if (node.right === null) {
-        // has one left child
         node = node.left;
       } else {
-        // has two children
         const minRight = this.findMinNode(node.right);
-        // minRight is larger than all left subtree values
-        // and ofc smaller than all right subtree values
-        // alternative would be to use max value in left subtree
         node.value = minRight.value;
         node.right = this.deleteNode(node.right, minRight.value);
       }
@@ -726,20 +828,22 @@ class BinaryTree {
     return node;
   }
 
-  findMinNode(node) {
+  findMinNode(node: TreeNode): TreeNode {
     if (node.left === null) {
-      // nothing in left subtree, so parent is automatically the min
       return node;
     } else {
       return this.findMinNode(node.left);
     }
   }
 
-  inOrderTraversal(callbackFn) {
+  inOrderTraversal(callbackFn: (value: number) => void): void {
     this.inOrderTraversalNode(this.root, callbackFn);
   }
 
-  inOrderTraversalNode(node, callbackFn) {
+  inOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
     if (node !== null) {
       this.inOrderTraversalNode(node.left, callbackFn);
       callbackFn(node.value);
@@ -747,33 +851,190 @@ class BinaryTree {
     }
   }
 
-  preOrderTraversal(callbackFn) {
+  preOrderTraversal(callbackFn: (value: number) => void): void {
     this.preOrderTraversalNode(this.root, callbackFn);
   }
 
-  preOrderTraversalNode(node, callbackFn) {
+  preOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
     if (node !== null) {
       callbackFn(node.value);
-      this.preOrderTraversalNode(node.left, callbackFn);
-      this.preOrderTraversalNode(node.right, callbackFn);
+      this.inOrderTraversalNode(node.left, callbackFn);
+      this.inOrderTraversalNode(node.right, callbackFn);
     }
   }
 
-  postOrderTraversal(callbackFn) {
+  postOrderTraversal(callbackFn: (value: number) => void): void {
     this.postOrderTraversalNode(this.root, callbackFn);
   }
 
-  postOrderTraversalNode(node, callbackFn) {
+  postOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
     if (node !== null) {
-      this.postOrderTraversalNode(node.left, callbackFn);
-      this.postOrderTraversalNode(node.right, callbackFn);
+      this.inOrderTraversalNode(node.left, callbackFn);
+      this.inOrderTraversalNode(node.right, callbackFn);
       callbackFn(node.value);
     }
   }
 }
 ```
 
-Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts), [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/java/BinaryTreeTestdrive.java), [`C - most challenging so far`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c),[`Python`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/python/binaryTree.py)
+`Java`
+
+```java
+class Node {
+    int value;
+    Node left;
+    Node right;
+
+    public Node(int value){
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BinaryTree{
+    Node root; 
+
+    public BinaryTree(){
+        this.root = null; 
+    }
+
+    public void insert(int value){
+        Node newNode  = new Node(value);
+
+        if (root == null){
+            root = newNode;
+        }else {
+            insertNode(root, newNode);
+        }
+    }
+
+    private void insertNode(Node node, Node newNode){
+        if (newNode.value < node.value){
+            if (node.left == null) {
+                node.left = newNode;
+            } else {
+                insertNode(node.left,newNode);
+            }
+        } else {
+            if (node.right == null){
+                node.right = newNode;
+            } else {
+                insertNode(node.right,newNode);
+            }
+        }
+    }
+
+    public void delete(int value){
+        root = deleteNode(root,value);
+    }
+
+    private Node deleteNode(Node node, int value){
+        if (node == null){
+            return null;
+        }
+
+        if (value < node.value){
+            node.left = deleteNode(node.left,value);
+        } else if (value > node.value){
+            node.right = deleteNode(node.right, value);
+        } else {
+            if (node.left == null && node.right  == null){
+                node = null;
+            } else if (node.left == null){
+                node = node.right;
+            } else if (node.right == null){
+                node = node.left;
+            } else {
+                Node minRight = findMinNode(node.right);
+                node.value = minRight.value;
+                node.right = deleteNode(node.right, minRight.value);
+            }
+        }
+        return node;
+    }
+
+    private Node findMinNode(Node node){
+        if (node.left == null){
+            return node;
+        } else {
+            return findMinNode(node.left);
+        }
+    }
+
+    public void inOrderTraversal(){
+        inOrderTraversalNode(root);
+    }
+
+    private void inOrderTraversalNode(Node node){
+        if (node != null){
+            inOrderTraversalNode(node.left);
+            System.out.println(node.value);
+            inOrderTraversalNode(node.right);
+        }
+    }
+
+    public void preOrderTraversal(){
+        preOrderTraversalNode(root);
+    }
+
+    private void preOrderTraversalNode(Node node){
+        if (node != null){
+            System.out.println(node.value);
+            preOrderTraversalNode(node.left);
+            preOrderTraversalNode(node.right);
+        }
+    }
+
+    public void postOrderTraversal(){
+        postOrderTraversalNode(root);
+    }
+
+    private void postOrderTraversalNode(Node node){
+        if (node != null){
+            postOrderTraversalNode(node.left);
+            postOrderTraversalNode(node.right);
+            System.out.println(node.value);
+        }
+    }
+} 
+
+public class BinaryTreeTestdrive{
+    public static void main(String[] args){
+        BinaryTree binaryTree = new BinaryTree();
+
+        binaryTree.insert(8);
+        binaryTree.insert(3);
+        binaryTree.insert(10);
+        binaryTree.insert(1);
+        binaryTree.insert(6);
+        binaryTree.insert(14);
+        binaryTree.insert(4);
+        binaryTree.insert(7);
+        binaryTree.insert(13);
+
+        System.out.println("In order traversal");
+        binaryTree.inOrderTraversal();
+        System.out.println("---");
+
+        System.out.println("Pre order traversal");
+        binaryTree.preOrderTraversal();
+        System.out.println("---");
+
+        System.out.println("Post order traversal");
+        binaryTree.postOrderTraversal();
+        System.out.println("---");
+    }
+}
+```
+
+Other implementations: [`JavaScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/javascript/binaryTree.js), [`C - most challenging so far`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c),[`Python`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/python/binaryTree.py)
 
 An example binary tree (BST) is shown below
 
