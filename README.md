@@ -6,6 +6,9 @@ _Each algorithm and data structure has its own separate directory containing its
 
 ```sh
 ├── README.md
+├── Concepts
+├────  big-o/
+├────  ...
 ├── Algorithms
 ├────  sorting-algorithms/
 ├───────  insertion-sort/
@@ -365,6 +368,8 @@ function fibonacciBetter(n, memo = []) {
 // 55
 console.log(fibonacciBetter(10));
 ```
+
+A way to generalize the runtimes of recursive functions is often O(branches^depth^), where branches is the number of times each recursive call branches e.g 2 for fibonacci.
 
 <!-- **O(n!) Factorial time example - Travelling Salesman Problem**
 
