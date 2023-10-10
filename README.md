@@ -57,8 +57,8 @@ Below are some common Big-O complexities, from fastest to slowest:
 - **O(log(n)), logarithmic time**: Common in algorithms that decrease the input size with each iteration, e.g binary search.
 - **O(n)), linear time**: Runtime grows linearly with input size, e.g simple search algorithms
 - **O(nlog(n))), loglinear time**:  e.g merge sort
-- **O(n^2^), O(n^3^), polynomial time**: Often seen in nested loops e.g bubble sort
-- **O(2^n^), exponential time**: Such algorithms solve problems by exploring many possibilities, e.g the recursive implementation of Fibonacci numbers.
+- **O(n^2), O(n^3), polynomial time**: Often seen in nested loops e.g bubble sort
+- **O(2^n), exponential time**: Such algorithms solve problems by exploring many possibilities, e.g the recursive implementation of Fibonacci numbers.
 - **O(n!), factorial time**: Very slow algorithms, eg solving the traveling salesman problem by brute force.
 
 Big O is also used to represent how the amount of memory used by an algorithm grows with input size. We also ignore the constant coeffiecients and smaller terms in Big O.
@@ -99,8 +99,8 @@ public class ConstantTimeExample {
 
  If we want to compute a^n:
 
-- if n is even, then a^n^ = (a^(n/2)^)^2^
-- if n is odd, then a^n^ = a x a^(n-1)^
+- if n is even, then a^n = (a^(n/2))^2
+- if n is odd, then a^n = a x a^(n-1)
 
 `JavaScript`
 
@@ -250,7 +250,7 @@ const arr = [2, 4, 9, 6, 1, 8, 3, 5, 7];
 console.log(mergeSort(arr));
 ```
 
-**O(n^3^) Polynomial time example - 3 Sum problem naive solution**
+**O(n^3) Polynomial time example - 3 Sum problem naive solution**
 
 For the three sum problem, we are given an array of n numbers, and we determine if there exists three elements a, b and c in the array such that  a + b + c = 0;
 
@@ -318,7 +318,7 @@ function threeSumZeroBetter(arr) {
 console.log(threeSumZeroBetter(sampleArray));
 ```
 
-**O(2^n^) Exponential time example - compute n^th^ Fibonacci number**
+**O(2^n) Exponential time example - compute n^th^ Fibonacci number**
 
 They arise when we have multiple recursion calls for each step of the algorithm.
 
