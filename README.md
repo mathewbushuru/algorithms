@@ -2,8 +2,7 @@
 
 This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you find this information valuable.
 
-*Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages*
-
+_Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages_
 
 ```sh
 ├── README.md
@@ -27,17 +26,351 @@ This repository houses my solutions and detailed explanations to popular algorit
 ```
 
 ## Table of Contents
+
+- [Concepts](#concepts)
+  - [Big O](#big-o)
 - [Algorithms](#algorithms)
   - [Sorting Algorithms](#sorting-algorithms)
     - [Insertion Sort](#insertion-sort)
   - [Search Algorithms](#search-algorithms)
     - [Binary Search](#binary-search)
 - [Data Structures](#data-structures)
+
   - [Trees](#trees)
     - [Binary Trees](#binary-trees)
     - [Binary Search Trees](#binary-search-trees)
 
-  ---
+  ***
+
+# Concepts
+
+## Big O
+
+Big O notation describes the upper bound of an algorithm in the worst case scenario, meaning how the runtime or space requirements grow as the input size grows. It gives us an idea on the efficiency of an algorithm, particularly in the context of scalability.
+
+Below are some common Big-O complexities, from fastest to slowest:
+
+- **O(1), constant time**: Algorithm takes constant amount of time, regardless of input size.
+- **O(log(n)), logarithmic time**: Common in algorithms that decrease the input size with each iteration, e.g binary search.
+- **O(n)), linear time**: Runtime grows linearly with input size, e.g simple search algorithms
+- **O(nlog(n))), loglinear time**:  e.g merge sort
+- **O(n^2^), O(n^3^), polynomial time**: Often seen in nested loops e.g bubble sort
+- **O(2^n^), exponential time**: Such algorithms solve problems by exploring many possibilities, e.g the recursive implementation of Fibonacci numbers.
+- **O(n!), factorial time**: Very slow algorithms, eg solving the traveling salesman problem by brute force.
+
+Big O is also used to represent how the amount of memory used by an algorithm grows with input size. We also ignore the constant coeffiecients and smaller terms in Big O.
+
+**O(1) Constant time example - accessing element from array**
+
+`JavaScript`
+
+```js
+function getArrayElement(arr, index) {
+  return arr[index];
+}
+
+const arr1 = [1, 2, 3, 4, 5];
+// 3
+console.log(getArrayElement(arr1, 2));
+```
+
+`Java`
+
+```java
+public class ConstantTimeExample {
+    public static void main(String[] args){
+        int[] arr1 = {1, 2, 3, 4, 5};
+        // 3
+        System.out.println(getArrayElement(arr1, 2));
+    }
+
+    public static int getArrayElement(int[] arr, int index){
+        return arr[index];
+    }
+}
+```
+
+ **O(log(n)) logarithmic time example - fast power algorithm**
+
+ Fast power algorithm calculates the power of a number in logarithmic time using the 'exponentiation by squaring' method.
+
+ If we want to compute a^n:
+
+- if n is even, then a^n^ = (a^(n/2)^)^2^
+- if n is odd, then a^n^ = a x a^(n-1)^
+
+`JavaScript`
+
+```js
+function fastPower(base, exponent) {
+  if (exponent === 0) {
+    return 1;
+  }
+
+  const halfPower = fastPower(base, Math.floor(exponent / 2));
+
+  if (exponent % 2 === 0) {
+    return halfPower * halfPower;
+  } else {
+    return base * halfPower * halfPower;
+  }
+}
+
+// 1024
+console.log(fastPower(2, 10));
+```
+
+`Java`
+
+```java
+public class FastPowerExample {
+    public static void main(String[] args) {
+        // 1024
+        System.out.println(fastPower(2, 10));
+    }
+
+    public static long fastPower(long base, int exponent){
+        if (exponent == 0) return 1; 
+
+        long halfPower = fastPower(base, exponent / 2); 
+
+        if (exponent % 2 == 0){
+            return halfPower * halfPower;
+        } else {
+            return base * halfPower * halfPower;
+        }
+    }
+}
+```
+
+**O(n) Linear time example - max element in unsorted list**
+
+`JavaScript`
+
+```js
+function findMax(arr) {
+    let maxVal = arr[0];
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] > maxVal){
+            maxVal = arr[i];
+        }
+    }
+
+    return maxVal;
+}
+
+const sampleArray = [3, 1, 4, 5, 9, 2, 6, 5];
+// 9
+console.log(findMax(sampleArray));
+```
+
+`Java`
+
+```java
+public class LinearTimeExample {
+    public static void main(String[] args){
+        int[] sampleArray = {3, 1, 4, 5, 9, 2, 6, 5};
+        // 9
+        System.out.println(findMax(sampleArray));
+    }
+
+    public static int findMax(int[] arr){
+        int maxVal = arr[0];
+
+        for (int i = 1; i < arr.length; i++){
+            if (arr[i] > maxVal){
+                maxVal = arr[i];
+            }
+        }
+
+        return maxVal;
+    }
+}
+```
+
+**O(nlog(n)) LogLinear time example - merge sort**
+
+`JavaScript`
+
+```js
+function mergeSort(arr) {
+  // base case
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  // divide array into two
+  const leftArr = arr.slice(0, arr.length / 2);
+  const rightArr = arr.slice(arr.length / 2);
+
+  // sort each half array
+  const sortedLeft = mergeSort(leftArr);
+  const sortedRight = mergeSort(rightArr);
+
+  // merge sorted left and right arrays
+  const sortedArr = mergeSortedArrays(sortedLeft, sortedRight);
+
+  return sortedArr;
+}
+
+function mergeSortedArrays(arr1, arr2) {
+  let i = 0;
+  let j = 0;
+  const sortedArr = [];
+
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] < arr2[j]) {
+      sortedArr.push(arr1[i]);
+      i += 1;
+    } else {
+      sortedArr.push(arr2[j]);
+      j += 1;
+    }
+  }
+
+  while (i < arr1.length) {
+    sortedArr.push(arr1[i]);
+    i += 1;
+  }
+
+  while (j < arr2.length) {
+    sortedArr.push(arr2[j]);
+    j += 1;
+  }
+
+  return sortedArr;
+}
+
+const arr = [2, 4, 9, 6, 1, 8, 3, 5, 7];
+// [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log(mergeSort(arr));
+```
+
+**O(n^3^) Polynomial time example - 3 Sum problem naive solution**
+
+For the three sum problem, we are given an array of n numbers, and we determine if there exists three elements a, b and c in the array such that  a + b + c = 0;
+
+`JavaScript`
+
+```js
+function threeSumZero(arr) {
+  let n = arr.length;
+
+  for (let i = 0; i < n - 2; i++) {
+    for (let j = i + 1; j < n - 1; j++) {
+      for (let k = j + 1; k < n; k++) {
+        if (arr[i] + arr[j] + arr[k] === 0) {
+          return [arr[i], arr[j], arr[k]];
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+const sampleArray = [-1, 0, 1, 2, -1, -4];
+// [-1, 0, 1]
+console.log(threeSumZero(sampleArray));
+```
+
+Note that we can get more efficient implementations to the three sum example. In the example below, we use the two-pointer technique to reduce the runtime to O(n^2^). The idea is to sort the array first, and then for each element, use two pairs to find the pair that sums up to negate that element.
+
+```js
+function threeSumZeroBetter(arr) {
+  // eg arr = [-1, 0, 1, 2, -1, -4]
+
+  // sort the array, O(nlogn)
+  // arr now [-4, -1, -1, 0, 1, 2]
+  arr.sort((a, b) => a - b);
+
+  for (let i = 0; i < arr.length - 2; i++) {
+    if (i > 0 && arr[i] === arr[i - 1]) {
+      // skip duplicates
+      continue;
+    }
+
+    let left = i + 1;
+    let right = arr.length - 1;
+
+    while (left < right) {
+      const sum = arr[i] + arr[left] + arr[right];
+
+      if (sum === 0) {
+        return [arr[i], arr[left], arr[right]];
+      } else if (sum < 0) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+
+  // no triplet found
+  return null;
+}
+
+// [ -1, -1, 2 ]
+console.log(threeSumZeroBetter(sampleArray));
+```
+
+**O(2^n^) Exponential time example - compute n^th^ Fibonacci number**
+
+They arise when we have multiple recursion calls for each step of the algorithm.
+
+`JavaScript`
+
+```js
+function fibonacci(n) {
+  if (n <= 1) {
+    return n;
+  }
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// 55
+console.log(fibonacci(10));
+```
+
+`Java`
+
+```java
+public class ExponentialTimeExample {
+    public static void main(String[] args){
+        // 55
+        System.out.println(fibonacci(10));
+    }
+
+    public static int fibonacci(int n) {
+        if (n <= 1) return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+}
+```
+
+Note that this native recursive implementation is very inefficient especially for large values of n. We can use the concept of dynamic programming and memoization to greatly reduce the time complexity by storing previously computed results and avoid redundant calculations. The optimization below reduces the runtime to O(n).
+
+```js
+function fibonacciBetter(n, memo = []) {
+  if (memo[n] !== undefined) return memo[n];
+
+  if (n <= 1) return n;
+
+  memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);
+  return memo[n];
+}
+
+// 55
+console.log(fibonacciBetter(10));
+```
+
+<!-- **O(n!) Factorial time example - Travelling Salesman Problem**
+
+The  "Travelling Salesman Problem"(TSP) can be naively(brute-force) solved using a factorial-time complexity algorithm. TSP is stated as: Given a list of cities and distances between each pair of cities, find the shortest possible route that visits each city once and returns to the origin city.
+
+The brute-force approach is to generate all possible permutations of cities and calculate the total distance for each permutation. -->
 
 # Algorithms
 
@@ -127,23 +460,25 @@ public class insertionSort {
 Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/c/insertion_sort.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/typescript/insertionSort.ts)
 
 Time Complexity:
+
 - Best case: `O(n)`
-- Average and Worst case:  `(O(n^2))`
+- Average and Worst case: `(O(n^2))`
 
 Space Complexity: O(1)
 
 **Leetcode 147 (Medium) - [Insertion Sort List](https://leetcode.com/problems/insertion-sort-list/)**
+
 > Given the `head` of a singly-linked linked list, sort the list using insertion sort, and return the sorted list's head.
 
 > The steps of the insertion sort algorithm:
-Insertion sort iterates, consuming one element each repetition and growing a sorted output list. At each iteration, insertion sort removes one element from the input data, finds the location it belongs in the input data and inserts it there.
-It repeats until no input elements remain.
+> Insertion sort iterates, consuming one element each repetition and growing a sorted output list. At each iteration, insertion sort removes one element from the input data, finds the location it belongs in the input data and inserts it there.
+> It repeats until no input elements remain.
 
->Input: `head = [4,2,1,3]`
-Output: `[1,2,3,4]`
+> Input: `head = [4,2,1,3]`
+> Output: `[1,2,3,4]`
 
->Input: `head = [-1,5,3,4,0]`
-Output: `[-1,0,3,4,5]`
+> Input: `head = [-1,5,3,4,0]`
+> Output: `[-1,0,3,4,5]`
 
 Solution
 
@@ -152,7 +487,7 @@ Solution
 `JavaScript`
 
 ```js
- // provided in problem
+// provided in problem
 function ListNode(val, next) {
   this.val = val === undefined ? 0 : val;
   this.next = next === undefined ? null : next;
@@ -246,7 +581,7 @@ public class Solution {
 
 ```
 
-Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/python/insertion_sort_list.py),  [`C`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/c/insertionSortList.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/typescript/insertionSortList.ts)
+Other solutions: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/python/insertion_sort_list.py), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/c/insertionSortList.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/leetcode/147-insertion-sort-list-M/typescript/insertionSortList.ts)
 
 Time complexity: `O(n^2)`
 
@@ -256,18 +591,18 @@ Space complexity: `O(1)`
 
 > You are given an array of non-overlapping intervals `intervals` where `intervals[i] = [starti, endi]` represent the start and the end of the `ith` interval and `intervals` is sorted in ascending order by `starti`. You are also given an interval `newInterval = [start, end]` that represents the start and end of another interval.
 
->Insert `newInterval` into `intervals` such that `intervals` is still sorted in ascending order by `starti` and `intervals` still does not have any overlapping intervals (merge overlapping intervals if necessary)
+> Insert `newInterval` into `intervals` such that `intervals` is still sorted in ascending order by `starti` and `intervals` still does not have any overlapping intervals (merge overlapping intervals if necessary)
 
 > Return `intervals` after the insertion.
 
 > Input: `intervals = [[1,3],[6,9]]`, `newInterval = [2,5]`
-Output: `[[1,5],[6,9]]`
+> Output: `[[1,5],[6,9]]`
 
->Input: `intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]`, `newInterval = [4,8]`
-Output: `[[1,2],[3,10],[12,16]]`
-Explanation: `Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10]`.
+> Input: `intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]`, `newInterval = [4,8]`
+> Output: `[[1,2],[3,10],[12,16]]`
+> Explanation: `Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10]`.
 
-Solution 
+Solution
 
 `JavaScript`
 
@@ -306,10 +641,29 @@ var insert = function (intervals, newInterval) {
 };
 
 // [ [ 1, 5 ], [ 6, 9 ] ]
-console.log(insert([[1, 3],[6, 9]],[2, 5]));
+console.log(
+  insert(
+    [
+      [1, 3],
+      [6, 9],
+    ],
+    [2, 5]
+  )
+);
 
 // [ [ 1, 2 ], [ 3, 10 ], [ 12, 16 ] ]
-console.log(insert([[1,2],[3,5],[6,7],[8,10],[12,16]],[4,8]))
+console.log(
+  insert(
+    [
+      [1, 2],
+      [3, 5],
+      [6, 7],
+      [8, 10],
+      [12, 16],
+    ],
+    [4, 8]
+  )
+);
 ```
 
 Time complexity: `O(n)` where `n` is the number of intervals. We visit each interval at most once and do a constant amount of work each visit.
@@ -444,13 +798,13 @@ Space complexity: `O(log(n))`. Each recursive call adds a new frame to the call 
 > If target is not found in the array, return [-1, -1]. You must write an algorithm with O(log n) runtime complexity.
 
 > Input: `nums = [5,7,7,8,8,10]`, `target = 8`
-Output: `[3,4]`
+> Output: `[3,4]`
 
->Input: `nums = [5,7,7,8,8,10]`, `target = 6`
-Output: `[-1,-1]`
+> Input: `nums = [5,7,7,8,8,10]`, `target = 6`
+> Output: `[-1,-1]`
 
 > Input: `nums = []`, `target = 0`
-Output: `[-1,-1]`
+> Output: `[-1,-1]`
 
 Algorithm: Use binary search due to the requirement of `O(log(n))` complexity and since the array is already sorted.
 
@@ -496,9 +850,9 @@ var searchRange = function (nums, target) {
     }
   }
 
-  result[1] = end
+  result[1] = end;
 
-  return result
+  return result;
 };
 
 // [3,4]
@@ -516,14 +870,14 @@ Space complexity: `O(1)`
 > You must not use any built-in exponent function or operator. For example, do not use `pow(x, 0.5)` in c++ or `x ** 0.5` in python
 
 > Input: `x = 4`
-Output: `2`
-Explanation: `The square root of 4 is 2, so we return 2.`
+> Output: `2`
+> Explanation: `The square root of 4 is 2, so we return 2.`
 
 > Input: `x = 8`
-Output: `2`
-Explanation: `The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.`
+> Output: `2`
+> Explanation: `The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.`
 
-Algorithm: Use binary search to find, the largest int `mid` such that  `mid * mid <= x`
+Algorithm: Use binary search to find, the largest int `mid` such that `mid * mid <= x`
 
 Solution
 
@@ -574,24 +928,24 @@ Space complexity: `O(1)`
 
 > Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:
 
->`[4,5,6,7,0,1,2]` if it was rotated 4 times.
-`[0,1,2,4,5,6,7]` if it was rotated 7 times.
+> `[4,5,6,7,0,1,2]` if it was rotated 4 times.
+> `[0,1,2,4,5,6,7]` if it was rotated 7 times.
 
->Notice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`.
+> Notice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`.
 
->Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. You must write an algorithm that runs in `O(log n)` time.
+> Given the sorted rotated array `nums` of unique elements, return the minimum element of this array. You must write an algorithm that runs in `O(log n)` time.
 
 > Input: `nums = [3,4,5,1,2]`
-Output: `1`
-Explanation: `The original array was [1,2,3,4,5] rotated 3 times`.
+> Output: `1`
+> Explanation: `The original array was [1,2,3,4,5] rotated 3 times`.
 
 > Input: `nums = [4,5,6,7,0,1,2]`
-Output: `0`
-Explanation: `The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.`
+> Output: `0`
+> Explanation: `The original array was [0,1,2,4,5,6,7] and it was rotated 4 times.`
 
 > Input: `nums = [11,13,15,17]`
-Output: `11`
-Explanation: `The original array was [11,13,15,17] and it was rotated 4 times. `
+> Output: `11`
+> Explanation: `The original array was [11,13,15,17] and it was rotated 4 times. `
 
 Algorithm: Use binary search to locate the pivot point of the rotated array. Since `nums` is rotated from a sorted array, the number next to the pivot is the minimum
 
@@ -636,8 +990,8 @@ Time complexity: `O(log(n))`
 > You must write an algorithm with `O(log n)` runtime complexity.
 
 > Input: `nums = [-1,0,3,5,9,12]`, `target = 9`
-Output: `4`
-Explanation: `9 exists in nums and its index is 4`
+> Output: `4`
+> Explanation: `9 exists in nums and its index is 4`
 
 Solution
 
@@ -668,7 +1022,7 @@ Time complexity: `O(log(n))`
 
 **Leetcode 875 (Medium) - [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)**
 
-> Koko loves to eat bananas. There are `n` piles of bananas, the `i-th` pile has `piles[i]` bananas. The guards have gone and will come back in  `h` hours.
+> Koko loves to eat bananas. There are `n` piles of bananas, the `i-th` pile has `piles[i]` bananas. The guards have gone and will come back in `h` hours.
 
 > Koko can decide her bananas-per-hour eating speed of `k`. Each hour, she chooses some pile of bananas and eats `k` bananas from that pile. If the pile has less than `k` bananas, she eats all of them instead and will not eat any more bananas during this hour.
 
@@ -677,13 +1031,13 @@ Time complexity: `O(log(n))`
 > Return the minimum integer `k` such that she can eat all the bananas within `h` hours.
 
 > Input: `piles = [3,6,7,11]`, `h = 8`
-Output: `4`
+> Output: `4`
 
 > Input: `piles = [30,11,23,4,20]`, `h = 5`
-Output: `30`
+> Output: `30`
 
 > Input: `piles = [30,11,23,4,20]`, `h = 6`
-Output: `23`
+> Output: `23`
 
 Algorithm: Use binary search to find the minimum possible `k` within the search space. We know that the minimum value of `k` is `1` and the maximum is `max(piles)`, so we search for it in this range.
 
@@ -735,7 +1089,7 @@ The root is a special node that serves as the top-most node in a hierarchy. Each
 
 ### Binary Trees
 
-This is a tree in which each node has at most two children, referred to as the left child and the right child. Each child node is either a leaf node (having no children) or an internal node (having one or more children). 
+This is a tree in which each node has at most two children, referred to as the left child and the right child. Each child node is either a leaf node (having no children) or an internal node (having one or more children).
 
 A complete binary tree is one in which each level of the tree is completely filled except the last level, and all nodes appear as far left as possible . A full/extended binary tree is one where no node has only one child - each node has either zero or two children. A perfect binary tree is both full and complete.
 
@@ -755,7 +1109,7 @@ For example, if we are given two arrays with the preorder and inorder traversal 
 
 ![binary-tree-reconstruction](./data-structures/imgs/binary-tree-reconstruction3.jpeg)
 
-**Implementation** 
+**Implementation**
 
 `JavaScript`
 
@@ -941,10 +1295,10 @@ class Node {
 }
 
 class BinaryTree{
-    Node root; 
+    Node root;
 
     public BinaryTree(){
-        this.root = null; 
+        this.root = null;
     }
 
     public void insert(int value){
@@ -1045,7 +1399,7 @@ class BinaryTree{
             System.out.println(node.value);
         }
     }
-} 
+}
 
 public class BinaryTreeTestdrive{
     public static void main(String[] args){
@@ -1091,19 +1445,19 @@ The complexities of this implementation are:
 
 3. Traversal operations
 
-- In-order, pre-order and post-order traversals visit each node in the binary tree once. 
+- In-order, pre-order and post-order traversals visit each node in the binary tree once.
 - The time complexity is `O(n)` where n is the number of nodes in the tree.
 - The space complexity is `O(h)` where h is the height of the tree. The recursive calls for traversing the tree occupies space in the call stack, and the maximum depth of the recursive call corresponds to the height of the tree. For a skewed tree, the space complexity degrades to `O(n)`
 
-**Leetcode 101 (Easy) - [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)** 
+**Leetcode 101 (Easy) - [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)**
 
 > Given the `root` of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
 
 > Input: `root = [1,2,2,3,4,4,3]`
-Output: `true`
+> Output: `true`
 
 > Input: `root = [1,2,2,null,3,null,3]`
-Output: `false`
+> Output: `false`
 
 Solution
 
@@ -1147,13 +1501,13 @@ Space complexity: `O(h)` = `O(log(n))` for the average case. In worst case, the 
 > Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
 
 > Input: `root = [3,9,20,null,null,15,7]`
-Output: `[[3],[9,20],[15,7]]`
+> Output: `[[3],[9,20],[15,7]]`
 
 > Input: `root = [1]`
-Output: `[[1]]`
+> Output: `[[1]]`
 
 > Input: `root = []`
-Output: `[]` 
+> Output: `[]`
 
 Algorithm: Use Breadth-First Search (BFS) to traverse the binary tree level by level
 
@@ -1190,7 +1544,7 @@ var levelOrder = function (root) {
       if (node.left) {
         queue.push(node.left);
       }
-      if (node.right){
+      if (node.right) {
         queue.push(node.right);
       }
     }
@@ -1202,21 +1556,21 @@ var levelOrder = function (root) {
 };
 ```
 
-Time complexity: `O(n)`, each node is processed exactly once. 
+Time complexity: `O(n)`, each node is processed exactly once.
 
 Space complexity: `O(n)`, in worst case scenario, tree holds all leaf (last-level) nodes. For a complete BT, the last level holds `n/2` nodes and `O(n/2)` = `O(n)`
 
 **Leetcode 104 (Easy) - [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)**
 
-> Given the `root` of a binary tree, return its maximum depth. 
+> Given the `root` of a binary tree, return its maximum depth.
 
-> A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node. 
+> A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
 
 > Input: `root = [3,9,20,null,null,15,7]`
-Output: `3`
+> Output: `3`
 
->Input: `root = [1,null,2]`
-Output: `2`
+> Input: `root = [1,null,2]`
+> Output: `2`
 
 Solution
 
@@ -1240,7 +1594,7 @@ var maxDepth = function (root) {
 };
 ```
 
-Time complexity: `O(n)` where n is total number of nodes. We visit every node once due having recursive calls to both the left and right subtrees. 
+Time complexity: `O(n)` where n is total number of nodes. We visit every node once due having recursive calls to both the left and right subtrees.
 
 Space complexity: `O(h)` where h is the height of the tree. The maximum depth of the recursive call is the height of the tree.
 
@@ -1250,10 +1604,10 @@ Space complexity: `O(h)` where h is the height of the tree. The maximum depth of
 > Given two integer arrays `preorder` and `inorder` where `preorder` is the preorder traversal of a binary tree and `inorder` is the inorder traversal of the same tree, construct and return the binary tree.
 
 > Input: `preorder = [3,9,20,15,7]`, `inorder = [9,3,15,20,7]`
-Output: `[3,9,20,null,null,15,7]`
+> Output: `[3,9,20,null,null,15,7]`
 
 > Input: `preorder = [-1]`, `inorder = [-1]`
-Output: `[-1]`
+> Output: `[-1]`
 
 Solution
 
@@ -1334,7 +1688,6 @@ function buildTreeHelper(
 
   return root;
 }
-
 ```
 
 Time complexity: `O(n)` We visit each node in the tree once to construct the binary tree
@@ -1347,20 +1700,20 @@ Space complexity: `O(n)` where n is number of nodes. We store the inorder array 
 
 > A leaf is a node with no children.
 
->  Input: `root = [5,4,8,11,null,13,4,7,2,null,null,null,1]`, `targetSum = 22`
-Output: `true`
-Explanation: `The root-to-leaf path with the target sum is 5->4->11->2.`
+> Input: `root = [5,4,8,11,null,13,4,7,2,null,null,null,1]`, `targetSum = 22`
+> Output: `true`
+> Explanation: `The root-to-leaf path with the target sum is 5->4->11->2.`
 
 > Input: `root = [1,2,3]`, `targetSum = 5`
-Output: `false`
-Explanation: There two root-to-leaf paths in the tree:
-(1 --> 2): The sum is 3.
-(1 --> 3): The sum is 4.
-There is no root-to-leaf path with sum = 5.
+> Output: `false`
+> Explanation: There two root-to-leaf paths in the tree:
+> (1 --> 2): The sum is 3.
+> (1 --> 3): The sum is 4.
+> There is no root-to-leaf path with sum = 5.
 
 > Input: `root = []`, `targetSum = 0`
-Output: `false`
-Explanation: `Since the tree is empty, there are no root-to-leaf paths.`
+> Output: `false`
+> Explanation: `Since the tree is empty, there are no root-to-leaf paths.`
 
 Algorithm: Use a recursive approach. Traverse the tree in a depth-first manner, examining each node along the way. At each node, subtract the node's value from the target sum. Continue recursively checking left and right children until we reach a leaf node. If the leaf node's value is equal to the remaining sum, return true. Otherwise (or if we reach null), return false as we have reach the end of the tree without finding the target sum.
 
@@ -1389,7 +1742,6 @@ var hasPathSum = function (root, targetSum) {
     hasPathSum(root.right, targetSum - root.val)
   );
 };
-
 ```
 
 Time complexity: `O(n)` - In the worst case, we might have to visit all the nodes in the tree
@@ -1398,7 +1750,7 @@ Space complexity: `O(h)` where h is the height of the tree. In worst case tree h
 
 ### Binary Search Trees
 
-This is  a binary tree with  a special property: For every node, the value of each node in its left subtree is less than its value, and the value of each node in is right subtree is greater than its value.
+This is a binary tree with a special property: For every node, the value of each node in its left subtree is less than its value, and the value of each node in is right subtree is greater than its value.
 
 **Leetcode 98 (Medium) - [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)**
 
@@ -1411,11 +1763,11 @@ This is  a binary tree with  a special property: For every node, the value of ea
 > - Both the left and right subtrees must also be binary search trees.
 
 > Input: `root = [2,1,3]`
-Output: `true`
+> Output: `true`
 
 > Input: `root = [5,1,4,null,null,3,6]`
-Output: `false`
-Explanation: `The root node's value is 5 but its right child's value is 4.`
+> Output: `false`
+> Explanation: `The root node's value is 5 but its right child's value is 4.`
 
 Solution
 
@@ -1456,7 +1808,6 @@ function isValidBSTHelper(root, minConstraint, maxConstraint) {
     isValidBSTHelper(root.right, root.val, maxConstraint)
   );
 }
-
 ```
 
 Time complexity: `O(n)`, in the worst case, we need to visit each node in the tree to confirm if the tree is a valid BST
