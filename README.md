@@ -39,6 +39,7 @@ _Each algorithm and data structure has its own separate directory containing its
     - [Binary Search](#binary-search)
 - [Data Structures](#data-structures)
 
+  - [Arrays](#arrays)
   - [Trees](#trees)
     - [Binary Trees](#binary-trees)
     - [Binary Search Trees](#binary-search-trees)
@@ -56,7 +57,7 @@ Below are some common Big-O complexities, from fastest to slowest:
 - **O(1), constant time**: Algorithm takes constant amount of time, regardless of input size.
 - **O(log(n)), logarithmic time**: Common in algorithms that decrease the input size with each iteration, e.g binary search.
 - **O(n)), linear time**: Runtime grows linearly with input size, e.g simple search algorithms
-- **O(nlog(n))), loglinear time**:  e.g merge sort
+- **O(nlog(n))), loglinear time**: e.g merge sort
 - **O(n^2), O(n^3), polynomial time**: Often seen in nested loops e.g bubble sort
 - **O(2^n), exponential time**: Such algorithms solve problems by exploring many possibilities, e.g the recursive implementation of Fibonacci numbers.
 - **O(n!), factorial time**: Very slow algorithms, eg solving the traveling salesman problem by brute force.
@@ -93,11 +94,11 @@ public class ConstantTimeExample {
 }
 ```
 
- **O(log(n)) logarithmic time example - fast power algorithm**
+**O(log(n)) logarithmic time example - fast power algorithm**
 
- Fast power algorithm calculates the power of a number in logarithmic time using the 'exponentiation by squaring' method.
+Fast power algorithm calculates the power of a number in logarithmic time using the 'exponentiation by squaring' method.
 
- If we want to compute a^n:
+If we want to compute a^n:
 
 - if n is even, then a^n = (a^(n/2))^2
 - if n is odd, then a^n = a x a^(n-1)
@@ -133,9 +134,9 @@ public class FastPowerExample {
     }
 
     public static long fastPower(long base, int exponent){
-        if (exponent == 0) return 1; 
+        if (exponent == 0) return 1;
 
-        long halfPower = fastPower(base, exponent / 2); 
+        long halfPower = fastPower(base, exponent / 2);
 
         if (exponent % 2 == 0){
             return halfPower * halfPower;
@@ -152,15 +153,15 @@ public class FastPowerExample {
 
 ```js
 function findMax(arr) {
-    let maxVal = arr[0];
+  let maxVal = arr[0];
 
-    for (let i = 1; i < arr.length; i++) {
-        if (arr[i] > maxVal){
-            maxVal = arr[i];
-        }
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > maxVal) {
+      maxVal = arr[i];
     }
+  }
 
-    return maxVal;
+  return maxVal;
 }
 
 const sampleArray = [3, 1, 4, 5, 9, 2, 6, 5];
@@ -252,7 +253,7 @@ console.log(mergeSort(arr));
 
 **O(n^3) Polynomial time example - 3 Sum problem naive solution**
 
-For the three sum problem, we are given an array of n numbers, and we determine if there exists three elements a, b and c in the array such that  a + b + c = 0;
+For the three sum problem, we are given an array of n numbers, and we determine if there exists three elements a, b and c in the array such that a + b + c = 0;
 
 `JavaScript`
 
@@ -278,7 +279,7 @@ const sampleArray = [-1, 0, 1, 2, -1, -4];
 console.log(threeSumZero(sampleArray));
 ```
 
-Note that we can get more efficient implementations to the three sum example. In the example below, we use the two-pointer technique to reduce the runtime to O(n^2^). The idea is to sort the array first, and then for each element, use two pairs to find the pair that sums up to negate that element.
+Note that we can get more efficient implementations to the three sum example. In the example below, we use the two-pointer technique to reduce the runtime to O(n^2). The idea is to sort the array first, and then for each element, use two pairs to find the pair that sums up to negate that element.
 
 ```js
 function threeSumZeroBetter(arr) {
@@ -318,7 +319,7 @@ function threeSumZeroBetter(arr) {
 console.log(threeSumZeroBetter(sampleArray));
 ```
 
-**O(2^n) Exponential time example - compute n^th^ Fibonacci number**
+**O(2^n) Exponential time example - compute n^th Fibonacci number**
 
 They arise when we have multiple recursion calls for each step of the algorithm.
 
@@ -353,7 +354,7 @@ public class ExponentialTimeExample {
 }
 ```
 
-Note that this native recursive implementation is very inefficient especially for large values of n. We can use the concept of dynamic programming and memoization to greatly reduce the time complexity by storing previously computed results and avoid redundant calculations. The optimization below reduces the runtime to O(n).
+Note that this native recursive implementation is very inefficient especially for large values of n. We can use the concept of dynamic programming and memoization to greatly reduce the time complexity by storing previously computed results and avoiding redundant calculations. The optimization below reduces the runtime to O(n).
 
 ```js
 function fibonacciBetter(n, memo = []) {
@@ -369,7 +370,7 @@ function fibonacciBetter(n, memo = []) {
 console.log(fibonacciBetter(10));
 ```
 
-A way to generalize the runtimes of recursive functions is often O(branches^depth^), where branches is the number of times each recursive call branches e.g 2 for fibonacci.
+A way to generalize the runtimes of recursive functions is often O(branches^depth), where branches is the number of times each recursive call branches e.g 2 for fibonacci.
 
 <!-- **O(n!) Factorial time example - Travelling Salesman Problem**
 
@@ -388,19 +389,23 @@ Insertion sort builds the final sorted array, one element at a time by shifting 
 **Algorithm**
 
 Initialization
+
 - Assuming we have an unsorted array of numbers: `[9,3,5,1,7,2,8,4]`
 - We take the first element and consider it as the sorted portion of the array. `[9]`
 
 Iteration
+
 - Iterate over the remaining elements in the array starting from the second element `i=1`
 - In each iteration, compare the current element with the sorted portion of the array, moving elements to the right until we find the correct position to insert the current element `array[i]`
 
 Insertion
+
 - For our example, consider the first element outside the sorted portion, `array[i]=3`
 - Compare `3` with the elements in the sorted portion `[9]`
 - `3` is smaller than `9` so move `9` one position to the right resulting in `[3,9]` as the current sorted portion of the array
 
 Repeat until the array is sorted
+
 - continue for all the remaining unsorted elements, comparing and shifting as necessary
 - Once we reach the end of the array, it will be fully sorted
 
@@ -409,7 +414,7 @@ Repeat until the array is sorted
 `JavaScript`
 
 ```js
- function insertionSort(array) {
+function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
     const currVal = array[i];
 
@@ -1085,6 +1090,78 @@ Time complexity: `O(nlog(n))` where n is max pile size.
 ---
 
 # Data Structures
+
+## Arrays
+
+**Array operations**
+
+`JavaScript`
+
+```js
+/**
+ * Declaration
+ */
+const arr = []; // empty array
+const arrWithValues = [1, 2, 3, 4, 5]; // Array  with values
+const arrWithSize = new Array(5); // Array with size
+
+/**
+ * Accessing elements
+ */
+let firstElement = arrWithValues[0]; // 1
+
+/**
+ * Setting elements
+ */
+arrWithValues[0] = 100;
+
+/**
+ * Array length
+ */
+const length = arrWithValues.length;
+
+/**
+ * Iterating over arrays
+ */
+for (let value of arrWithValues) {
+  console.log(value);
+}
+for (let i = 0; i < arrWithValues.length; i++) {
+  console.log(arrWithValues[i]);
+}
+
+/**
+ * Multi-dimensional arrays
+ */
+const multiArray = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+console.log(multiArray[1][2]); // 6
+
+/**
+ * Common methods
+ */
+// add to end
+arrWithValues.push(200);
+
+// remove from end
+arrWithValues.pop();
+
+// add to beginning
+arrWithValues.unshift(10);
+
+// remove from beginning
+let firstItem = arrWithValues.shift();
+
+// slice array - creates new array object not including end
+let start = 0;
+let end = 3;
+const newArr = arrWithValues.slice(start, end);
+```
+
+Note that most array and string questions are interchangeable.
 
 ## Trees
 
