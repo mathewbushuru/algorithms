@@ -757,7 +757,7 @@ public class BinarySearch {
 
 ```
 
-Other implementations: [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/c/binarySearch.c), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/python/binarySearch.py), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/binary-search/javascript/binarySearch.ts)
+Other implementations: [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/c/binarySearch.c), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/python/binarySearch.py), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/typescript/binarySearch.ts)
 
 Time complexity: `O(log(n))`
 
