@@ -1,8 +1,8 @@
 # Comprehensive Algorithms and Data Structures.
 
-This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript` / `TypeScript`, `Python`, `C` and `Java` which are languages that I am more comfortable with. The repo is intended to be my online reference or notes as I learn these topics and I hope you find this information valuable.
+This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript`, `Java`, `TypeScript`, `Python` and `C`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
 
-_Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages_
+Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages_
 
 ```sh
 ├── README.md
@@ -684,7 +684,47 @@ let end = 3;
 const newArr = arrWithValues.slice(start, end);
 ```
 
-Note that most array and string questions are interchangeable.
+`Java`
+```java
+public class ArrayOperations {
+    public static void main(String[] args){
+        // array declaration
+       int[] arr;
+       // array of size 5 with default values (0 for int)
+       arr =  new int[5];
+       // array with values
+       int[] arrWithValues = {1, 2, 3, 4, 5};
+
+       // accessing elements
+       int lastElement = arrWithValues[4];
+
+       // Setting elements
+       arrWithValues[0] = 100;
+
+       // array length
+       int length = arrWithValues.length;
+
+       // iterating over elements 
+       for (int i  = 0; i < arrWithValues.length; i++){
+        System.out.print(arrWithValues[i] + " ");
+       }
+       System.out.println();
+
+       // iterating over elements with enhanced for loop
+       for (int value: arrWithValues){
+        System.out.print(value + " ");
+       }
+       System.out.println();
+
+       // multi-dimensional arrays
+      int [][] multiArray = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+      //6
+      System.out.println(multiArray[1][2]);
+    }
+}
+```
+
+To perform dynamic array operations in java similar to JavaScript's, we often use `ArrayLists`
 
 ## Trees
 
