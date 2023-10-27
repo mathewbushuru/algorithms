@@ -724,7 +724,79 @@ public class ArrayOperations {
 }
 ```
 
-To perform dynamic array operations in java similar to JavaScript's, we often use `ArrayLists`
+To perform dynamic array operations in java similar to JavaScript's, we often use `ArrayLists` as shown below
+
+```java
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Arrays;
+
+public class ArrayListOperations {
+    public static void main(String[] args){
+        // type-specific arraylist
+        ArrayList<String> list = new ArrayList<String>();
+        // diamond operator
+        ArrayList<Integer> numbers = new ArrayList<>();
+
+        // adding elements
+        // append
+        list.add("A");
+        // insert at specific index - B A
+        list.add(0, "B");
+
+        // accessing elements
+        String item = list.get(0);
+
+        // updating items - C A
+        list.set(0, "C");
+
+        // removing elements
+        // remove element at index
+        list.remove(0);
+        // remove by object - it's first occurrence
+        list.remove("A");
+
+        // checking existence
+        boolean exists = list.contains("C");
+
+        // size of list
+        int size = list.size();
+
+        // check if list is empty
+        boolean isEmpty = list.isEmpty();
+
+        // iterating over arraylist 
+        // using for-each loop  
+        for(String value: list) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+        // using for loop
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
+        }
+        System.out.println(); 
+        // using iterator
+        Iterator<String> iterator = list.iterator();
+        while(iterator.hasNext()){
+            String val = iterator.next();
+            System.out.print(val + " ");
+        }
+        System.out.println();
+
+        // clearing arraylist
+        list.clear();
+
+        // convert to array 
+        String[] array = list.toArray(new String[list.size()]);
+
+        // initialization with values
+        ArrayList<String> initializedList = new ArrayList<>(
+            Arrays.asList("A", "B", "C")
+        );
+    }
+}
+```
 
 ## Trees
 
