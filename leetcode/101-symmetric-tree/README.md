@@ -10,7 +10,7 @@
 
 Solution
 
-![101](./leetcode/imgs/101.jpeg)
+![101](../imgs/101.jpeg)
 
 `JavaScript`
 
