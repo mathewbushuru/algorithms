@@ -39,7 +39,7 @@ Each algorithm and data structure has its own separate directory containing its 
     - [Binary Search](#binary-search)
 - [Data Structures](#data-structures)
 
-  - [Arrays](#arrays)
+  - [Arrays and Strings](#arrays-and-strings)
   - [Trees](#trees)
     - [Binary Trees](#binary-trees)
     - [Binary Search Trees](#binary-search-trees)
@@ -614,7 +614,9 @@ Space complexity: `O(log(n))`. Each recursive call adds a new frame to the call 
 
 # Data Structures
 
-## Arrays
+## Arrays and Strings
+
+I am putting arrays and strings together since their problems are often interchangeable.
 
 **Array operations**
 
@@ -724,7 +726,7 @@ public class ArrayOperations {
 }
 ```
 
-To perform dynamic array operations in java similar to JavaScript's, we often use `ArrayLists` as shown below
+To perform dynamic array operations in java similar to JavaScript's, we often use `ArrayLists` as shown below.
 
 ```java
 import java.util.ArrayList;
@@ -741,22 +743,22 @@ public class ArrayListOperations {
         // adding elements
         // append
         list.add("A");
-        // insert at specific index - B A
+        // insert at specific index, O(n) - B A
         list.add(0, "B");
 
-        // accessing elements
+        // accessing elements, O(1)
         String item = list.get(0);
 
-        // updating items - C A
+        // updating items, O(1) - C A
         list.set(0, "C");
 
-        // removing elements
+        // removing elements, O(n)
         // remove element at index
         list.remove(0);
         // remove by object - it's first occurrence
         list.remove("A");
 
-        // checking existence
+        // checking existence, O(n)
         boolean exists = list.contains("C");
 
         // size of list
@@ -794,9 +796,18 @@ public class ArrayListOperations {
         ArrayList<String> initializedList = new ArrayList<>(
             Arrays.asList("A", "B", "C")
         );
+
+        // index of first occurrence of, or -1 if unavailable
+        int index = initializedList.indexOf("C");
     }
 }
 ```
+
+Unlike arrays, arraylists are automatically resizeable while still providing `O(1)` access (amortized time complexity).
+
+**String operations**
+
+
 
 ## Trees
 
@@ -1147,7 +1158,7 @@ public class BinaryTreeTestdrive{
 }
 ```
 
-Other implementations: [`JavaScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/javascript/binaryTree.js), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c),[`Python`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/python/binaryTree.py)
+Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c),[`Python`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/python/binaryTree.py)
 
 The complexities of this implementation are:
 

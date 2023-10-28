@@ -105,5 +105,11 @@ public class ArrayListOperations {
             System.out.print(val + " ");
         }
         System.out.println();
+
+        // index of first occurrence of, or -1 if unavailable
+        int index = initializedList.indexOf("C");
+        System.out.println(index);      // 2
+        index = initializedList.indexOf("Z");
+        System.out.println(index);      // -1
     }
 }
