@@ -844,7 +844,7 @@ let lastPosition = str3.lastIndexOf("string");
 let exists = str1.includes("string");
 
 /**
- * substring, substr, slice
+ * substring, slice
  */
 // substring(start, end);
 // extract characters from start to (end - 1) - 'is a s'
@@ -883,6 +883,83 @@ let replaced = str1.replace("string", "replacedString");
 ```
 
 JavaScript strings are immutable so methods that seem to modify strings like `replace` or `toUpperCase` actually return new strings.
+
+`Java`
+
+Java strings are also immutable hence any modification leads to a new string. Java uses a String pool where literal strings are stored for memory optimization.
+
+```java
+public class StringOperations {
+    public static void main(String[] args){
+        /**
+         * declaration / initialization
+         */
+        // this uses the String pool
+        String str1 = "hello";
+        // this does not use the String pool
+        String str2 = new String("hello");
+        // concatenation
+        String str3 = str1 + " " + str2;
+
+        /**
+         * methods and operations
+         */
+        // length of string
+        int len = str3.length();
+        // charAt
+        char firstLetter = str3.charAt(0);
+        // substring - 'el'
+        String sub = str3.substring(1, 3);
+        // split - ["Hello", 'World']
+        String[] partsArr = "Hello, World".split(", ");
+        // replace - "hallo"
+        String replaced = str1.replace("e", "a");
+        // case conversion
+        String upper = str1.toUpperCase();
+        String lower = str1.toLowerCase();
+        // trim whitespace
+        String trimmed = "    hello     ".trim();
+        // starts / ends with
+        boolean starts = str1.startsWith("he");
+        boolean ends = str1.endsWith("lo");
+        // indexOf / lastIndexof - 2, 3
+        int pos = str1.indexOf('l');
+        int lastPos = str1.lastIndexOf('l');
+
+        /**
+         * comparison
+         */
+        // compare content 
+        boolean isEqual = str1.equals(str2);
+        // compare case-insensitive content 
+        boolean isEqualIgnoreCase = str1.equalsIgnoreCase("HELLO");
+        // lexicographical comparison - 0, 7, -17
+        int comparison = str1.compareTo(str2);
+        comparison = str1.compareTo("allo");
+        comparison = str1.compareTo("yello");
+
+        /**
+         * StringBuilder(non-syncronized) & StringBuffer(syncronized)
+         */
+        // are more efficient and mutable 
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hello");
+        sb.append(" ");
+        sb.append("world");
+        String result = sb.toString();
+
+        /**
+         * conversion
+         */
+        // string to char array 
+        char[] chars = str1.toCharArray();
+        // string to integer 
+        int number = Integer.parseInt("123");
+        // integer to string 
+        String numString = Integer.toString(123);
+    }
+}
+```
 
 ## Trees
 
