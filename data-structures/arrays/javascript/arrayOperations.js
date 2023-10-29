@@ -59,3 +59,13 @@ let firstItem = arrWithValues.shift();
 let start = 0;
 let end = 3;
 const newArr = arrWithValues.slice(start, end);
+console.log(arrWithValues);
+console.log(newArr);
+
+// splice array - add, remove or replace existing elements in place
+const months = ["Jan", "Mar", "Apr", "Jun"];
+console.log(months);
+let startIndex = 1;
+let numOfElementsToRemove = 0;
+months.splice(startIndex, numOfElementsToRemove, "Feb");
+console.log(months)

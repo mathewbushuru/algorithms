@@ -684,6 +684,12 @@ let firstItem = arrWithValues.shift();
 let start = 0;
 let end = 3;
 const newArr = arrWithValues.slice(start, end);
+
+// splice array - add, remove or replace existing elements in place
+const months = ["Jan", "Mar", "Apr", "Jun"];
+let startIndex = 1;
+let numOfElementsToRemove = 0;
+months.splice(startIndex, numOfElementsToRemove, "Feb");
 ```
 
 `Java`
@@ -803,7 +809,7 @@ public class ArrayListOperations {
 }
 ```
 
-Unlike arrays, arraylists are automatically resizeable while still providing `O(1)` access (amortized time complexity).
+Unlike arrays, arraylists are automatically resizeable while still providing `O(1)` access.
 
 **String operations**
 
