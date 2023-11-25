@@ -2,7 +2,7 @@
 
 This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript`, `Java`, `TypeScript`, `Python` and `C`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
 
-Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages_
+Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages.
 
 ```sh
 ├── README.md
@@ -57,12 +57,12 @@ Below are some common Big-O complexities, from fastest to slowest:
 - **O(1), constant time**: Algorithm takes constant amount of time, regardless of input size.
 - **O(log(n)), logarithmic time**: Common in algorithms that decrease the input size with each iteration, e.g binary search.
 - **O(n)), linear time**: Runtime grows linearly with input size, e.g simple search algorithms
-- **O(nlog(n))), loglinear time**: e.g merge sort
+- **O(nlog(n))), loglinear time**: The running time increases linearly with input size, but it incorporates a logarithmic growth factor e.g merge sort
 - **O(n^2), O(n^3), polynomial time**: Often seen in nested loops e.g bubble sort
-- **O(2^n), exponential time**: Such algorithms solve problems by exploring many possibilities, e.g the recursive implementation of Fibonacci numbers.
-- **O(n!), factorial time**: Very slow algorithms, eg solving the traveling salesman problem by brute force.
+- **O(2^n), exponential time**: The running time doubles for each additional element in the input. It is typically in recursive processes where each step generates multiple additional recursive steps e.g the recursive implementation of Fibonacci numbers.
+- **O(n!), factorial time**: Very slow algorithms typically in problems requiring permutations or combinations, eg solving the traveling salesman problem by brute force.
 
-Big O is also used to represent how the amount of memory used by an algorithm grows with input size. We also ignore the constant coeffiecients and smaller terms in Big O.
+Big O is also used to represent how the amount of memory used by an algorithm grows with input size. We ignore the constant coeffiecients and smaller terms in Big O.
 
 **O(1) Constant time example - accessing element from array**
 
@@ -194,6 +194,8 @@ public class LinearTimeExample {
 ```
 
 **O(nlog(n)) LogLinear time example - merge sort**
+
+For each increase in input size, the time it takes to complete the task grows in a way that's proportional to both the size of the input and the logarithm of that size. The logarithmic component typically comes from dividing the problem into smaller parts (divide and conquer), and the linear component is from processing each part.
 
 `JavaScript`
 
@@ -987,7 +989,7 @@ We can reconstruct a binary tree if given at least two traversal results. First 
 
 For example, if we are given two arrays with the preorder and inorder traversal results, we use the preorder array to find the root node (first element in array). We then locate the index of this root node in the inorder traversal array. Elements to the left of the root in the inorder array are from the left subtree. Similarly, those to the right of the root node form the right subtree. We recursively select elements from the preorder array and create its left and right subtrees from the inorder array.
 
-![binary-tree-reconstruction](./data-structures/imgs/binary-tree-reconstruction3.jpeg)
+![binary-tree-reconstruction](./data-structures/imgs/binary-tree-reconstruction4.jpeg)
 
 **Implementation**
 

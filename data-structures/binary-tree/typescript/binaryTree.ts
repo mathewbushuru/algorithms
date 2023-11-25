@@ -27,7 +27,7 @@ class BinaryTree {
     }
   }
 
-  insertNode(node: TreeNode, newNode: TreeNode) {
+  private insertNode(node: TreeNode, newNode: TreeNode) {
     if (newNode.value < node.value) {
       if (node.left === null) {
         node.left = newNode;
@@ -47,7 +47,7 @@ class BinaryTree {
     this.root = this.deleteNode(this.root, value);
   }
 
-  deleteNode(node: TreeNode | null, value: number): TreeNode | null {
+  private deleteNode(node: TreeNode | null, value: number): TreeNode | null {
     if (node === null) {
       return null;
     }
@@ -72,7 +72,7 @@ class BinaryTree {
     return node;
   }
 
-  findMinNode(node: TreeNode): TreeNode {
+  private findMinNode(node: TreeNode): TreeNode {
     if (node.left === null) {
       return node;
     } else {
@@ -84,7 +84,7 @@ class BinaryTree {
     this.inOrderTraversalNode(this.root, callbackFn);
   }
 
-  inOrderTraversalNode(
+  private inOrderTraversalNode(
     node: TreeNode | null,
     callbackFn: (value: number) => void
   ): void {
@@ -99,7 +99,7 @@ class BinaryTree {
     this.preOrderTraversalNode(this.root, callbackFn);
   }
 
-  preOrderTraversalNode(
+  private preOrderTraversalNode(
     node: TreeNode | null,
     callbackFn: (value: number) => void
   ): void {
@@ -114,7 +114,7 @@ class BinaryTree {
     this.postOrderTraversalNode(this.root, callbackFn);
   }
 
-  postOrderTraversalNode(
+  private postOrderTraversalNode(
     node: TreeNode | null,
     callbackFn: (value: number) => void
   ): void {
