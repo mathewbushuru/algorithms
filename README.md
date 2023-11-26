@@ -266,6 +266,8 @@ function threeSumZeroBetter(arr) {
 console.log(threeSumZeroBetter(sampleArray));
 ```
 
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/polynomial-time-example/java/ThreeSum.java)
+
 **O(2^n) Exponential time example - compute n^th Fibonacci number**
 
 They arise when we have multiple recursion calls for each step of the algorithm.
