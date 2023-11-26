@@ -196,6 +196,8 @@ const arr = [2, 4, 9, 6, 1, 8, 3, 5, 7];
 console.log(mergeSort(arr));
 ```
 
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/loglinear-time-example/java/MergeSort.java)
+
 **O(n^3) Polynomial time example - 3 Sum problem naive solution**
 
 For the three sum problem, we are given an array of n numbers, and we determine if there exists three elements a, b and c in the array such that a + b + c = 0;
