@@ -78,21 +78,7 @@ const arr1 = [1, 2, 3, 4, 5];
 console.log(getArrayElement(arr1, 2));
 ```
 
-`Java`
-
-```java
-public class ConstantTimeExample {
-    public static void main(String[] args){
-        int[] arr1 = {1, 2, 3, 4, 5};
-        // 3
-        System.out.println(getArrayElement(arr1, 2));
-    }
-
-    public static int getArrayElement(int[] arr, int index){
-        return arr[index];
-    }
-}
-```
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/constant-time-example/java/ConstantTimeExample.java)
 
 **O(log(n)) logarithmic time example - fast power algorithm**
 
@@ -124,28 +110,7 @@ function fastPower(base, exponent) {
 console.log(fastPower(2, 10));
 ```
 
-`Java`
-
-```java
-public class FastPowerExample {
-    public static void main(String[] args) {
-        // 1024
-        System.out.println(fastPower(2, 10));
-    }
-
-    public static long fastPower(long base, int exponent){
-        if (exponent == 0) return 1;
-
-        long halfPower = fastPower(base, exponent / 2);
-
-        if (exponent % 2 == 0){
-            return halfPower * halfPower;
-        } else {
-            return base * halfPower * halfPower;
-        }
-    }
-}
-```
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/logarithmic-time-example/java/FastPowerExample.java)
 
 **O(n) Linear time example - max element in unsorted list**
 
@@ -169,29 +134,7 @@ const sampleArray = [3, 1, 4, 5, 9, 2, 6, 5];
 console.log(findMax(sampleArray));
 ```
 
-`Java`
-
-```java
-public class LinearTimeExample {
-    public static void main(String[] args){
-        int[] sampleArray = {3, 1, 4, 5, 9, 2, 6, 5};
-        // 9
-        System.out.println(findMax(sampleArray));
-    }
-
-    public static int findMax(int[] arr){
-        int maxVal = arr[0];
-
-        for (int i = 1; i < arr.length; i++){
-            if (arr[i] > maxVal){
-                maxVal = arr[i];
-            }
-        }
-
-        return maxVal;
-    }
-}
-```
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/linear-time-example/java/LinearTimeExample.java)
 
 **O(nlog(n)) LogLinear time example - merge sort**
 
@@ -340,21 +283,7 @@ function fibonacci(n) {
 console.log(fibonacci(10));
 ```
 
-`Java`
-
-```java
-public class ExponentialTimeExample {
-    public static void main(String[] args){
-        // 55
-        System.out.println(fibonacci(10));
-    }
-
-    public static int fibonacci(int n) {
-        if (n <= 1) return n;
-        return fibonacci(n - 1) + fibonacci(n - 2);
-    }
-}
-```
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/exponential-time-example/java/ExponentialTimeExample.java)
 
 Note that this native recursive implementation is very inefficient especially for large values of n. We can use the concept of dynamic programming and memoization to greatly reduce the time complexity by storing previously computed results and avoiding redundant calculations. The optimization below reduces the runtime to O(n).
 
@@ -437,39 +366,7 @@ const arr = [9, 3, 5, 1, 7, 2, 8, 4];
 console.log(insertionSort(arr));
 ```
 
-`Java`
-
-```java
-public class insertionSort {
-    public static void main(String[] args) {
-        int[] arr = { 9, 3, 5, 1, 7, 2, 8, 4 };
-        sort(arr);
-        // 1 2 3 4 5 6 7 8 9
-        printArray(arr);
-    }
-
-    public static void sort(int[] array) {
-        for (int i = 1; i < array.length; i++) {
-            int currVal = array[i];
-            int j = i - 1;
-            while (j >= 0 && array[j] > currVal) {
-                array[j + 1] = array[j];
-                j--;
-            }
-            array[j + 1] = currVal;
-        }
-    }
-
-    public static void printArray(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
-    }
-}
-```
-
-Other implementations: [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/c/insertion_sort.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/typescript/insertionSort.ts)
+Other implementations: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/java/insertionSort.java), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/python/insertion_sort.py), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/c/insertion_sort.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/sorting-algorithms/insertion-sort/typescript/insertionSort.ts)
 
 Time Complexity:
 
@@ -521,52 +418,13 @@ function binarySearch(array, target) {
 }
 ```
 
-`Java`
-
-```java
-public class BinarySearch {
-    public static void main(String[] args) {
-        int[] arr = { 2, 4, 6, 8, 10, 12, 14, 16 };
-        int target = 10;
-
-        int result = binarySearch(arr, target);
-
-        if (result == -1) {
-            System.out.println("Target element not found.");
-        } else {
-            System.out.println("Target element found at " + result + ".");
-        }
-    }
-
-    public static int binarySearch(int[] array, int target) {
-        int low = 0;
-        int high = array.length - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-
-            if (array[mid] == target) {
-                return mid;
-            } else if (array[mid] < target) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-
-        return -1;
-    }
-}
-
-```
-
-Other implementations: [`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/c/binarySearch.c), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/python/binarySearch.py), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/typescript/binarySearch.ts)
+Other implementations: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/java/BinarySearch.java) ,[`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/c/binarySearch.c), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/python/binarySearch.py), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/typescript/binarySearch.ts)
 
 Time complexity: `O(log(n))`
 
 Space complexity: `O(1)`
 
-We can also use recursion for a more elegant solution but a worse space complexity.
+We can also use recursion to implement binary search but it has a worse space complexity.
 
 ```js
 function binarySearchRecursive(array, target) {
@@ -694,124 +552,7 @@ let numOfElementsToRemove = 0;
 months.splice(startIndex, numOfElementsToRemove, "Feb");
 ```
 
-`Java`
-```java
-public class ArrayOperations {
-    public static void main(String[] args){
-        // array declaration
-       int[] arr;
-       // array of size 5 with default values (0 for int)
-       arr =  new int[5];
-       // array with values
-       int[] arrWithValues = {1, 2, 3, 4, 5};
-
-       // accessing elements
-       int lastElement = arrWithValues[4];
-
-       // Setting elements
-       arrWithValues[0] = 100;
-
-       // array length
-       int length = arrWithValues.length;
-
-       // iterating over elements 
-       for (int i  = 0; i < arrWithValues.length; i++){
-        System.out.print(arrWithValues[i] + " ");
-       }
-       System.out.println();
-
-       // iterating over elements with enhanced for loop
-       for (int value: arrWithValues){
-        System.out.print(value + " ");
-       }
-       System.out.println();
-
-       // multi-dimensional arrays
-      int [][] multiArray = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-      //6
-      System.out.println(multiArray[1][2]);
-    }
-}
-```
-
-To perform dynamic array operations in java similar to JavaScript's, we often use `ArrayLists` as shown below.
-
-```java
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Arrays;
-
-public class ArrayListOperations {
-    public static void main(String[] args){
-        // type-specific arraylist
-        ArrayList<String> list = new ArrayList<String>();
-        // diamond operator
-        ArrayList<Integer> numbers = new ArrayList<>();
-
-        // adding elements
-        // append
-        list.add("A");
-        // insert at specific index, O(n) - B A
-        list.add(0, "B");
-
-        // accessing elements, O(1)
-        String item = list.get(0);
-
-        // updating items, O(1) - C A
-        list.set(0, "C");
-
-        // removing elements, O(n)
-        // remove element at index
-        list.remove(0);
-        // remove by object - it's first occurrence
-        list.remove("A");
-
-        // checking existence, O(n)
-        boolean exists = list.contains("C");
-
-        // size of list
-        int size = list.size();
-
-        // check if list is empty
-        boolean isEmpty = list.isEmpty();
-
-        // iterating over arraylist 
-        // using for-each loop  
-        for(String value: list) {
-            System.out.print(value + " ");
-        }
-        System.out.println();
-        // using for loop
-        for (int i = 0; i < list.size(); i++) {
-            System.out.print(list.get(i) + " ");
-        }
-        System.out.println(); 
-        // using iterator
-        Iterator<String> iterator = list.iterator();
-        while(iterator.hasNext()){
-            String val = iterator.next();
-            System.out.print(val + " ");
-        }
-        System.out.println();
-
-        // clearing arraylist
-        list.clear();
-
-        // convert to array 
-        String[] array = list.toArray(new String[list.size()]);
-
-        // initialization with values
-        ArrayList<String> initializedList = new ArrayList<>(
-            Arrays.asList("A", "B", "C")
-        );
-
-        // index of first occurrence of, or -1 if unavailable
-        int index = initializedList.indexOf("C");
-    }
-}
-```
-
-Unlike arrays, arraylists are automatically resizeable while still providing `O(1)` access.
+Other languages: [`Java - Arrays`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/java/ArrayOperations.java), [`Java - ArrayLists`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/java/ArrayListOperations.java)
 
 **String operations**
 
@@ -886,82 +627,7 @@ let replaced = str1.replace("string", "replacedString");
 
 JavaScript strings are immutable so methods that seem to modify strings like `replace` or `toUpperCase` actually return new strings.
 
-`Java`
-
-Java strings are also immutable hence any modification leads to a new string. Java uses a String pool where literal strings are stored for memory optimization.
-
-```java
-public class StringOperations {
-    public static void main(String[] args){
-        /**
-         * declaration / initialization
-         */
-        // this uses the String pool
-        String str1 = "hello";
-        // this does not use the String pool
-        String str2 = new String("hello");
-        // concatenation
-        String str3 = str1 + " " + str2;
-
-        /**
-         * methods and operations
-         */
-        // length of string
-        int len = str3.length();
-        // charAt
-        char firstLetter = str3.charAt(0);
-        // substring - 'el'
-        String sub = str3.substring(1, 3);
-        // split - ["Hello", 'World']
-        String[] partsArr = "Hello, World".split(", ");
-        // replace - "hallo"
-        String replaced = str1.replace("e", "a");
-        // case conversion
-        String upper = str1.toUpperCase();
-        String lower = str1.toLowerCase();
-        // trim whitespace
-        String trimmed = "    hello     ".trim();
-        // starts / ends with
-        boolean starts = str1.startsWith("he");
-        boolean ends = str1.endsWith("lo");
-        // indexOf / lastIndexof - 2, 3
-        int pos = str1.indexOf('l');
-        int lastPos = str1.lastIndexOf('l');
-
-        /**
-         * comparison
-         */
-        // compare content 
-        boolean isEqual = str1.equals(str2);
-        // compare case-insensitive content 
-        boolean isEqualIgnoreCase = str1.equalsIgnoreCase("HELLO");
-        // lexicographical comparison - 0, 7, -17
-        int comparison = str1.compareTo(str2);
-        comparison = str1.compareTo("allo");
-        comparison = str1.compareTo("yello");
-
-        /**
-         * StringBuilder(non-syncronized) & StringBuffer(syncronized)
-         */
-        // are more efficient and mutable 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hello");
-        sb.append(" ");
-        sb.append("world");
-        String result = sb.toString();
-
-        /**
-         * conversion
-         */
-        // string to char array 
-        char[] chars = str1.toCharArray();
-        // string to integer 
-        int number = Integer.parseInt("123");
-        // integer to string 
-        String numString = Integer.toString(123);
-    }
-}
-```
+Other languages: [`Java `](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/strings/java/StringOperations.java)
 
 ## Trees
 
@@ -981,7 +647,7 @@ Binary tree traversal is the process of visiting each node in the tree exactly o
 - Pre-order: Nodes are visited in the order 'parent node' - 'left subtree' - 'right subtree'. The parent node is visited before its children. It is useful for creating a copy of the tree, as the order of visiting the nodes allows for easy replication of the structure.
 - Post-order: Nodes are visited in the order 'left subtree' - 'right subtree' - 'parent node'. The children are visited before the parent node. This is used in deleting nodes as it ensures the node is only deleted after its children have been deleted.
 
-![binary-tree-traversal](./data-structures/imgs/binary-tree-traversal3.jpeg)
+![binary-tree-traversal](./data-structures/imgs/binary-tree-traversal2.jpeg)
 
 Note that trees can also be traversed in level-order (breadth-first algorithm.)
 
@@ -1161,158 +827,7 @@ binaryTree.inOrderTraversal((value) => console.log(value));
 console.log("---");
 ```
 
-`Java`
-
-```java
-class Node {
-    int value;
-    Node left;
-    Node right;
-
-    public Node(int value){
-        this.value = value;
-        this.left = null;
-        this.right = null;
-    }
-}
-
-class BinaryTree{
-    Node root;
-
-    public BinaryTree(){
-        this.root = null;
-    }
-
-    public void insert(int value){
-        Node newNode  = new Node(value);
-
-        if (root == null){
-            root = newNode;
-        }else {
-            insertNode(root, newNode);
-        }
-    }
-
-    private void insertNode(Node node, Node newNode){
-        if (newNode.value < node.value){
-            if (node.left == null) {
-                node.left = newNode;
-            } else {
-                insertNode(node.left,newNode);
-            }
-        } else {
-            if (node.right == null){
-                node.right = newNode;
-            } else {
-                insertNode(node.right,newNode);
-            }
-        }
-    }
-
-    public void delete(int value){
-        root = deleteNode(root,value);
-    }
-
-    private Node deleteNode(Node node, int value){
-        if (node == null){
-            return null;
-        }
-
-        if (value < node.value){
-            node.left = deleteNode(node.left,value);
-        } else if (value > node.value){
-            node.right = deleteNode(node.right, value);
-        } else {
-            if (node.left == null && node.right  == null){
-                node = null;
-            } else if (node.left == null){
-                node = node.right;
-            } else if (node.right == null){
-                node = node.left;
-            } else {
-                Node minRight = findMinNode(node.right);
-                node.value = minRight.value;
-                node.right = deleteNode(node.right, minRight.value);
-            }
-        }
-        return node;
-    }
-
-    private Node findMinNode(Node node){
-        if (node.left == null){
-            return node;
-        } else {
-            return findMinNode(node.left);
-        }
-    }
-
-    public void inOrderTraversal(){
-        inOrderTraversalNode(root);
-    }
-
-    private void inOrderTraversalNode(Node node){
-        if (node != null){
-            inOrderTraversalNode(node.left);
-            System.out.println(node.value);
-            inOrderTraversalNode(node.right);
-        }
-    }
-
-    public void preOrderTraversal(){
-        preOrderTraversalNode(root);
-    }
-
-    private void preOrderTraversalNode(Node node){
-        if (node != null){
-            System.out.println(node.value);
-            preOrderTraversalNode(node.left);
-            preOrderTraversalNode(node.right);
-        }
-    }
-
-    public void postOrderTraversal(){
-        postOrderTraversalNode(root);
-    }
-
-    private void postOrderTraversalNode(Node node){
-        if (node != null){
-            postOrderTraversalNode(node.left);
-            postOrderTraversalNode(node.right);
-            System.out.println(node.value);
-        }
-    }
-}
-
-public class BinaryTreeTestdrive{
-    public static void main(String[] args){
-        BinaryTree binaryTree = new BinaryTree();
-
-        binaryTree.insert(8);
-        binaryTree.insert(3);
-        binaryTree.insert(10);
-        binaryTree.insert(1);
-        binaryTree.insert(6);
-        binaryTree.insert(14);
-        binaryTree.insert(4);
-        binaryTree.insert(7);
-        binaryTree.insert(13);
-
-        System.out.println("In order traversal");
-        binaryTree.inOrderTraversal();
-        System.out.println("---");
-
-        System.out.println("Pre order traversal");
-        binaryTree.preOrderTraversal();
-        System.out.println("---");
-
-        System.out.println("Post order traversal");
-        binaryTree.postOrderTraversal();
-        System.out.println("---");
-    }
-}
-```
-
-Other implementations: [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c),[`Python`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/python/binaryTree.py)
+Other implementations: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/java/BinaryTreeTestdrive.java) ,[`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/typescript/binaryTree.ts), [`C`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/c/binaryTree.c), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/binary-tree/python/binaryTree.py)
 
 The complexities of this implementation are:
 

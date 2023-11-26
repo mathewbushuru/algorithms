@@ -1,3 +1,6 @@
+// Java strings are also immutable like in JavaScript hence any modification leads to a new string. 
+// Java uses a String pool where literal strings are stored for memory optimization.
+
 public class StringOperations {
     public static void main(String[] args){
         /**

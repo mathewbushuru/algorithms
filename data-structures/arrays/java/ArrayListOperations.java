@@ -1,3 +1,7 @@
+// To perform dynamic array operations in java similar to JavaScript's, 
+//we often use ArrayLists as shown below.
+// Unlike java arrays, arraylists are automatically resizeable while still providing `O(1)` access.
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Arrays;
