@@ -196,7 +196,7 @@ const arr = [2, 4, 9, 6, 1, 8, 3, 5, 7];
 console.log(mergeSort(arr));
 ```
 
-Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/loglinear-time-example/java/MergeSort.java)
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/loglinear-time-example/java/MergeSort.java), [`C++`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/loglinear-time-example/cpp/mergeSort.cpp)
 
 **O(n^3) Polynomial time example - 3 Sum problem naive solution**
 
