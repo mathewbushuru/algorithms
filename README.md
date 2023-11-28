@@ -110,7 +110,7 @@ function fastPower(base, exponent) {
 console.log(fastPower(2, 10));
 ```
 
-Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/logarithmic-time-example/java/FastPowerExample.java)
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/logarithmic-time-example/java/FastPowerExample.java), [`C++`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/logarithmic-time-example/cpp/fastPower.cpp)
 
 **O(n) Linear time example - max element in unsorted list**
 

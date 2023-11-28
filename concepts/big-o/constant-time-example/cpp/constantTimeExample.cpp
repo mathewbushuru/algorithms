@@ -3,12 +3,14 @@
 #include <iostream>
 #include <array>
 
-template<size_t N>
-int getArrayElement(const std::array<int, N>& arr, size_t index) {
+template <size_t N>
+int getArrayElement(const std::array<int, N> &arr, size_t index)
+{
     return arr[index];
 }
 
-int main(){
+int main()
+{
     std::array<int, 5> arr1 = {1, 2, 3, 4, 5};
 
     // 3
