@@ -134,7 +134,7 @@ const sampleArray = [3, 1, 4, 5, 9, 2, 6, 5];
 console.log(findMax(sampleArray));
 ```
 
-Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/linear-time-example/java/LinearTimeExample.java)
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/linear-time-example/java/LinearTimeExample.java), [`C++`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/linear-time-example/cpp/linearTimeExample.cpp)
 
 **O(nlog(n)) LogLinear time example - merge sort**
 

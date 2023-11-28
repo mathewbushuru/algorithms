@@ -1,4 +1,4 @@
-// g++ constantTimeExample.cpp -o constantTimeExample && ./constantTimeExample
+// g++ constantTimeExample.cpp -o constantTimeExample -std=c++20 && ./constantTimeExample
 
 #include <iostream>
 #include <array>

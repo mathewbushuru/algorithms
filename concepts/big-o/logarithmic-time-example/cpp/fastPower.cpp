@@ -1,4 +1,4 @@
-// g++ fastPower.cpp -o fastPower && ./fastPower
+// g++ fastPower.cpp -o fastPower -std=c++20 && ./fastPower
 
 #include <iostream>
 
