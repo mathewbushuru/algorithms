@@ -1,6 +1,6 @@
 # Comprehensive Algorithms and Data Structures.
 
-This repository houses my solutions and detailed explanations to popular algorithms and data structures problems. The solutions are provided in `JavaScript`, `Java`, `TypeScript`, `Python` and `C`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
+This repository houses in-depth explanations to key computer science algorithms and data structures alongside solutions to various Leetcode problems that explore these concepts. They are implemented in `JavaScript`, `Java`, `C++`, `Python`, `TypeScript` and `C`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
 
 Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages.
 
@@ -78,7 +78,7 @@ const arr1 = [1, 2, 3, 4, 5];
 console.log(getArrayElement(arr1, 2));
 ```
 
-Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/constant-time-example/java/ConstantTimeExample.java)
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/constant-time-example/java/ConstantTimeExample.java), [`C++`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/constant-time-example/cpp/constantTimeExample.cpp)
 
 **O(log(n)) logarithmic time example - fast power algorithm**
 
