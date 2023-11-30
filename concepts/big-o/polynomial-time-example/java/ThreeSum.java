@@ -22,7 +22,7 @@ public class ThreeSum {
         Arrays.sort(arr);
 
         for (int i = 0; i < arr.length - 2; i++) {
-            if (i > 0 && arr[i] == arr[i-1]) {
+            if (i > 0 && arr[i] == arr[i - 1]) {
                 continue;
             }
 
@@ -33,7 +33,7 @@ public class ThreeSum {
                 int sum = arr[i] + arr[left] + arr[right];
 
                 if (sum == 0) {
-                    int[] result = {arr[i], arr[left], arr[right]};
+                    int[] result = { arr[i], arr[left], arr[right] };
                     return result;
                 } else if (sum < 0) {
                     left++;
