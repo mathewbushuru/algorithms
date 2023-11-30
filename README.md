@@ -266,7 +266,7 @@ function threeSumZeroBetter(arr) {
 console.log(threeSumZeroBetter(sampleArray));
 ```
 
-Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/polynomial-time-example/java/ThreeSum.java)
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/polynomial-time-example/java/ThreeSum.java), [`C++`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/polynomial-time-example/cpp/threeSum.cpp)
 
 **O(2^n) Exponential time example - compute n^th Fibonacci number**
 
