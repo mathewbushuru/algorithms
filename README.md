@@ -287,8 +287,6 @@ function fibonacci(n) {
 console.log(fibonacci(10));
 ```
 
-Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/exponential-time-example/java/ExponentialTimeExample.java)
-
 Note that this native recursive implementation is very inefficient especially for large values of n. We can use the concept of dynamic programming and memoization to greatly reduce the time complexity by storing previously computed results and avoiding redundant calculations. The optimization below reduces the runtime to O(n).
 
 ```js
@@ -304,6 +302,8 @@ function fibonacciBetter(n, memo = []) {
 // 55
 console.log(fibonacciBetter(10));
 ```
+
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/exponential-time-example/java/ExponentialTimeExample.java)
 
 A way to generalize the runtimes of recursive functions is often O(branches^depth), where branches is the number of times each recursive call branches e.g 2 for fibonacci.
 

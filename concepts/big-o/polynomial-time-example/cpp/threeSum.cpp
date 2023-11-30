@@ -3,10 +3,16 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 
 std::vector<int> threeSumZero(const std::vector<int> &vec)
 {
     size_t n{vec.size()};
+
+    if (n < 3)
+    {
+        throw std::invalid_argument("Input vector must have at least three elements.");
+    }
 
     std::vector<int> result{};
 
@@ -30,6 +36,11 @@ std::vector<int> threeSumZero(const std::vector<int> &vec)
 
 std::vector<int> threeSumZeroBetter(std::vector<int> vec)
 {
+    if (vec.size() < 3)
+    {
+        throw std::invalid_argument("Input vector must have at least three elements.");
+    }
+
     // modifying vector - that's why i'm not passing it by  reference
     std::sort(vec.begin(), vec.end());
 
