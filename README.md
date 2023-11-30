@@ -303,7 +303,7 @@ function fibonacciBetter(n, memo = []) {
 console.log(fibonacciBetter(10));
 ```
 
-Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/exponential-time-example/java/ExponentialTimeExample.java)
+Other languages: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/exponential-time-example/java/ExponentialTimeExample.java), [`C++`](https://github.com/mathewbushuru/algorithms/blob/main/concepts/big-o/exponential-time-example/cpp/exponentialTimeExample.cpp)
 
 A way to generalize the runtimes of recursive functions is often O(branches^depth), where branches is the number of times each recursive call branches e.g 2 for fibonacci.
 
