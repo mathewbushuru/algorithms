@@ -379,11 +379,6 @@ Time Complexity:
 
 Space Complexity: O(1)
 
-**Solved leetcode examples**
-
-- 147 (Medium) - [Insertion Sort List](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/147-insertion-sort-list-M)
-- 57 (Medium) - [Insert Interval](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/57-insert-interval)
-
 ## Search Algorithms
 
 ### Binary Search
@@ -465,14 +460,6 @@ console.log(binarySearchRecursive(arr, 6));
 Time complexity: `O(log(n))`
 
 Space complexity: `O(log(n))`. Each recursive call adds a new frame to the call stack containing the local variables and parameters of each function call. The depth of the recursive calls corresponds to the number of times the search space is halved until the base case is reached.
-
-**Solved LeetCode examples**
-
-- 34 (Medium) - [Find First and Last Position of Element in Sorted Array](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/34-fist-and-last-position-of-element-in-sorted-array-M)
-- 69 (Easy) - [Sqrt(x)](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/69-sqrt(x))
-- 153 (Medium) - [Find Minimum in Rotated Sorted Array](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/153-minimum-in-rotated-sorted-array)
-- 704 (Easy) - [Binary Search](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/704-binary-search)
-- 875 (Medium) - [Koko Eating Bananas](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/875-koko-eating-bananas)
 
 ---
 
@@ -850,21 +837,8 @@ The complexities of this implementation are:
 - The time complexity is `O(n)` where n is the number of nodes in the tree.
 - The space complexity is `O(h)` where h is the height of the tree. The recursive calls for traversing the tree occupies space in the call stack, and the maximum depth of the recursive call corresponds to the height of the tree. For a skewed tree, the space complexity degrades to `O(n)`
 
-**Solved LeetCode Examples**
-
-- 101 (Easy) - [Symmetric Tree](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/101-symmetric-tree)
-- 102 (Medium) - [Binary Tree Level Order Traversal](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/102-bt-level-order-traversal)
-- 104 (Easy) - [Maximum Depth of Binary Tree](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/104-max-depth-of-binary-tree)
-- 105 (Medium) - [ Construct Binary Tree from Preorder and Inorder Traversal
-](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/105-BT-from-preorder-and-inorder-traversal)
-- 112 (Easy) - [Path Sum](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/112-path-sum)
-
 ### Binary Search Trees
 
 This is a binary tree with a special property: For every node, the value of each node in its left subtree is less than its value, and the value of each node in is right subtree is greater than its value.
-
-**Solved LeetCode Examples**
-
-- 98 (Medium) - [Validate Binary Search Tree](https://github.com/mathewbushuru/algorithms/tree/main/leetcode/98-validate-binary-tree)
 
 ---
