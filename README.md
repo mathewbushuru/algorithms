@@ -1,6 +1,6 @@
 # Comprehensive Algorithms and Data Structures.
 
-This repository houses in-depth explanations to key computer science algorithms and data structures alongside solutions to various Leetcode problems that explore these concepts. They are implemented in `JavaScript`, `Java`, `C++`, `Python`, `TypeScript` and `C`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
+This repository houses in-depth explanations to key computer science algorithms and data structures alongside solutions to various programming challenges that explore these concepts. They are implemented in `JavaScript`, `Java`, `C++`, `Python`, `TypeScript` and `C`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
 
 Each algorithm and data structure has its own separate directory containing its implemetation and problem solutions in the various languages.
 
