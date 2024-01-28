@@ -36,7 +36,7 @@ class BinaryTree:
 
         if value < node.value:
             node.left = self._delete_node(node.left, value)
-        elif node > node.value:
+        elif value > node.value:
             node.right = self._delete_node(node.right, value)
         else:
             if node.left is None and node.right is None:
@@ -80,6 +80,32 @@ class BinaryTree:
         self._post_order_traversal_node(self.root)
 
     def _post_order_traversal_node(self, node):
-        self._post_order_traversal_node(node.left)
-        self._post_order_traversal_node(node.right)
-        print(f"{node.value} ")
+        if node is not None:
+            self._post_order_traversal_node(node.left)
+            self._post_order_traversal_node(node.right)
+            print(f"{node.value} ")
+
+
+if __name__ == "__main__":
+    bt = BinaryTree()
+
+    elementsList = [8, 3, 10, 1, 6, 14, 4, 7, 13]
+    for el in elementsList:
+        bt.insert(el)
+
+    print("In order traversal - should be sorted")
+    # 1 3 4 6 7 8 10 13 14
+    bt.in_order_traversal()
+
+    print("\nPre order traversal")
+    # 8 3 1 6 4 7 10 14 13
+    bt.pre_order_traversal()
+
+    print("\nPost order traversal")
+    # 1 4 7 6 3 13 14 10 8
+    bt.post_order_traversal()
+
+    bt.delete(6)
+    print("\nIn order traversal after deleting 6")
+    # 1 3 4 7 8 10 13 14
+    bt.in_order_traversal()
