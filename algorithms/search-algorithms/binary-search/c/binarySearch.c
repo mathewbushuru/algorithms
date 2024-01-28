@@ -2,31 +2,7 @@
 
 #include <stdio.h>
 
-int binarySearch(int array[], int size, int target)
-{
-    int low = 0;
-    int high = size - 1;
-
-    while (low <= high)
-    {
-        int mid = (low + high) / 2;
-
-        if (array[mid] == target)
-        {
-            return mid;
-        }
-        else if (array[mid] < target)
-        {
-            low = mid + 1;
-        }
-        else
-        {
-            high = mid - 1;
-        }
-    }
-
-    return -1;
-}
+int binarySearch(int array[], int size, int target);
 
 int main()
 {
@@ -44,4 +20,31 @@ int main()
     {
         printf("Target element found at %d. \n", result);
     }
+}
+
+int binarySearch(int array[], int size, int target)
+{
+    int low = 0;
+    int high = size - 1;
+    int mid;
+
+    while (low <= high)
+    {
+        mid = (low + high) / 2;
+
+        if (array[mid] == target)
+        {
+            return mid;
+        }
+        else if (array[mid] < target)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+
+    return -1;
 }

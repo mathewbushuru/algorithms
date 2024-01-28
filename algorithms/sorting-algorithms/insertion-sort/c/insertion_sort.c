@@ -20,9 +20,10 @@ int main()
 
 void insertionSort(int array[], int size)
 {
-    int i, j, currVal;
+    int i, j;
+    int currVal;
 
-    for (i = 1; i < size; i++)
+    for (i = 1; i < size; ++i)
     {
         currVal = array[i];
 
@@ -41,7 +42,7 @@ void printArray(int array[], int size)
 {
     int i;
 
-    for (i = 0; i < size; i++)
+    for (i = 0; i < size; ++i)
     {
         printf("%d ", array[i]);
     }
