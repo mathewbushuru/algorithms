@@ -3,12 +3,12 @@
 #include <iostream>
 #include <vector>
 
-std::vector<int> mergeSort(const std::vector<int> &vec);
-std::vector<int> merge(const std::vector<int> &left, const std::vector<int> &right);
+std::vector<int> mergeSort(const std::vector<int>& vec);
+std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right);
 
 int main()
 {
-    std::vector<int> sampleVector{2, 4, 9, 6, 1, 8, 3, 5, 7};
+    std::vector<int> sampleVector{ 2, 4, 9, 6, 1, 8, 3, 5, 7 };
 
     auto sortedVector = mergeSort(sampleVector);
 
@@ -22,7 +22,7 @@ int main()
     return 0;
 }
 
-std::vector<int> mergeSort(const std::vector<int> &vec)
+std::vector<int> mergeSort(const std::vector<int>& vec)
 {
     if (vec.size() < 2)
     {
@@ -41,7 +41,7 @@ std::vector<int> mergeSort(const std::vector<int> &vec)
     return merge(sortedLeft, sortedRight);
 }
 
-std::vector<int> merge(const std::vector<int> &left, const std::vector<int> &right)
+std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right)
 {
     std::vector<int> result;
 

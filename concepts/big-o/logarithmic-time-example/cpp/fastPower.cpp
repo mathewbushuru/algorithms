@@ -2,6 +2,14 @@
 
 #include <iostream>
 
+long long fastPower(long long base, long long exponent);
+
+int main()
+{
+    // 1024
+    std::cout << fastPower(2, 10) << std::endl;
+}
+
 long long fastPower(long long base, long long exponent)
 {
     if (exponent == 0)
@@ -19,10 +27,4 @@ long long fastPower(long long base, long long exponent)
     {
         return base * halfPower * halfPower;
     }
-}
-
-int main()
-{   
-    // 1024
-    std::cout << fastPower(2, 10) << std::endl;
 }

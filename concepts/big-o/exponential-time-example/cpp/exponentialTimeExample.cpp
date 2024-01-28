@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 int fibonacci(int n);
-int fibonacciBetter(int n, std::vector<int> &memo);
+int fibonacciBetter(int n, std::vector<int>& memo);
 
 int main()
 {
@@ -38,7 +38,7 @@ int fibonacci(int n)
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-int fibonacciBetter(int n, std::vector<int> &memo)
+int fibonacciBetter(int n, std::vector<int>& memo)
 {
     if (n < 0)
     {
