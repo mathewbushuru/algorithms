@@ -570,22 +570,25 @@ let len = str1.length;
 /**
  * finding a substring
  */
-// first occurrence (-1 if not found) - 17
-let position = str3.indexOf("string");
-// last occurrence - 35
-let lastPosition = str3.lastIndexOf("string");
-// checking substring existence - true
-let exists = str1.includes("string");
+// first occurrence (-1 if not found)
+let position = str3.indexOf("string");      // 17
+
+// last occurrence
+let lastPosition = str3.lastIndexOf("string");    // 35
+
+// checking substring existence
+let exists = str1.includes("string");       // true
 
 /**
  * substring, slice
  */
 // substring(start, end);
-// extract characters from start to (end - 1) - 'is a s'
-let sub = str1.substring(5, 11);
+// extract characters from start to (end - 1)
+let sub = str1.substring(5, 11);              // 'is a s'
+
 // slice(start, end);
-// similar to substring but can accept negative indices - 'is a strin'
-let sub2 = str1.slice(5, -1);
+// similar to substring but can accept negative indices
+let sub2 = str1.slice(5, -1);                 // 'is a strin'
 
 /**
  * string manipulation
@@ -593,20 +596,24 @@ let sub2 = str1.slice(5, -1);
 // concatenation
 let concatedStr = str1 + " " + str2;
 let concatedStr2 = str1.concat(str2);
+
 // template literals
 let name = "Matt";
 let greeting = `Hello ${name}!`;
+
 // changing case
 let upper = str1.toUpperCase();
 let lower = str1.toLowerCase();
-// trimming spaces at start and end - 'extra spaces'
-let trimmed = "    extra spaces     ".trim();
+
+// trimming spaces at start and end
+let trimmed = "    extra spaces     ".trim();         // 'extra spaces'
 
 /**
  * splitting and joining
  */
 // split(delimiter); - string into an array
 let words = str1.split(" ");
+
 // join(delimiter); - array into string
 let sentence = words.join(" ");
 
