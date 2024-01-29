@@ -417,7 +417,7 @@ function binarySearch(array, target) {
 }
 ```
 
-Other implementations: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/java/BinarySearch.java),[`C++`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/java/binarySearch.cpp), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/python/binarySearch.py) ,[`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/c/binarySearch.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/typescript/binarySearch.ts)
+Other implementations: [`Java`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/java/BinarySearch.java),[`C++`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/cpp/binarySearch.cpp), [`Python`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/python/binarySearch.py) ,[`C`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/c/binarySearch.c), [`TypeScript`](https://github.com/mathewbushuru/algorithms/blob/main/algorithms/search-algorithms/binary-search/typescript/binarySearch.ts)
 
 Time complexity: `O(log(n))`
 
