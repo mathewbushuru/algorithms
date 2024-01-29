@@ -625,7 +625,7 @@ let replaced = str1.replace("string", "replacedString");
 
 JavaScript strings are immutable so methods that seem to modify strings like `replace` or `toUpperCase` actually return new strings.
 
-Other languages: [`Java `](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/strings/java/StringOperations.java)
+Other languages: [`Java `](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/strings/java/StringOperations.java), [`C++ `](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/strings/cpp/stringOperations.cpp)
 
 ## Trees
 
