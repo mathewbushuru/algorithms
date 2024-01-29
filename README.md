@@ -543,7 +543,7 @@ let numOfElementsToRemove = 0;
 months.splice(startIndex, numOfElementsToRemove, "Feb");
 ```
 
-Other languages: [`Java - Arrays`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/java/ArrayOperations.java), [`Java - ArrayLists`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/java/ArrayListOperations.java), [`C++ - Arrays`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/cpp/arrayOperations.cpp)
+Other languages: [`Java - Arrays`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/java/ArrayOperations.java), [`Java - ArrayLists`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/java/ArrayListOperations.java), [`C++ - Arrays`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/cpp/arrayOperations.cpp), [`C++ - Vectors`](https://github.com/mathewbushuru/algorithms/blob/main/data-structures/arrays/cpp/vectorOperations.cpp)
 
 **String operations**
 
