@@ -137,7 +137,5 @@ int main()
     }
     std::cout << std::endl;                             //H e l l o   m u l t i v e r s e 
 
-    std::cout << cString << std::endl;  
-
     return 0;
 }
