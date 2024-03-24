@@ -1,7 +1,12 @@
 // g++ -std=c++17 binaryTree.cpp -o binaryTree && ./binaryTree
 
+/*
+* Use std::unique_ptr for automatic memory management to ensure memory for
+* nodes is properly deallocated when no longer needed to prevent memory leaks.
+*/
+
 #include <iostream>
-#include <memory>
+#include <memory>           // for smart pointers support
 
 class Node {
 public:
@@ -9,7 +14,7 @@ public:
     std::unique_ptr<Node> left;
     std::unique_ptr<Node> right;
 
-    Node(int value) : value(value) {}
+    Node(int val) : value(val), left(nullptr), right(nullptr) {}           // constructor that takes an int and uses it to initialize value member of the class. If left or null not initialized here, unique_ptr constructor would have assigned them null anyway.
 };
 
 class BinaryTree {
@@ -20,7 +25,7 @@ private:
     {
         if (!node)
         {
-            node = std::make_unique<Node>(value);
+            node = std::make_unique<Node>(value);           // make_unique creates instance of Node using value and return unique_ptr to that instance
         }
         else
         {
@@ -44,6 +49,7 @@ private:
 
         if (value < node->value)
         {
+            // move allows left pointer to take ownership of modified subtree without copying it
             node->left = std::move(deleteNode(node->left, value));
         }
         else if (value > node->value)
