@@ -70,6 +70,7 @@ private:
             else
             {
                 // has two children
+                // get() function used to access the raw pointer managed by unique_ptr
                 Node* minRight = node->right.get();
                 while (minRight->left)
                 {
