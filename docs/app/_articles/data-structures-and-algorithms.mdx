@@ -1,0 +1,3583 @@
+---
+title: "Data Structures and Algorithms"
+lastModified: "2024-08-18"
+summary: "Computer science algorithms and data structures implemented in Java, C++,JavaScript, C, TypeScript and Python."
+preview: "This article contains in-depth explanations to key computer science concepts, algorithms and data structures. They are implemented in `JavaScript`, `Java`, `C++`, `Python`, `TypeScript`, `C` and `C#`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable."
+---
+
+This article contains in-depth explanations to key computer science concepts, algorithms and data structures. They are implemented in `JavaScript`, `Java`, `C++`, `Python`, `TypeScript`, `C` and `C#`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
+
+{/* ## Table of Contents
+
+- [Concepts](#concepts)
+  - [Big O](#big-o)
+- [Algorithms](#algorithms)
+  - [Sorting Algorithms](#sorting-algorithms)
+    - [Insertion Sort](#insertion-sort)
+  - [Search Algorithms](#search-algorithms)
+    - [Binary Search](#binary-search)
+- [Data Structures](#data-structures)
+
+  - [Arrays and Strings](#arrays-and-strings)
+  - [Trees](#trees)
+    - [Binary Trees](#binary-trees)
+    - [Binary Search Trees](#binary-search-trees) */}
+
+## General Concepts
+
+### Big O
+
+Big O notation describes the upper bound of an algorithm in the worst case scenario, meaning how the runtime or space requirements grow as the input size grows. It gives us an idea on the efficiency of an algorithm, particularly in the context of scalability.
+
+Below are some common Big-O complexities, from fastest to slowest:
+
+- **O(1), constant time**: Algorithm takes constant amount of time, regardless of input size.
+- **O(log(n)), logarithmic time**: Common in algorithms that decrease the input size with each iteration, e.g binary search.
+- **O(n)), linear time**: Runtime grows linearly with input size, e.g simple search algorithms
+- **O(nlog(n))), loglinear time**: The running time increases linearly with input size, but it incorporates a logarithmic growth factor e.g merge sort
+- **O(n^2), O(n^3), polynomial time**: Often seen in nested loops e.g bubble sort
+- **O(2^n), exponential time**: The running time doubles for each additional element in the input. It is typically in recursive processes where each step generates multiple additional recursive steps e.g the recursive implementation of Fibonacci numbers.
+- **O(n!), factorial time**: Very slow algorithms typically in problems requiring permutations or combinations, eg solving the traveling salesman problem by brute force.
+
+Big O is also used to represent how the amount of memory used by an algorithm grows with input size. We ignore the constant coeffiecients and smaller terms in Big O.
+
+**O(1) Constant time example - accessing element from array**
+
+<Tabs defaultValue="js">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+</TabsList>
+<TabsContent value="js">
+```js
+function getArrayElement(arr, index) {
+  return arr[index];
+}
+
+const arr1 = [1, 2, 3, 4, 5];
+// 3
+console.log(getArrayElement(arr1, 2));
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+public class ConstantTimeExample {
+    public static void main(String[] args){
+        int[] arr1 = {1, 2, 3, 4, 5};
+        // 3
+        System.out.println(getArrayElement(arr1, 2));
+    }
+
+    public static int getArrayElement(int[] arr, int index){
+        return arr[index];
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp
+// g++ constantTimeExample.cpp -o constantTimeExample -std=c++20 && ./constantTimeExample
+
+#include <iostream>
+#include <array>
+
+template <size_t N>
+int getArrayElement(const std::array<int, N>& arr, size_t index);
+
+int main()
+{
+    std::array<int, 5> arr1 = { 1, 2, 3, 4, 5 };
+
+    // 3
+    std::cout << getArrayElement(arr1, 2) << std::endl;
+
+    return 0;
+}
+
+template <size_t N>
+int getArrayElement(const std::array<int, N>& arr, size_t index)
+{
+    return arr[index];
+}
+```
+</TabsContent>
+</Tabs>
+
+**O(log(n)) logarithmic time example - fast power algorithm**
+
+Fast power algorithm calculates the power of a number in logarithmic time using the 'exponentiation by squaring' method.
+
+If we want to compute a^n:
+
+- if n is even, then a^n = (a^(n/2))^2
+- if n is odd, then a^n = a x a^(n-1)
+
+<Tabs defaultValue="js">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+</TabsList>
+<TabsContent value="js">
+```js
+function fastPower(base, exponent) {
+  if (exponent === 0) {
+    return 1;
+  }
+
+  const halfPower = fastPower(base, Math.floor(exponent / 2));
+
+  if (exponent % 2 === 0) {
+    return halfPower * halfPower;
+  } else {
+    return base * halfPower * halfPower;
+  }
+}
+
+// 1024
+console.log(fastPower(2, 10));
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+public class FastPowerExample {
+    public static void main(String[] args) {
+        // 1024
+        System.out.println(fastPower(2, 10));
+    }
+
+    public static long fastPower(long base, int exponent){
+        if (exponent == 0) return 1; 
+
+        long halfPower = fastPower(base, exponent / 2); 
+
+        if (exponent % 2 == 0){
+            return halfPower * halfPower;
+        } else {
+            return base * halfPower * halfPower;
+        }
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp 
+// g++ fastPower.cpp -o fastPower -std=c++20 && ./fastPower
+
+#include <iostream>
+
+long long fastPower(long long base, long long exponent);
+
+int main()
+{
+    // 1024
+    std::cout << fastPower(2, 10) << std::endl;
+}
+
+long long fastPower(long long base, long long exponent)
+{
+    if (exponent == 0)
+    {
+        return 1;
+    }
+
+    long long halfPower = fastPower(base, exponent / 2);
+
+    if (exponent % 2 == 0)
+    {
+        return halfPower * halfPower;
+    }
+    else
+    {
+        return base * halfPower * halfPower;
+    }
+}
+```
+</TabsContent>
+</Tabs>
+
+**O(n) Linear time example - max element in unsorted list**
+
+<Tabs defaultValue="js">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+</TabsList>
+<TabsContent value="js">
+```js
+function findMax(arr) {
+  let maxVal = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] > maxVal) {
+      maxVal = arr[i];
+    }
+  }
+
+  return maxVal;
+}
+
+const sampleArray = [3, 1, 4, 5, 9, 2, 6, 5];
+// 9
+console.log(findMax(sampleArray));
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+public class LinearTimeExample {
+    public static void main(String[] args){
+        int[] sampleArray = {3, 1, 4, 5, 9, 2, 6, 5};
+        // 9
+        System.out.println(findMax(sampleArray));
+    }
+
+    public static int findMax(int[] arr){
+        int maxVal = arr[0];
+
+        for (int i = 1; i < arr.length; i++){
+            if (arr[i] > maxVal){
+                maxVal = arr[i];
+            }
+        }
+
+        return maxVal;
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp 
+// g++ linearTimeExample.cpp -o linearTimeExample -std=c++20 && ./linearTimeExample
+
+#include <iostream>
+#include <vector>
+
+int findMax(const std::vector<int>& vec);
+
+int main()
+{
+    std::vector<int> sampleVector{ 3, 1, 4, 5, 9, 2, 6, 5 };
+
+    // 9
+    std::cout << findMax(sampleVector) << std::endl;
+
+    return 0;
+}
+
+int findMax(const std::vector<int>& vec)
+{
+    int maxVal{ vec[0] };
+
+    for (size_t i{ 0 }; i < vec.size(); ++i)
+    {
+        if (vec[i] > maxVal)
+        {
+            maxVal = vec[i];
+        }
+    }
+
+    return maxVal;
+}
+```
+</TabsContent>
+</Tabs>
+
+**O(nlog(n)) LogLinear time example - merge sort**
+
+For each increase in input size, the time it takes to complete the task grows in a way that's proportional to both the size of the input and the logarithm of that size. The logarithmic component typically comes from dividing the problem into smaller parts (divide and conquer), and the linear component is from processing each part.
+
+<Tabs defaultValue="js">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+</TabsList>
+<TabsContent value="js">
+```js
+function mergeSort(arr) {
+  // base case
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  // divide array into two
+  const leftArr = arr.slice(0, arr.length / 2);
+  const rightArr = arr.slice(arr.length / 2);
+
+  // sort each half array
+  const sortedLeft = mergeSort(leftArr);
+  const sortedRight = mergeSort(rightArr);
+
+  // merge sorted left and right arrays
+  const sortedArr = mergeSortedArrays(sortedLeft, sortedRight);
+
+  return sortedArr;
+}
+
+function mergeSortedArrays(arr1, arr2) {
+  let i = 0;
+  let j = 0;
+  const sortedArr = [];
+
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] < arr2[j]) {
+      sortedArr.push(arr1[i]);
+      i += 1;
+    } else {
+      sortedArr.push(arr2[j]);
+      j += 1;
+    }
+  }
+
+  while (i < arr1.length) {
+    sortedArr.push(arr1[i]);
+    i += 1;
+  }
+
+  while (j < arr2.length) {
+    sortedArr.push(arr2[j]);
+    j += 1;
+  }
+
+  return sortedArr;
+}
+
+const arr = [2, 4, 9, 6, 1, 8, 3, 5, 7];
+// [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log(mergeSort(arr));
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+import java.util.List;
+import java.util.ArrayList;
+
+public class MergeSort {
+    public static void main(String[] args) {
+        List<Integer> arr = List.of(2, 4, 9, 6, 1, 8, 3, 5, 7);
+        List<Integer> sortedArr = mergeSort(arr);
+        // [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        System.out.println(sortedArr);
+    }
+
+    public static List<Integer> mergeSort(List<Integer> list) {
+        // base case - already sorted
+        if (list.size() < 2) {
+            return list;
+        }
+
+        // otherwise divide list into two halves
+        List<Integer> leftList = new ArrayList<>(list.subList(0, list.size() / 2));
+        List<Integer> rightList = new ArrayList<>(list.subList(list.size() / 2, list.size()));
+
+        // sort each half
+        List<Integer> sortedLeft = mergeSort(leftList);
+        List<Integer> sortedRight = mergeSort(rightList);
+
+        // merge sorted halves
+        return merge(sortedLeft, sortedRight);
+    }
+
+    private static List<Integer> merge(List<Integer> left, List<Integer> right) {
+        List<Integer> merged = new ArrayList<>();
+
+        int leftIndex = 0;
+        int rightIndex = 0;
+
+        // merge the two arrays while they each have elements
+        while (leftIndex < left.size() && rightIndex < right.size()) {
+            if (left.get(leftIndex) < right.get(rightIndex)) {
+                merged.add(left.get(leftIndex));
+                leftIndex += 1;
+            } else {
+                merged.add(right.get(rightIndex));
+                rightIndex += 1;
+            }
+        }
+
+        // append any remaining elements
+        while (leftIndex < left.size()){
+            merged.add(left.get(leftIndex));
+            leftIndex += 1;
+        }
+
+        while (rightIndex < right.size()){
+            merged.add(right.get(rightIndex));
+            rightIndex += 1;
+        }
+
+        return merged;
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp 
+// g++-13 mergeSort.cpp -o mergeSort -std=c++20 && ./mergeSort
+
+#include <iostream>
+#include <vector>
+
+std::vector<int> mergeSort(const std::vector<int>& vec);
+std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right);
+
+int main()
+{
+    std::vector<int> sampleVector{ 2, 4, 9, 6, 1, 8, 3, 5, 7 };
+
+    auto sortedVector = mergeSort(sampleVector);
+
+    // 1 2 3 4 5 6 7 8 9
+    for (int value : sortedVector)
+    {
+        std::cout << value << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
+std::vector<int> mergeSort(const std::vector<int>& vec)
+{
+    if (vec.size() < 2)
+    {
+        return vec;
+    }
+
+    int mid = vec.size() / 2;
+
+    // call vector constructor with iterators from original vector
+    std::vector<int> leftHalf(vec.begin(), vec.begin() + mid);
+    std::vector<int> rightHalf(vec.begin() + mid, vec.end());
+
+    std::vector<int> sortedLeft = mergeSort(leftHalf);
+    std::vector<int> sortedRight = mergeSort(rightHalf);
+
+    return merge(sortedLeft, sortedRight);
+}
+
+std::vector<int> merge(const std::vector<int>& left, const std::vector<int>& right)
+{
+    std::vector<int> result;
+
+    auto leftIt = left.begin();
+    auto rightIt = right.begin();
+
+    while (leftIt < left.end() && rightIt < right.end())
+    {
+        if (*leftIt < *rightIt)
+        {
+            result.push_back(*leftIt);
+            ++leftIt;
+        }
+        else
+        {
+            result.push_back(*rightIt);
+            ++rightIt;
+        }
+    }
+
+    // result.insert(result.end(), leftIt, left.end());
+    // result.insert(result.end(), rightIt, right.end());
+
+    while (leftIt < left.end())
+    {
+        result.push_back(*leftIt);
+        ++leftIt;
+    }
+
+    while (rightIt < right.end())
+    {
+        result.push_back(*rightIt);
+        ++rightIt;
+    }
+
+    return result;
+}
+```
+</TabsContent>
+</Tabs>
+
+**O(n^3) Polynomial time example - 3 Sum problem naive solution**
+
+For the three sum problem, we are given an array of n numbers, and we determine if there exists three elements a, b and c in the array such that a + b + c = 0;
+
+
+```js
+// JavaScript
+function threeSumZero(arr) {
+  let n = arr.length;
+
+  for (let i = 0; i < n - 2; i++) {
+    for (let j = i + 1; j < n - 1; j++) {
+      for (let k = j + 1; k < n; k++) {
+        if (arr[i] + arr[j] + arr[k] === 0) {
+          return [arr[i], arr[j], arr[k]];
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+const sampleArray = [-1, 0, 1, 2, -1, -4];
+// [-1, 0, 1]
+console.log(threeSumZero(sampleArray));
+```
+
+Note that we can get more efficient implementations to the three sum example. In the example below, we use the two-pointer technique to reduce the runtime to O(n^2). The idea is to sort the array first, and then for each element, use two pointers to find the pair that sums up to negate that element.
+
+<Tabs defaultValue="js">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+</TabsList>
+<TabsContent value="js">
+```js
+function threeSumZeroBetter(arr) {
+  // eg arr = [-1, 0, 1, 2, -1, -4]
+
+  // sort the array, O(nlogn)
+  // arr now [-4, -1, -1, 0, 1, 2]
+  arr.sort((a, b) => a - b);
+
+  for (let i = 0; i < arr.length - 2; i++) {
+    if (i > 0 && arr[i] === arr[i - 1]) {
+      // skip duplicates
+      continue;
+    }
+
+    let left = i + 1;
+    let right = arr.length - 1;
+
+    while (left < right) {
+      const sum = arr[i] + arr[left] + arr[right];
+
+      if (sum === 0) {
+        return [arr[i], arr[left], arr[right]];
+      } else if (sum < 0) {
+        left++;
+      } else {
+        right--;
+      }
+    }
+  }
+
+  // no triplet found
+  return null;
+}
+
+// [ -1, -1, 2 ]
+console.log(threeSumZeroBetter(sampleArray));
+```
+</TabsContent >
+<TabsContent value="java">
+```java 
+import java.util.Arrays;
+
+public class ThreeSum {
+    public static int[] threeSumZero(int[] arr) {
+        int n = arr.length;
+
+        for (int i = 0; i < n - 2; i++) {
+            for (int j = i + 1; j < n - 1; j++) {
+                for (int k = j + 1; j < n; j++) {
+                    if (arr[i] + arr[j] + arr[k] == 0) {
+                        int[] result = { arr[i], arr[j], arr[k] };
+                        return result;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public static int[] threeSumZeroBetter(int[] arr) {
+        Arrays.sort(arr);
+
+        for (int i = 0; i < arr.length - 2; i++) {
+            if (i > 0 && arr[i] == arr[i - 1]) {
+                continue;
+            }
+
+            int left = i + 1;
+            int right = arr.length - 1;
+
+            while (left < right) {
+                int sum = arr[i] + arr[left] + arr[right];
+
+                if (sum == 0) {
+                    int[] result = { arr[i], arr[left], arr[right] };
+                    return result;
+                } else if (sum < 0) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public static void main(String[] args) {
+        int[] sampleArr1 = { -1, 0, 1, 2, -1, -4 };
+        // [-1, 0, 1]
+        System.out.println(Arrays.toString(threeSumZero(sampleArr1)));
+
+        int[] sampleArr2 = { -1, 0, 1, 2, -1, -4 };
+        // [-1, -1, 2]
+        System.out.println(Arrays.toString(threeSumZeroBetter(sampleArr2)));
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp
+// g++ threeSum.cpp -o threeSum -std=c++20 && ./threeSum
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <stdexcept>
+
+std::vector<int> threeSumZero(const std::vector<int>& vec);
+std::vector<int> threeSumZeroBetter(std::vector<int> vec);
+
+int main()
+{
+    std::vector<int> sampleVector1{ -1, 0, 1, 2, -1, -4 };
+    std::vector<int> result1 = threeSumZero(sampleVector1);
+
+    if (result1.empty())
+    {
+        std::cout << "No triplet found" << std::endl;
+    }
+    else
+    {
+        // -1, 0, 1
+        std::cout << result1[0] << ", " << result1[1] << ", " << result1[2] << std::endl;
+    }
+
+    // using copy constructor
+    std::vector<int> sampleVector2(sampleVector1);
+    std::vector<int> result2 = threeSumZeroBetter(sampleVector2);
+
+    if (result2.empty())
+    {
+        std::cout << "No triplet found" << std::endl;
+    }
+    else
+    {
+        // -1, -1, 2
+        std::cout << result2[0] << ", " << result2[1] << ", " << result2[2] << std::endl;
+    }
+
+    return 0;
+}
+
+std::vector<int> threeSumZero(const std::vector<int>& vec)
+{
+    size_t n{ vec.size() };
+
+    if (n < 3)
+    {
+        throw std::invalid_argument("Input vector must have at least three elements.");
+    }
+
+    std::vector<int> result{};
+    size_t i, j, k;
+
+    for (i = 0; i < n - 2; ++i)
+    {
+        for (j = i + 1; j < n - 1; ++j)
+        {
+            for (k = j + 1; k < n; ++k)
+            {
+                if (vec.at(i) + vec.at(j) + vec.at(k) == 0)
+                {
+                    result.insert(result.end(), { vec.at(i), vec.at(j), vec.at(k) });
+                    return result;
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+std::vector<int> threeSumZeroBetter(std::vector<int> vec)
+{
+    if (vec.size() < 3)
+    {
+        throw std::invalid_argument("Input vector must have at least three elements.");
+    }
+
+    // modifying vector - that's why i'm not passing it by  reference
+    std::sort(vec.begin(), vec.end());
+
+    std::vector<int> result{};
+    size_t i, left, right;
+    int sum;
+
+    for (i = 0; i < vec.size() - 2; ++i)
+    {
+        if (i > 0 && vec[i] == vec[i - 1])
+        {
+            continue;
+        }
+
+        left = i + 1;
+        right = vec.size() - 1;
+
+        while (left < right)
+        {
+            sum = vec[i] + vec[left] + vec[right];
+
+            if (sum == 0)
+            {
+                result.insert(result.end(), { vec[i], vec[left], vec[right] });
+                return result;
+            }
+            else if (sum < 0)
+            {
+                ++left;
+            }
+            else
+            {
+                --right;
+            }
+        }
+    }
+
+    return result;
+}
+```
+</TabsContent>
+</Tabs>
+
+**O(2^n) Exponential time example - compute n^th Fibonacci number**
+
+They arise when we have multiple recursion calls for each step of the algorithm.
+
+```js
+// JavaScript
+function fibonacci(n) {
+  if (n <= 1) {
+    return n;
+  }
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// 55
+console.log(fibonacci(10));
+```
+
+Note that this native recursive implementation is very inefficient especially for large values of n. We can use memoization to greatly reduce the time complexity by storing previously computed results and avoiding redundant calculations. The optimization below reduces the runtime to O(n).
+
+<Tabs defaultValue="js">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+</TabsList>
+<TabsContent value="js">
+```js
+function fibonacciBetter(n, memo = []) {
+  if (memo[n] !== undefined) return memo[n];
+
+  if (n <= 1) return n;
+
+  memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);
+  return memo[n];
+}
+
+// 55
+console.log(fibonacciBetter(10));
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+import java.util.Arrays;
+
+public class ExponentialTimeExample {
+    public static void main(String[] args) {
+        // 55
+        System.out.println(fibonacci(10));
+
+        // 55
+        System.out.println(fibonacciBetter(10));
+    }
+
+    public static int fibonacci(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        return fibonacci(n - 1) + fibonacci(n - 2);
+    }
+
+    // optimized version
+    public static int fibonacciBetter(int n) {
+        // n + 1 elements: 0 upto and including n
+        int[] memo = new int[n + 1];
+
+        Arrays.fill(memo, -1);
+
+        return fibonacciMemo(n, memo);
+    }
+
+    private static int fibonacciMemo(int n, int[] memo) {
+        if (memo[n] != -1) {
+            return memo[n];
+        }
+
+        if (n <= 1) {
+            return n;
+        }
+
+        memo[n] = fibonacciMemo(n - 1, memo) + fibonacciMemo(n - 2, memo);
+
+        return memo[n];
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp 
+// g++ exponentialTimeExample.cpp -o exponentialTimeExample -std=c++20 && ./exponentialTimeExample
+
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+
+int fibonacci(int n);
+int fibonacciBetter(int n, std::vector<int>& memo);
+
+int main()
+{
+    int n = 10;
+
+    // vector constructor to initialize vector of size n+1 initially with -1s
+    std::vector<int> memo(n + 1, -1);
+
+    // 55
+    std::cout << fibonacci(n) << std::endl;
+
+    // 55
+    std::cout << fibonacciBetter(n, memo) << std::endl;
+
+    return 0;
+}
+
+int fibonacci(int n)
+{
+    if (n < 0)
+    {
+        throw std::invalid_argument("n should be greater than 0");
+    }
+
+    if (n == 0 || n == 1)
+    {
+        return n;
+    }
+
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int fibonacciBetter(int n, std::vector<int>& memo)
+{
+    if (n < 0)
+    {
+        throw std::invalid_argument("n should be greater than 0");
+    }
+
+    if (memo[n] != -1)
+    {
+        return memo[n];
+    }
+
+    if (n == 0 || n == 1)
+    {
+        return n;
+    }
+
+    memo[n] = fibonacciBetter(n - 1, memo) + fibonacciBetter(n - 2, memo);
+    return memo[n];
+}
+```
+</TabsContent>
+</Tabs>
+
+A way to generalize the runtimes of recursive functions is often O(branches^depth), where branches is the number of times each recursive call branches e.g 2 for fibonacci.
+
+{/* **O(n!) Factorial time example - Travelling Salesman Problem**
+
+The  "Travelling Salesman Problem"(TSP) can be naively(brute-force) solved using a factorial-time complexity algorithm. TSP is stated as: Given a list of cities and distances between each pair of cities, find the shortest possible route that visits each city once and returns to the origin city.
+
+The brute-force approach is to generate all possible permutations of cities and calculate the total distance for each permutation. */}
+
+---
+
+## Algorithms
+
+### Sorting algorithms
+
+#### Insertion Sort
+
+Insertion sort builds the final sorted array, one element at a time by shifting elements to the right until the correct position in the sorted portion of the array is found. An intuitive way that I have seen it being described is it is like sorting a hand of playing cards - take a card, find its correct place within sorted cards, and insert it at that location.
+
+***Algorithm***
+
+Initialization
+
+- Assuming we have an unsorted array of numbers: `[9,3,5,1,7,2,8,4]`
+- We take the first element and consider it as the sorted portion of the array. `[9]`
+
+Iteration
+
+- Iterate over the remaining elements in the array starting from the second element `i=1`
+- In each iteration, compare the current element with the sorted portion of the array, moving elements to the right until we find the correct position to insert the current element `array[i]`
+
+Insertion
+
+- For our example, consider the first element outside the sorted portion, `array[i]=3`
+- Compare `3` with the elements in the sorted portion `[9]`
+- `3` is smaller than `9` so move `9` one position to the right resulting in `[3,9]` as the current sorted portion of the array
+
+Repeat until the array is sorted
+
+- continue for all the remaining unsorted elements, comparing and shifting as necessary
+- Once we reach the end of the array, it will be fully sorted
+
+***Implementation***
+
+<Tabs defaultValue="js">
+<div className="overflow-x-auto">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+    <TabsTrigger value="python">Python</TabsTrigger>
+    <TabsTrigger value="c">C</TabsTrigger>
+    <TabsTrigger value="ts">TypeScript</TabsTrigger>
+</TabsList>
+</div>
+<TabsContent value="js">
+```js
+function insertionSort(array) {
+  for (let i = 1; i < array.length; i++) {
+    const currVal = array[i];
+
+    let j = i - 1;
+    while (j >= 0 && array[j] > currVal) {
+      array[j + 1] = array[j];
+      j -= 1;
+    }
+
+    array[j + 1] = currVal;
+  }
+  return array;
+}
+
+const arr = [9, 3, 5, 1, 7, 2, 8, 4];
+
+// [ 1, 2, 3, 4, 5, 7, 8, 9]
+console.log(insertionSort(arr));
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+public class insertionSort {
+    public static void main(String[] args) {
+        int[] arr = { 9, 3, 5, 1, 7, 2, 8, 4 };
+        sort(arr);
+        // 1 2 3 4 5 6 7 8 9
+        printArray(arr);
+    }
+
+    public static void sort(int[] array) {
+        for (int i = 1; i < array.length; i++) {
+            int currVal = array[i];
+            int j = i - 1;
+            while (j >= 0 && array[j] > currVal) {
+                array[j + 1] = array[j];
+                j--;
+            }
+            array[j + 1] = currVal;
+        }
+    }
+
+    public static void printArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp 
+// g++ insertionSort.cpp -o insertionSort -std=c++20 && ./insertionSort
+
+#include <iostream>
+#include <vector>
+
+void insertionSort(std::vector<int>& vec);
+
+int main()
+{
+    std::vector<int> vec1{ 9,3,5,1,7,2,8,4 };
+
+    insertionSort(vec1);
+
+    // [ 1 2 3 4 5 7 8 9 ]
+    std::cout << "[ ";
+    for (int val : vec1)
+    {
+        std::cout << val << " ";
+    }
+    std::cout << "]" << std::endl;
+
+    return 0;
+}
+
+void insertionSort(std::vector<int>& vec)
+{
+    int i, j;
+    int currVal;
+
+    for (i = 1; i < vec.size(); ++i)
+    {
+        currVal = vec[i];
+        j = i - 1;
+
+        while (j >= 0 && vec[j] > currVal)
+        {
+            vec[j + 1] = vec[j];
+            --j;
+        }
+
+        vec[j + 1] = currVal;
+    }
+}
+```
+</TabsContent>
+<TabsContent value="python">
+```python 
+def insertion_sort(list):
+    for i in range(1, len(list)):
+        currVal = arr[i]
+        j = i - 1
+        while j >= 0 and list[j] > currVal:
+            list[j + 1] = list[j]
+            j -= 1
+        list[j + 1] = currVal
+    return list
+
+
+arr = [9, 3, 5, 1, 7, 2, 8, 4]
+sorted_arr = insertion_sort((arr))
+
+# [1, 2, 3, 4, 5, 7, 8, 9]
+print(sorted_arr)
+```
+</TabsContent>
+<TabsContent value="c">
+```c 
+// gcc insertion_sort.c -o insertion_sort && ./insertion_sort
+
+#include <stdio.h>
+
+void insertionSort(int array[], int size);
+void printArray(int array[], int size);
+
+int main()
+{
+    int arr[] = {9, 3, 5, 1, 7, 2, 8, 4};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    insertionSort(arr, size);
+
+    // 1 2 3 4 5 7 8 9
+    printArray(arr, size);
+
+    return 0;
+}
+
+void insertionSort(int array[], int size)
+{
+    int i, j;
+    int currVal;
+
+    for (i = 1; i < size; ++i)
+    {
+        currVal = array[i];
+
+        j = i - 1;
+        while (j >= 0 && array[j] > currVal)
+        {
+            array[j + 1] = array[j];
+            j--;
+        }
+
+        array[j + 1] = currVal;
+    }
+}
+
+void printArray(int array[], int size)
+{
+    int i;
+
+    for (i = 0; i < size; ++i)
+    {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+}
+```
+</TabsContent>
+<TabsContent value="ts">
+```ts 
+function insertionSort(array: number[]): number[] {
+  for (let i = 1; i < array.length; i++) {
+    const currVal = array[i];
+
+    let j = i - 1;
+    while (j >= 0 && array[j] > currVal) {
+      array[j + 1] = array[j];
+      j -= 1;
+    }
+
+    array[j + 1] = currVal;
+  }
+  return array;
+}
+
+const arr: number[] = [9, 3, 5, 1, 7, 2, 8, 4];
+const sortedArr: number[] = insertionSort(arr);
+
+// [1, 2, 3, 4, 5, 7, 8, 9]
+console.log(sortedArr);
+```
+</TabsContent>
+</Tabs>
+
+Time Complexity:
+
+- Best case: `O(n)`
+- Average and Worst case: `(O(n^2))`
+
+Space Complexity: O(1)
+
+### Search Algorithms
+
+#### Binary Search
+
+Binary search is a divide and conquer algorithm used to efficiently search for a specific element in a sorted array. It works by repeatedly dividing the search space in half, eliminating the half that cannot contain the target element.
+
+***Implementation***
+
+```js
+// JavaScript
+function binarySearch(array, target) {
+  // lowest index of search space
+  let low = 0;
+  // highest index of search space
+  let high = array.length - 1;
+
+  while (low <= high) {
+    // find the middle index
+    let mid = Math.floor((low + high) / 2);
+
+    if (array[mid] === target) {
+      // target element found at middle index
+      return mid;
+    } else if (array[mid] < target) {
+      // update lower bound to search in right half
+      low = mid + 1;
+    } else {
+      // update upper bound to search in lower half
+      high = mid - 1;
+    }
+  }
+
+  // if we reach here, target was not found
+  return -1;
+}
+```
+
+We can also use recursion to implement binary search but it has a worse space complexity.
+
+<Tabs defaultValue="js">
+<div className="overflow-x-auto">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+    <TabsTrigger value="python">Python</TabsTrigger>
+    <TabsTrigger value="c">C</TabsTrigger>
+    <TabsTrigger value="ts">TypeScript</TabsTrigger>
+</TabsList>
+</div>
+<TabsContent value="js">
+```js
+function binarySearchRecursive(array, target) {
+  return binarySearchRecursiveHelper(array, target, 0, array.length - 1);
+}
+
+function binarySearchRecursiveHelper(array, target, low, high) {
+  if (low > high) {
+    // target element not found
+    return -1;
+  }
+
+  // find middle index
+  let mid = Math.floor((low + high) / 2);
+
+  if (array[mid] === target) {
+    // target element found at middle index
+    return mid;
+  } else if (array[mid] < target) {
+    // search in right half
+    return binarySearchRecursiveHelper(array, target, mid + 1, high);
+  } else {
+    // search in left half
+    return binarySearchRecursiveHelper(array, target, low, mid - 1);
+  }
+}
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+
+// 5
+console.log(binarySearchRecursive(arr, 6));
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+public class BinarySearch {
+    public static void main(String[] args) {
+        int[] arr = { 2, 4, 6, 8, 10, 12, 14, 16 };
+        int target = 10;
+
+        int result = binarySearch(arr, target);
+
+        if (result == -1) {
+            System.out.println("Target element not found.");
+        } else {
+            System.out.println("Target element found at " + result + ".");
+        }
+    }
+
+    public static int binarySearch(int[] array, int target) {
+        int low = 0;
+        int high = array.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (array[mid] == target) {
+                return mid;
+            } else if (array[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return -1;
+    }
+}
+```
+</TabsContent>
+<TabsContent  value="cpp">
+```cpp 
+// g++ binarySearch.cpp -o binarySearch -std=c++20 && ./binarySearch
+
+#include <iostream>
+#include <vector>
+
+int binarySearchIterative(const std::vector<int>& vec, int target);
+int binarySearchRecursive(const std::vector<int>& vec, int target);
+int binarySearchRecursiveHelper(const std::vector<int>&, int target, int low, int high);
+
+int main()
+{
+    std::vector<int> vec1{ 1, 2, 3, 4, 5, 6, 7, 8 };
+
+    int result;
+
+    // 5
+    result = binarySearchIterative(vec1, 6);
+    std::cout << "Iterative result: " << result << std::endl;
+
+    // 5
+    result = binarySearchRecursive(vec1, 6);
+    std::cout << "Recursive result: " << result << std::endl;
+
+    return 0;
+}
+
+int binarySearchIterative(const std::vector<int>& vec, int target)
+{
+    int low = 0;
+    int high = vec.size() - 1;
+    int mid;
+
+    while (low <= high)
+    {
+        // use this instead of (low + high)/2 to avoid potential overflow
+        mid = low + (high - low) / 2;
+
+        if (vec[mid] == target)
+        {
+            return mid;
+        }
+        else if (vec[mid] < target)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+
+    return -1;
+}
+
+int binarySearchRecursive(const std::vector<int>& vec, int target)
+{
+    return binarySearchRecursiveHelper(vec, target, 0, vec.size() - 1);
+}
+
+int binarySearchRecursiveHelper(const std::vector<int>& vec, int target, int low, int high)
+{
+    if (low > high)
+    {
+        return -1;
+    }
+
+    int mid = low + (high - low) / 2;
+
+    if (vec[mid] == target)
+    {
+        return mid;
+    }
+    else if (vec[mid] < target)
+    {
+        return binarySearchRecursiveHelper(vec, target, mid + 1, high);
+    }
+    else
+    {
+        return binarySearchRecursiveHelper(vec, target, low, mid - 1);
+    }
+}
+```
+</TabsContent>
+<TabsContent value="python">
+```python 
+def binary_search(array, target):
+    low = 0
+    high = len(array) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        if array[mid] == target:
+            return mid
+        elif array[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1
+
+
+arr = [2, 4, 6, 8, 10, 12, 14, 16]
+target = 10
+
+result = binary_search(arr, target)
+
+if result == -1:
+    print("Target not found")
+else:
+    print(f"Target found at index {result}")
+```
+</TabsContent>
+<TabsContent value="c">
+```c 
+// gcc binarySearch.c -o binarySearch && ./binarySearch
+
+#include <stdio.h>
+
+int binarySearch(int array[], int size, int target);
+
+int main()
+{
+    int arr[] = {2, 4, 6, 8, 10, 12, 14, 16};
+    int target = 10;
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    int result = binarySearch(arr, size, target);
+
+    if (result == -1)
+    {
+        printf("Target element not found");
+    }
+    else
+    {
+        printf("Target element found at %d. \n", result);
+    }
+}
+
+int binarySearch(int array[], int size, int target)
+{
+    int low = 0;
+    int high = size - 1;
+    int mid;
+
+    while (low <= high)
+    {
+        mid = (low + high) / 2;
+
+        if (array[mid] == target)
+        {
+            return mid;
+        }
+        else if (array[mid] < target)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+
+    return -1;
+}
+```
+</TabsContent>
+<TabsContent value="ts">
+```ts 
+function binarySearch(array: number[], target: number): number {
+  let low = 0;
+  let high = array.length - 1;
+
+  while (low <= high) {
+    let mid = Math.floor((low + high) / 2);
+
+    if (array[mid] === target) {
+      return mid;
+    } else if (array[mid] < target) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+
+  return -1;
+}
+
+const arr = [2, 4, 6, 8, 10, 12, 14, 16];
+const target = 10;
+
+console.log(binarySearch(arr, target));
+
+```
+</TabsContent>
+</Tabs>
+
+Time complexity (Iterative): `O(log(n))`
+
+Space complexity(Iterative): `O(1)`
+
+Time complexity(Recursive): `O(log(n))`
+
+Space complexity(Recursive): `O(log(n))`. Each recursive call adds a new frame to the call stack containing the local variables and parameters of each function call. The depth of the recursive calls corresponds to the number of times the search space is halved until the base case is reached.
+
+---
+
+## Data Structures
+
+### Arrays
+
+<Tabs defaultValue="js">
+<div className="overflow-x-auto">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java-arrays">Java Arrays</TabsTrigger>
+    <TabsTrigger value="java-arraylists">Java ArrayLists</TabsTrigger>
+    <TabsTrigger value="cpp-arrays">C++ Arrays</TabsTrigger>
+    <TabsTrigger value="cpp-vectors">C++ Vectors</TabsTrigger>
+</TabsList>
+</div>
+<TabsContent value="js">
+```js
+/**
+ * Declaration
+ */
+const arr = []; 
+const arrWithValues = [1, 2, 3, 4, 5]; 
+const arrWithSize = new Array(5); 
+const arrWithSizePrefilled  = new Array(100).fill(-1);
+
+/**
+ * Accessing elements
+ */
+let firstElement = arrWithValues[0]; // 1
+
+/**
+ * Setting elements
+ */
+arrWithValues[0] = 100;
+
+/**
+ * Array length
+ */
+const length = arrWithValues.length;
+
+/**
+ * Iterating over arrays
+ */
+for (let value of arrWithValues) {
+  console.log(value);
+}
+for (let i = 0; i < arrWithValues.length; i++) {
+  console.log(arrWithValues[i]);
+}
+
+/**
+ * Multi-dimensional arrays
+ */
+const multiArray = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+console.log(multiArray[1][2]); // 6
+
+/**
+ * Common methods
+ */
+// add to end
+arrWithValues.push(200);
+
+// remove from end
+arrWithValues.pop();
+
+// add to beginning
+arrWithValues.unshift(10);
+
+// remove from beginning
+let firstItem = arrWithValues.shift();
+
+// slice array - creates new array object not including end
+let start = 0;
+let end = 3;
+const newArr = arrWithValues.slice(start, end);
+
+// splice array - add, remove or replace existing elements in place
+const months = ["Jan", "Mar", "Apr", "Jun"];
+let startIndex = 1;
+let numOfElementsToRemove = 0;
+months.splice(startIndex, numOfElementsToRemove, "Feb");
+```
+</TabsContent>
+<TabsContent value="java-arrays">
+```java 
+public class ArrayOperations {
+    public static void main(String[] args) {
+        // array declaration
+        int[] arr;
+
+        // array of size 5 with default values (0 for int)
+        arr = new int[5];
+
+        // 0 0 0 0 0
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
+
+        // array with values
+        int[] arrWithValues = { 1, 2, 3, 4, 5 };
+
+        // 1 2 3 4 5
+        for (int val : arrWithValues) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
+
+        // accessing elements
+        int lastElement = arrWithValues[4];
+        System.out.println(lastElement);
+
+        // Setting elements
+        arrWithValues[0] = 100;
+
+        // array length
+        int length = arrWithValues.length;
+        // 5
+        System.out.println(length);
+
+        // iterating over elements
+        for (int i = 0; i < arrWithValues.length; i++) {
+            System.out.print(arrWithValues[i] + " ");
+        }
+        System.out.println();
+
+        // iterating over elements with enhanced for loop
+        for (int value : arrWithValues) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+
+        // multi-dimensional arrays
+        int[][] multiArray = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        // 6
+        System.out.println(multiArray[1][2]);
+    }
+}
+```
+</TabsContent>
+<TabsContent value="java-arraylists">
+```java 
+// To perform dynamic array operations in java we  use ArrayLists.
+// Unlike java arrays, arraylists are automatically resizeable while still providing `O(1)` access.
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Arrays;
+
+public class ArrayListOperations {
+    public static void main(String[] args) {
+        /*
+         * Declaration
+         */
+
+        // type-specific arraylist
+        ArrayList<String> list = new ArrayList<String>();
+        printArrayList(list);   // [ ]
+
+        // diamond operator
+        ArrayList<Integer> numbers = new ArrayList<>();
+        printArrayList(numbers);    // [ ]
+
+        /*
+         * Adding elements
+         */
+
+        // append
+        list.add("A");
+        printArrayList(list);   // [ A, ]
+
+        // insert at specific index
+        list.add(0, "B");
+        printArrayList(list);   // [B, A, ]
+
+        /*
+         * Accessing elements
+         */
+        String item = list.get(0);
+        System.out.println(item);   // B
+
+        /*
+         * Updating elements
+         */
+        list.set(0, "C");
+        printArrayList(list);   // [C, A, ]
+
+        /*
+         * Removing elements
+         */
+
+        // remove element at index
+        list.remove(0);
+        printArrayList(list);   // [A, ]
+
+        // remove by object - it's first occurrence
+        list.remove("A");
+        printArrayList(list);   // [ ]
+
+        /*
+         * Checking existence
+         */
+        boolean exists = list.contains("C");
+        System.out.println(exists);     // false
+
+        // add some more elements
+        list.add("D");
+        list.add("E");
+        list.add("F");
+        printArrayList(list);       // [D, E, F]
+
+        /*
+         * Size of list
+         */
+        int size = list.size();
+        System.out.println(size);   // 3
+
+        /*
+         * Check if list is empty
+         */
+        boolean isEmpty = list.isEmpty();
+        System.out.println(isEmpty);        // false
+
+        /*
+         * Iterating over arraylist
+         */
+        // using for-each loop
+        for (String value : list) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+
+        // using for loop
+        for (int i = 0; i < list.size(); i++) {
+            System.out.print(list.get(i) + " ");
+        }
+        System.out.println();
+
+        // using iterator
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            String val = iterator.next();
+            System.out.print(val + " ");
+        }
+        System.out.println();
+
+        /*
+         * Clearing arraylist
+         */
+        list.clear();
+        printArrayList(list);       // [ ]
+
+        // repopulate list
+        list.add("G");
+        list.add("H");
+        list.add("I");
+
+        /*
+         * Convert ArrayList to array
+         */
+        String[] array = list.toArray(new String[list.size()]);
+        System.out.println(Arrays.toString(array));             // [G, H, I]
+
+        /*
+         * Initialize ArrayList with values
+         */
+        ArrayList<String> initializedList = new ArrayList<>(
+                Arrays.asList("A", "B", "C"));
+        printArrayList(initializedList);                // [ A, B, C, ]
+
+        /*
+         * Search  ArrayList
+         */
+        // index of first occurrence of, or -1 if unavailable
+        int index = initializedList.indexOf("C");
+        System.out.println(index); // 2
+
+        index = initializedList.indexOf("Z");
+        System.out.println(index); // -1
+    }
+
+    // use unbounded generic ? to represent unknown type
+    private static void printArrayList(ArrayList<?> list){
+        System.out.print("[ ");
+        for(Object item:list){
+            System.out.print(item + ", ");
+        }
+        System.out.println("]");
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp-arrays">
+```cpp 
+// g++ arrayOperations.cpp -o arrayOperations -std=c++20 && ./arrayOperations
+
+// C++ arrays store fixed size sequential elements of the same type
+// When you pass arrays to functions you have to include the size since it is not known to the called function
+// C++ does not perform automatic bounds checking on arrays.
+
+#include <iostream>
+
+void printArray(int array[], int size);
+
+int main()
+{
+    /*
+     * Declaration
+     */
+     // has garbage values until initialization
+    int arr1[10];
+
+    /*
+     * Declaration with initialization
+     */
+     // Initialize the array explicitly
+    int arr2[5] = { 1, 2, 3, 4, 5 };
+    printArray(arr2, 5);        // [1, 2, 3, 4, 5, ]
+
+    // infer array size
+    int arr3[] = { 6, 7, 8, 9 };
+    printArray(arr3, 4);        // [6, 7, 8, 9, ]
+
+    /*
+     * Accessing elements
+     */
+    int value = arr2[1];        // 2
+
+    /*
+     * Modifying elements
+     */
+    arr2[1] = 20;
+    printArray(arr2, 5);        // [1, 20, 3, 4, 5, ]
+
+    /*
+     * Array size
+     */
+    int size = sizeof(arr2) / sizeof(arr2[0]);          // 5
+
+    /*
+     * Iterating over arrays
+     */
+    for (int i = 0; i < size; ++i)
+    {
+        std::cout << arr2[i] << " ";
+    }
+    std::cout << std::endl;
+
+    /*
+     * Multidimensional arrays
+     */
+    int multiArray[2][3] = { {1, 2, 3}, {4, 5, 6} };
+
+    return 0;
+}
+
+void printArray(int array[], int size)
+{
+    std::cout << "[";
+    for (int i = 0; i < size; ++i)
+    {
+        std::cout << array[i] << ", ";
+    }
+    std::cout << "]" << std::endl;
+}
+```
+</TabsContent>
+<TabsContent value="cpp-vectors">
+```cpp 
+// g++ vectorOperations.cpp -o vectorOperations -std=c++20 && ./vectorOperations
+
+// Are dynamic arrays provided by the Standard Template Library  that can resize themselves automatically.
+
+#include <iostream>
+#include <vector>
+
+void printVector(const std::vector<int>& vec);
+
+int main()
+{
+    /*
+     * Declaration and initialization
+     */
+     // declare empty vector
+    std::vector<int> vec1;
+    printVector(vec1);              // []
+
+    // initialize with initializer list
+    std::vector<int> vec2 = { 1, 2, 3, 4, 5 };
+    printVector(vec2);              // [1, 2, 3, 4, 5, ]
+
+    // avoid narrowing conversions during initialization
+    std::vector<int> vec3{ 6, 7, 8 };
+    printVector(vec3);              // [6, 7, 8, ]
+
+    // This will throw an error. Without using above syntac, only warnings will be generated.
+    // std::vector<int> vec4 {9.1, 8.2, 10.3};
+
+    /*
+     * Accessing elements
+     */
+     // direct access - no bounds checking
+    int firstElement = vec2[0];                 // 1
+
+    // bounds checking
+    int lastElement = vec2.at(4);            // 5
+    std::cout << lastElement << std::endl;
+
+    /*
+     * Modifying elements
+     */
+     // add to the end
+    vec2.push_back(6);
+    printVector(vec2);               // [1, 2, 3, 4, 5, 6, ]
+
+    // remove last element
+    vec2.pop_back();
+    printVector(vec2);              // [1, 2, 3, 4, 5, ]
+
+    // remove element at specific index e.g third element
+    // provide iterator of start of element to erase
+    vec2.erase(vec2.begin() + 2);
+    printVector(vec2);                          // [1, 2, 4, 5, ]
+
+    // add element to specific position
+    // insert element at beginning
+    vec2.insert(vec2.begin(), 0);
+    printVector(vec2);                              // [0, 1, 2, 4, 5, ]
+
+    // insert element at third index
+    vec2.insert(vec2.begin() + 3, 3);
+    printVector(vec2);                              // [0, 1, 2, 3, 4, 5, ]
+
+    /*
+     * Iterating over vectors
+     */
+     // using iterator
+    for (auto it = vec2.begin(); it != vec2.end(); ++it)
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;                 // 0 1 2 3 4 5
+
+    // using range based for loop
+    for (int num : vec2)
+    {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;                 // 0 1 2 3 4 5
+
+    /*
+     * Size and capacity
+     * (Vectors manage their own memory)
+     */
+    // size - number of elements
+    size_t size = vec2.size();              // 6
+
+    // capacity - currently allocated space
+    size_t capacity = vec2.capacity();      // 10 using g++ though might vary by compiler
+
+    /*
+     * Resizing and reserving
+     */
+    // Resizing changes the size of the vector
+    vec2.resize(10);
+    std::cout << vec2.size() << std::endl;      // 10
+    printVector(vec2);                          // [0, 1, 2, 3, 4, 5, 0, 0, 0, 0, ]
+    std::cout << vec2.capacity() << std::endl;      // 10
+
+    // Reserving changes the capacity of the vector
+    vec2.reserve(20);
+    std::cout << vec2.capacity() << std::endl;      // 20
+
+    return 0;
+}
+
+void printVector(const std::vector<int>& vec)
+{
+    std::cout << "[";
+    for (int num : vec)
+    {
+        std::cout << num << ", ";
+    }
+    std::cout << "]" << std::endl;
+}
+```
+</TabsContent>
+</Tabs>
+
+### Strings 
+
+<Tabs defaultValue="js">
+<div className="overflow-x-auto">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+</TabsList>
+</div>
+<TabsContent value="js">
+```js
+/**
+ * declaration / initialization
+ */
+let str1 = "This is a string";
+let str2 = 'This is also a string';
+let str3 = `Template literal string, ${str1}`;
+
+/**
+ * accessing characters
+ */
+let char = str1[5];
+
+/**
+ * string length
+ */
+let len = str1.length;
+
+/**
+ * finding a substring
+ */
+// first occurrence (-1 if not found)
+let position = str3.indexOf("string");      // 17
+
+// last occurrence
+let lastPosition = str3.lastIndexOf("string");    // 35
+
+// checking substring existence
+let exists = str1.includes("string");       // true
+
+/**
+ * substring, slice
+ */
+// substring(start, end);
+// extract characters from start to (end - 1)
+let sub = str1.substring(5, 11);              // 'is a s'
+
+// slice(start, end);
+// similar to substring but can accept negative indices
+let sub2 = str1.slice(5, -1);                 // 'is a strin'
+
+/**
+ * string manipulation
+ */
+// concatenation
+let concatedStr = str1 + " " + str2;
+let concatedStr2 = str1.concat(str2);
+
+// template literals
+let name = "Matt";
+let greeting = `Hello ${name}!`;
+
+// changing case
+let upper = str1.toUpperCase();
+let lower = str1.toLowerCase();
+
+// trimming spaces at start and end
+let trimmed = "    extra spaces     ".trim();         // 'extra spaces'
+
+/**
+ * splitting and joining
+ */
+// split(delimiter); - string into an array
+let words = str1.split(" ");
+
+// join(delimiter); - array into string
+let sentence = words.join(" ");
+
+/**
+ * replacing text
+ */
+let replaced = str1.replace("string", "replacedString");
+
+// JavaScript strings are immutable so methods that seem to modify strings like `replace` or `toUpperCase` actually return new strings.
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+// Java strings are immutable hence any modification leads to a new string. 
+// Java uses a String pool where literal strings are stored for memory optimization.
+
+public class StringOperations {
+    public static void main(String[] args){
+        /**
+         * declaration / initialization
+         */
+        // this uses the String pool
+        String str1 = "hello";
+
+        // this does not use the String pool
+        String str2 = new String("hello");
+
+        // concatenation
+        String str3 = str1 + " " + str2;
+        System.out.println(str3);               // "hello hello"
+
+        /**
+         * methods and operations
+         */
+        // length of string
+        int len = str3.length();
+        System.out.println(len);                // 11
+
+        // charAt
+        char firstLetter = str3.charAt(0);
+        System.out.println(firstLetter);        // h
+
+        // substring
+        String sub = str3.substring(1, 3);
+        System.out.println(sub);                // el
+
+        // split - ["Hello", 'World']
+        String[] partsArr = "Hello, World".split(", ");
+        for (String part: partsArr){
+            System.out.println(part);
+        }
+        
+        // replace
+        String replaced = str1.replace("e", "a");
+        System.out.println(replaced);           // hallo
+
+        // case conversion
+        String upper = str1.toUpperCase();
+        String lower = str1.toLowerCase();
+        System.out.println(upper);              // HELLO
+        System.out.println(lower);              // hello
+
+        // trim whitespace
+        String trimmed = "    hello     ".trim();
+        System.out.println(trimmed);            // "hello"
+
+        // starts / ends with
+        boolean starts = str1.startsWith("he");
+        System.out.println(starts);             // true
+        boolean ends = str2.endsWith("lo");
+        System.out.println(ends);               // true
+
+        // indexOf / lastIndexof
+        int pos = str1.indexOf('l');
+        System.out.println(pos);                // 2
+        int lastPos = str1.lastIndexOf('l');
+        System.out.println(lastPos);            // 3
+
+        /**
+         * comparison
+         */
+        // compare content 
+        boolean isEqual = str1.equals(str2);
+        System.out.println(isEqual);            // true
+
+        // compare case-insensitive content 
+        boolean isEqualIgnoreCase = str1.equalsIgnoreCase("HELLO");
+        System.out.println(isEqualIgnoreCase);  // true
+
+        // lexicographical comparison - 0, 7, -17
+        int comparison = str1.compareTo(str2);
+        System.out.println(comparison);         // 0
+        comparison = str1.compareTo("allo");
+        System.out.println(comparison);         // 7
+        comparison = str1.compareTo("yello");
+        System.out.println(comparison);         // -17
+
+        /**
+         * StringBuilder(non-syncronized) & StringBuffer(syncronized)
+         */
+        // are more efficient and mutable 
+        StringBuilder sb = new StringBuilder();
+        sb.append("Hello");
+        System.out.println(sb);         // Hello
+        sb.append(" ");
+        sb.append("world");
+        String result = sb.toString();
+        System.out.println(result);     // Hello world
+
+        /**
+         * conversion
+         */
+        // string to char array 
+        char[] chars = str1.toCharArray();
+        System.out.print("[ ");
+        for (char c:chars){
+            System.out.print(c + ", ");
+        }
+        System.out.println(']');                // [ h, e, l, l, o, ]
+
+        // string to integer 
+        int number = Integer.parseInt("123");
+        System.out.println(number);               // 123
+
+        // integer to string 
+        String numString = Integer.toString(123);
+        System.out.println(numString);            // "123"
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp 
+// g++ stringOperations.cpp -o stringOperations -std=c++20 && ./stringOperations
+
+#include <iostream>
+#include <string>
+#include <stdexcept>
+
+int main()
+{
+    /*
+     * Creating strings
+     */
+     // Empty string
+    std::string str1;
+
+    // Initialized with a C-string
+    std::string str2 = "Hello";
+
+    // Initialized with a C-string using the constructor
+    std::string str3("World");
+
+    // Initialized using copy constructor
+    std::string str4 = str2;
+
+    // initialization using copy constructor and C++11 uniform initialization
+    std::string str5{ str3 };
+
+    // initialize string of 5 'a' characters using the constructor- "aaaaa"
+    std::string str6(5, 'a');
+
+    /*
+     * Length and capacity
+     */
+    size_t length = str2.length();            // 5
+    size_t capacity = str2.capacity();      // 22 
+
+    /*
+     * Accessing characters
+     */
+     // direct access
+    char firstChar = str2[0];                   // 'H'
+    char lastChar = str2[str2.length() - 1];    // 'o'
+
+    // using .at() for bounds checking
+    // throws std::out_of_range if index out of bounds
+    try
+    {
+        char ch = str2.at(150);
+    }
+    catch (std::out_of_range& e)
+    {
+        std::cout << "Out of range exception: " << e.what() << std::endl;       // Out of range exception: basic_string
+    }
+
+    /*
+     * Concatenation
+     */
+    std::string str7 = str2 + " " + str3;          // "Hello World"
+    str1 += "Matt";
+    str1 += " B";                               // "Matt B"
+
+    /*
+     * Substrings
+     */
+     // Starting at position 6, extract 5 characters
+    std::string sub = str7.substr(6, 5);            // "World"
+
+    /*
+     * Comparison
+     */
+    std::string a = "apple";
+    std::string b = "orange";
+    if (a == b)
+    {
+        std::cout << "a is equal to b" << std::endl;
+    }
+    else if (a < b)
+    {
+        std::cout << "a is lexicographically less than b" << std::endl;            // This prints
+    }
+    else
+    {
+        std::cout << "a is lexicographically greater than b" << std::endl;
+    }
+
+    /*
+    * Searching and finding substrings
+    */
+    // Find index of 'B' in "Matt B"
+    size_t pos = str1.find("B");            // 5
+
+    // searching non existent substring
+    pos = str1.find("Batt");            // garbage number
+
+    // to be sure you found substring, compare to npos
+    if (pos != std::string::npos)
+    {
+        std::cout << "Found substring at " << pos << std::endl;
+    }
+    else
+    {
+        std::cout << "Substring not found" << std::endl;
+    }
+
+    /*
+    * Modifying strings
+    */
+    std::string str8 = "Hello world";
+
+    // replace World with Universe
+    str8.replace(6, 5, "universe");         // Hello universe
+
+    // erase
+    str8.erase(6, 3);                           // Hello verse
+
+    // insert 
+    str8.insert(6, "multi");                    // Hello multiverse
+
+    /*
+    * Convert C++ string to C String
+    */
+    const char* cString = str8.c_str();                  // Hello multiverse
+
+    /*
+     * Iterate over String
+     */
+     // using range based loop
+    for (char c : str1)
+    {
+        std::cout << c;
+    }
+    std::cout << std::endl;                             // Matt B
+
+    // using iterator - using auto type is easier
+    for (std::string::iterator it = str8.begin(); it != str8.end(); ++it)
+    {
+        std::cout << *it << ' ';
+    }
+    std::cout << std::endl;                             //H e l l o   m u l t i v e r s e 
+
+    return 0;
+}
+```
+</TabsContent>
+</Tabs>
+
+### Trees
+
+A tree is a hierarchical data structure that represents a collection of elements called nodes. The nodes are connected by edges to form a tree-like structure. They enable efficient organization and retrieval of data.
+
+The root is a special node that serves as the top-most node in a hierarchy. Each node in the tree, except for the root, has exactly one parent node and zero or more child nodes. Nodes directly connected to a particular node are called its children, and the node that connects to its children is called the parent.
+
+#### Binary Trees
+
+This is a tree in which each node has at most two children, referred to as the left child and the right child. Each child node is either a leaf node (having no children) or an internal node (having one or more children).
+
+A complete binary tree is one in which each level of the tree is completely filled except the last level, and all nodes appear as far left as possible . A full/extended binary tree is one where no node has only one child - each node has either zero or two children. A perfect binary tree is both full and complete.
+
+Binary tree traversal is the process of visiting each node in the tree exactly once. Three common methods of traversing binary trees are in-order traversal, pre-order traversal, and post-order traversal.
+
+- In-order: Nodes are visited in the order 'left subtree' - 'parent node' - 'right subtree'. The left node is visited first, followed by the parent node, then the right child. This is used in binary search trees because it visits the nodes in ascending order if the tree is structured properly.
+- Pre-order: Nodes are visited in the order 'parent node' - 'left subtree' - 'right subtree'. The parent node is visited before its children. It is useful for creating a copy of the tree, as the order of visiting the nodes allows for easy replication of the structure.
+- Post-order: Nodes are visited in the order 'left subtree' - 'right subtree' - 'parent node'. The children are visited before the parent node. This is used in deleting nodes as it ensures the node is only deleted after its children have been deleted.
+
+<img 
+  src="https://raw.githubusercontent.com/mathewbushuru/algorithms/main/data-structures/imgs/binary-tree-traversal2.jpeg"
+  className="lg:max-w-2xl rounded-md shadow-md mx-auto"
+/>
+
+Note that trees can also be traversed in level-order (breadth-first algorithm.)
+
+We can reconstruct a binary tree if given at least two traversal results. First traversal must be the in-order result, and the second can be either pre-order or post-order traversal. The in-order traversal helps us identify left and right child nodes, and the pre/post-order determines the root node. First element in pre-order traversal is the root node, while the last in post-order is the root node.
+
+For example, if we are given two arrays with the preorder and inorder traversal results, we use the preorder array to find the root node (first element in array). We then locate the index of this root node in the inorder traversal array. Elements to the left of the root in the inorder array are from the left subtree. Similarly, those to the right of the root node form the right subtree. We recursively select elements from the preorder array and create its left and right subtrees from the inorder array.
+
+<img 
+  src="https://raw.githubusercontent.com/mathewbushuru/algorithms/main/data-structures/imgs/binary-tree-reconstruction4.jpeg"
+  className="lg:max-w-2xl rounded-md shadow-md mx-auto"
+/>
+
+***Implementation***
+
+<Tabs defaultValue="js">
+<div className="overflow-x-auto">
+<TabsList>
+    <TabsTrigger value="js">JavaScript</TabsTrigger>
+    <TabsTrigger value="java">Java</TabsTrigger>
+    <TabsTrigger value="cpp">C++</TabsTrigger>
+    <TabsTrigger value="python">Python</TabsTrigger>
+    <TabsTrigger value="c">C</TabsTrigger>
+    <TabsTrigger value="csharp">C#</TabsTrigger>
+    <TabsTrigger value="ts">TypeScript</TabsTrigger>
+</TabsList>
+</div>
+<TabsContent value="js">
+```js
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinaryTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value) {
+    const newNode = new Node(value);
+
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+
+  insertNode(node, newNode) {
+    if (newNode.value < node.value) {
+      // if tree required to be a binary search tree, then smaller values to left subtree
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      // newNode is larger, insert in right subtree
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode);
+      }
+    }
+  }
+
+  delete(value) {
+    this.root = this.deleteNode(this.root, value);
+  }
+
+  deleteNode(node, value) {
+    if (node === null) {
+      return null;
+    }
+
+    if (value < node.value) {
+      node.left = this.deleteNode(node.left, value);
+    } else if (value > node.value) {
+      node.right = this.deleteNode(node.right, value);
+    } else {
+      // delete current node
+      if (node.left === null && node.right === null) {
+        // has no children
+        node = null;
+      } else if (node.left === null) {
+        //has one right child
+        node = node.right;
+      } else if (node.right === null) {
+        // has one left child
+        node = node.left;
+      } else {
+        // has two children
+        const minRight = this.findMinNode(node.right);
+        // minRight is larger than all left subtree values
+        // and ofc smaller than all right subtree values
+        // alternative would be to use max value in left subtree
+        node.value = minRight.value;
+        node.right = this.deleteNode(node.right, minRight.value);
+      }
+    }
+    return node;
+  }
+
+  findMinNode(node) {
+    if (node.left === null) {
+      // nothing in left subtree, so parent is automatically the min
+      return node;
+    } else {
+      return this.findMinNode(node.left);
+    }
+  }
+
+  inOrderTraversal(callbackFn) {
+    this.inOrderTraversalNode(this.root, callbackFn);
+  }
+
+  inOrderTraversalNode(node, callbackFn) {
+    if (node !== null) {
+      this.inOrderTraversalNode(node.left, callbackFn);
+      callbackFn(node.value);
+      this.inOrderTraversalNode(node.right, callbackFn);
+    }
+  }
+
+  preOrderTraversal(callbackFn) {
+    this.preOrderTraversalNode(this.root, callbackFn);
+  }
+
+  preOrderTraversalNode(node, callbackFn) {
+    if (node !== null) {
+      callbackFn(node.value);
+      this.preOrderTraversalNode(node.left, callbackFn);
+      this.preOrderTraversalNode(node.right, callbackFn);
+    }
+  }
+
+  postOrderTraversal(callbackFn) {
+    this.postOrderTraversalNode(this.root, callbackFn);
+  }
+
+  postOrderTraversalNode(node, callbackFn) {
+    if (node !== null) {
+      this.postOrderTraversalNode(node.left, callbackFn);
+      this.postOrderTraversalNode(node.right, callbackFn);
+      callbackFn(node.value);
+    }
+  }
+}
+
+const binaryTree = new BinaryTree();
+
+binaryTree.insert(8);
+binaryTree.insert(3);
+binaryTree.insert(10);
+binaryTree.insert(1);
+binaryTree.insert(6);
+binaryTree.insert(14);
+binaryTree.insert(4);
+binaryTree.insert(7);
+binaryTree.insert(13);
+
+console.log("In order traversal");
+// 1 3 4 6 7 8 10 13 14
+binaryTree.inOrderTraversal((value) => console.log(value));
+console.log("---");
+
+console.log("Pre order traversal");
+// 8 3 1 6 4 7 10 14 13
+binaryTree.preOrderTraversal((value) => console.log(value));
+console.log("---");
+
+console.log("Post order traversal");
+// 1 4 7 6 3 13 14 10 8
+binaryTree.postOrderTraversal((value) => console.log(value));
+console.log("---");
+
+binaryTree.delete(6);
+
+console.log("In order traversal after deleting 6");
+// 1 3 4 7 8 10 13 14
+binaryTree.inOrderTraversal((value) => console.log(value));
+console.log("---");
+```
+</TabsContent>
+<TabsContent value="java">
+```java 
+class Node {
+    int value;
+    Node left;
+    Node right;
+
+    public Node(int value){
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
+
+class BinaryTree{
+    Node root; 
+
+    public BinaryTree(){
+        this.root = null; 
+    }
+
+    public void insert(int value){
+        Node newNode  = new Node(value);
+
+        if (root == null){
+            root = newNode;
+        }else {
+            insertNode(root, newNode);
+        }
+    }
+
+    private void insertNode(Node node, Node newNode){
+        if (newNode.value < node.value){
+            if (node.left == null) {
+                node.left = newNode;
+            } else {
+                insertNode(node.left,newNode);
+            }
+        } else {
+            if (node.right == null){
+                node.right = newNode;
+            } else {
+                insertNode(node.right,newNode);
+            }
+        }
+    }
+
+    public void delete(int value){
+        root = deleteNode(root,value);
+    }
+
+    private Node deleteNode(Node node, int value){
+        if (node == null){
+            return null;
+        }
+
+        if (value < node.value){
+            node.left = deleteNode(node.left,value);
+        } else if (value > node.value){
+            node.right = deleteNode(node.right, value);
+        } else {
+            if (node.left == null && node.right  == null){
+                node = null;
+            } else if (node.left == null){
+                node = node.right;
+            } else if (node.right == null){
+                node = node.left;
+            } else {
+                Node minRight = findMinNode(node.right);
+                node.value = minRight.value;
+                node.right = deleteNode(node.right, minRight.value);
+            }
+        }
+        return node;
+    }
+
+    private Node findMinNode(Node node){
+        if (node.left == null){
+            return node;
+        } else {
+            return findMinNode(node.left);
+        }
+    }
+
+    public void inOrderTraversal(){
+        inOrderTraversalNode(root);
+    }
+
+    private void inOrderTraversalNode(Node node){
+        if (node != null){
+            inOrderTraversalNode(node.left);
+            System.out.println(node.value);
+            inOrderTraversalNode(node.right);
+        }
+    }
+
+    public void preOrderTraversal(){
+        preOrderTraversalNode(root);
+    }
+
+    private void preOrderTraversalNode(Node node){
+        if (node != null){
+            System.out.println(node.value);
+            preOrderTraversalNode(node.left);
+            preOrderTraversalNode(node.right);
+        }
+    }
+
+    public void postOrderTraversal(){
+        postOrderTraversalNode(root);
+    }
+
+    private void postOrderTraversalNode(Node node){
+        if (node != null){
+            postOrderTraversalNode(node.left);
+            postOrderTraversalNode(node.right);
+            System.out.println(node.value);
+        }
+    }
+} 
+
+public class BinaryTreeTestdrive{
+    public static void main(String[] args){
+        BinaryTree binaryTree = new BinaryTree();
+
+        binaryTree.insert(8);
+        binaryTree.insert(3);
+        binaryTree.insert(10);
+        binaryTree.insert(1);
+        binaryTree.insert(6);
+        binaryTree.insert(14);
+        binaryTree.insert(4);
+        binaryTree.insert(7);
+        binaryTree.insert(13);
+
+        System.out.println("In order traversal");
+        binaryTree.inOrderTraversal();
+        System.out.println("---");
+
+        System.out.println("Pre order traversal");
+        binaryTree.preOrderTraversal();
+        System.out.println("---");
+
+        System.out.println("Post order traversal");
+        binaryTree.postOrderTraversal();
+        System.out.println("---");
+    }
+}
+```
+</TabsContent>
+<TabsContent value="cpp">
+```cpp 
+// g++ -std=c++17 binaryTree.cpp -o binaryTree && ./binaryTree
+
+/*
+* Use std::unique_ptr for automatic memory management to ensure memory for
+* nodes is properly deallocated when no longer needed to prevent memory leaks.
+*/
+
+#include <iostream>
+#include <memory>           // for smart pointers support
+
+class Node {
+public:
+    int value;
+    std::unique_ptr<Node> left;
+    std::unique_ptr<Node> right;
+
+    Node(int val) : value(val), left(nullptr), right(nullptr) {}           // constructor that takes an int and uses it to initialize value member of the class. If left or null not initialized here, unique_ptr constructor would have assigned them null anyway.
+};
+
+class BinaryTree {
+private:
+    std::unique_ptr<Node> root;
+
+    void insertNode(std::unique_ptr<Node>& node, int value)
+    {
+        if (!node)
+        {
+            node = std::make_unique<Node>(value);           // make_unique creates instance of Node using value and return unique_ptr to that instance
+        }
+        else
+        {
+            if (value < node->value)
+            {
+                insertNode(node->left, value);
+            }
+            else
+            {
+                insertNode(node->right, value);
+            }
+        }
+    }
+
+    std::unique_ptr<Node>& deleteNode(std::unique_ptr<Node>& node, int value)
+    {
+        if (!node)
+        {
+            return node;
+        }
+
+        if (value < node->value)
+        {
+            // move allows left pointer to take ownership of modified subtree without copying it
+            node->left = std::move(deleteNode(node->left, value));
+        }
+        else if (value > node->value)
+        {
+            node->right = std::move(deleteNode(node->right, value));
+        }
+        else
+        {
+            // delete current node
+            if (!node->left)
+            {
+                return node->right;
+            }
+            else if (!node->right)
+            {
+                return node->left;
+            }
+            else
+            {
+                // has two children
+                // get() function used to access the raw pointer managed by unique_ptr
+                Node* minRight = node->right.get();
+                while (minRight->left)
+                {
+                    minRight = minRight->left.get();
+                }
+                node->value = minRight->value;
+                node->right = std::move(
+                    deleteNode(node->right, minRight->value)
+                );
+            }
+        }
+
+        return node;
+    }
+
+    void inOrderTraversal(const std::unique_ptr<Node>& node)
+    {
+        if (node)
+        {
+            inOrderTraversal(node->left);
+            std::cout << node->value << " ";
+            inOrderTraversal(node->right);
+        }
+    }
+
+    void preOrderTraversal(const std::unique_ptr<Node>& node)
+    {
+        if (node)
+        {
+            std::cout << node->value << " ";
+            preOrderTraversal(node->left);
+            preOrderTraversal(node->right);
+        }
+    }
+
+    void postOrderTraversal(const std::unique_ptr<Node>& node)
+    {
+        if (node)
+        {
+            postOrderTraversal(node->left);
+            postOrderTraversal(node->right);
+            std::cout << node->value << " ";
+        }
+    }
+
+public:
+    void insert(int value)
+    {
+        insertNode(root, value);
+    }
+
+    void deleteValue(int value)
+    {
+        root = std::move(
+            deleteNode(root, value)
+        );
+    }
+
+    void inOrder()
+    {
+        inOrderTraversal(root);
+        std::cout << std::endl;
+    }
+
+    void preOrder()
+    {
+        preOrderTraversal(root);
+        std::cout << std::endl;
+    }
+
+    void postOrder()
+    {
+        postOrderTraversal(root);
+        std::cout << std::endl;
+    }
+};
+
+int main()
+{
+    BinaryTree binaryTree;
+
+    binaryTree.insert(8);
+    binaryTree.insert(3);
+    binaryTree.insert(10);
+    binaryTree.insert(1);
+    binaryTree.insert(6);
+    binaryTree.insert(14);
+    binaryTree.insert(4);
+    binaryTree.insert(7);
+    binaryTree.insert(13);
+
+    // 1 3 4 6 7 8 10 13 14 
+    std::cout << "In order traversal" << std::endl;
+    binaryTree.inOrder();
+    std::cout << "------" << std::endl;
+
+    // 8 3 1 6 4 7 10 14 13 
+    std::cout << "Pre order traversal" << std::endl;
+    binaryTree.preOrder();
+    std::cout << "------" << std::endl;
+
+    // 1 4 7 6 3 13 14 10 8 
+    std::cout << "Post order traversal" << std::endl;
+    binaryTree.postOrder();
+    std::cout << "------" << std::endl;
+
+    binaryTree.deleteValue(6);
+
+    // 1 3 4 7 8 10 13 14 
+    std::cout << "In order traversal after deleting 6" << std::endl;
+    binaryTree.inOrder();
+    std::cout << "------" << std::endl;
+
+    return 0;
+}
+```
+</TabsContent>
+<TabsContent value="python">
+```python 
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        if self.root is None:
+            self.root = Node(value)
+        else:
+            self._insert_node(self.root, value)
+
+    def _insert_node(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = Node(value)
+            else:
+                self._insert_node(node.left, value)
+        else:
+            if node.right is None:
+                node.right = Node(value)
+            else:
+                self._insert_node(node.right, value)
+
+    def delete(self, value):
+        self.root = self._delete_node(self.root, value)
+
+    def _delete_node(self, node, value):
+        if node is None:
+            return None
+
+        if value < node.value:
+            node.left = self._delete_node(node.left, value)
+        elif value > node.value:
+            node.right = self._delete_node(node.right, value)
+        else:
+            if node.left is None and node.right is None:
+                node = None
+            elif node.left is None:
+                node = node.right
+            elif node.right is None:
+                node = node.left
+            else:
+                minRight = self._find_min_node(node.right)
+                node.value = minRight.value
+                node.right = self._delete_node(node.right, minRight.value)
+
+        return node
+
+    def _find_min_node(self, node):
+        if node.left is None:
+            return node
+        else:
+            return self._find_min_node(node.left)
+
+    def in_order_traversal(self):
+        self._in_order_traversal_node(self.root)
+
+    def _in_order_traversal_node(self, node):
+        if node is not None:
+            self._in_order_traversal_node(node.left)
+            print(f"{node.value} ")
+            self._in_order_traversal_node(node.right)
+
+    def pre_order_traversal(self):
+        self._pre_order_traversal_node(self.root)
+
+    def _pre_order_traversal_node(self, node):
+        if node is not None:
+            print(f"{node.value} ")
+            self._pre_order_traversal_node(node.left)
+            self._pre_order_traversal_node(node.right)
+
+    def post_order_traversal(self):
+        self._post_order_traversal_node(self.root)
+
+    def _post_order_traversal_node(self, node):
+        if node is not None:
+            self._post_order_traversal_node(node.left)
+            self._post_order_traversal_node(node.right)
+            print(f"{node.value} ")
+
+
+if __name__ == "__main__":
+    bt = BinaryTree()
+
+    elementsList = [8, 3, 10, 1, 6, 14, 4, 7, 13]
+    for el in elementsList:
+        bt.insert(el)
+
+    print("In order traversal - should be sorted")
+    # 1 3 4 6 7 8 10 13 14
+    bt.in_order_traversal()
+
+    print("\nPre order traversal")
+    # 8 3 1 6 4 7 10 14 13
+    bt.pre_order_traversal()
+
+    print("\nPost order traversal")
+    # 1 4 7 6 3 13 14 10 8
+    bt.post_order_traversal()
+
+    bt.delete(6)
+    print("\nIn order traversal after deleting 6")
+    # 1 3 4 7 8 10 13 14
+    bt.in_order_traversal()
+
+```
+</TabsContent>
+<TabsContent value="c">
+```c 
+// gcc binaryTree.c -o binaryTree && ./binaryTree
+
+#include <stdio.h>
+#include <stdlib.h> //for malloc function, free function and NULL pointer
+
+struct Node
+{
+    int value;
+    struct Node* left;
+    struct Node* right;
+};
+
+struct BinaryTree
+{
+    struct Node* root;
+};
+
+struct Node* createNode(int value);
+void         insert(struct Node** node, int value);
+struct Node* deleteNode(struct Node* node, int value);
+void         inOrderTraversal(struct Node* node);
+void         preOrderTraversal(struct Node* node);
+void         postOrderTraversal(struct Node* node);
+
+int main()
+{
+    struct BinaryTree binaryTree;
+    binaryTree.root = NULL;
+
+    insert(&(binaryTree.root), 8);
+    insert(&(binaryTree.root), 3);
+    insert(&(binaryTree.root), 10);
+    insert(&(binaryTree.root), 1);
+    insert(&(binaryTree.root), 6);
+    insert(&(binaryTree.root), 14);
+    insert(&(binaryTree.root), 4);
+    insert(&(binaryTree.root), 7);
+    insert(&(binaryTree.root), 13);
+
+    printf("In order traversal\n");
+    inOrderTraversal(binaryTree.root);
+    printf("\n-----\n");
+
+    printf("Pre order traversal\n");
+    preOrderTraversal(binaryTree.root);
+    printf("\n-----\n");
+
+    printf("Post order traversal\n");
+    postOrderTraversal(binaryTree.root);
+    printf("\n-----\n");
+
+    binaryTree.root = deleteNode(binaryTree.root, 6);
+
+    printf("In order traversal after deleting 6\n");
+    inOrderTraversal(binaryTree.root);
+    printf("\n------\n");
+
+    return 0;
+}
+
+struct Node* createNode(int value)
+{
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->value = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// node is a pointer to a pointer (double pointer)
+void insert(struct Node** node, int value)
+{
+    if (*node == NULL)
+    {
+        *node = createNode(value);
+    }
+    else
+    {
+        if (value < (*node)->value)
+        {
+            insert(&(*node)->left, value);
+        }
+        else
+        {
+            insert(&(*node)->right, value);
+        }
+    }
+}
+
+struct Node* deleteNode(struct Node* node, int value)
+{
+    if (node == NULL)
+    {
+        return NULL;
+    }
+
+    if (value < node->value)
+    {
+        node->left = deleteNode(node->left, value);
+    }
+    else if (value > node->value)
+    {
+        node->right = deleteNode(node->right, value);
+    }
+    else
+    {
+        if (node->left == NULL && node->right == NULL)
+        {
+            free(node);
+            node = NULL;
+        }
+        else if (node->left == NULL)
+        {
+            struct Node* temp = node;
+            node = node->right;
+            free(temp);
+        }
+        else if (node->right == NULL)
+        {
+            struct Node* temp = node;
+            node = node->left;
+            free(temp);
+        }
+        else
+        {
+            struct Node* minRight = node->right;
+            while (minRight->left != NULL)
+            {
+                minRight = minRight->left;
+            }
+            node->value = minRight->value;
+            node->right = deleteNode(node->right, minRight->value);
+        }
+    }
+    return node;
+}
+
+void inOrderTraversal(struct Node* node)
+{
+    if (node != NULL)
+    {
+        inOrderTraversal(node->left);
+        printf("%d ", node->value);
+        inOrderTraversal(node->right);
+    }
+}
+
+void preOrderTraversal(struct Node* node)
+{
+    if (node != NULL)
+    {
+        printf("%d ", node->value);
+        preOrderTraversal(node->left);
+        preOrderTraversal(node->right);
+    }
+}
+
+void postOrderTraversal(struct Node* node)
+{
+    if (node != NULL)
+    {
+        postOrderTraversal(node->left);
+        postOrderTraversal(node->right);
+        printf("%d ", node->value);
+    }
+}
+```
+</TabsContent>
+<TabsContent value="csharp">
+```csharp  
+// dotnet new console --framework net8.0 --use-program-main
+// dotnet run
+
+namespace BinaryTree;
+
+public class Node
+{
+    public int Value { get; set; }
+    public Node? Left { get; set; }
+    public Node? Right { get; set; }
+
+    public Node(int value)
+    {
+        Value = value;
+    }
+}
+
+public class BinaryTree
+{
+    public Node? Root { get; private set; }
+
+    public void Insert(int value)
+    {
+        if (Root == null)
+        {
+            Root = new Node(value);
+        }
+        else
+        {
+            InsertNode(Root, value);
+        }
+    }
+
+    private void InsertNode(Node node, int value)
+    {
+        if (value < node.Value)
+        {
+            if (node.Left == null)
+            {
+                node.Left = new Node(value);
+            }
+            else
+            {
+                InsertNode(node.Left, value);
+            }
+        }
+        else
+        {
+            if (node.Right == null)
+            {
+                node.Right = new Node(value);
+            }
+            else
+            {
+                InsertNode(node.Right, value);
+            }
+        }
+    }
+
+    public void Delete(int value)
+    {
+        Root = DeleteNode(Root, value);
+    }
+
+    private Node DeleteNode(Node node, int value)
+    {
+        if (node == null)
+        {
+            return null;
+        }
+
+        if (value < node.Value)
+        {
+            node.Left = DeleteNode(node.Left, value);
+        }
+        else if (value > node.Value)
+        {
+            node.Right = DeleteNode(node.Right, value);
+        }
+        else
+        {
+            if (node.Left == null && node.Right == null)
+            {
+                return null;
+            }
+            else if (node.Left == null)
+            {
+                return node.Right;
+            }
+            else if (node.Right == null)
+            {
+                return node.Left;
+            }
+            else
+            {
+                Node minRight = FindMinNode(node.Right);
+                node.Value = minRight.Value;
+                node.Right = DeleteNode(node.Right, minRight.Value);
+            }
+        }
+
+        return node;
+    }
+
+    private Node FindMinNode(Node node)
+    {
+        Node current = node;
+        while (current.Left != null)
+        {
+            current = current.Left;
+        }
+        return current;
+    }
+
+    public void InOrderTraversal(Action<int> action)
+    {
+        InOrderTraversalNode(Root, action);
+    }
+
+    private void InOrderTraversalNode(Node node, Action<int> action)
+    {
+        if (node != null)
+        {
+            InOrderTraversalNode(node.Left, action);
+            action(node.Value);
+            InOrderTraversalNode(node.Right, action);
+        }
+    }
+
+    public void PreOrderTraversal(Action<int> action)
+    {
+        PreOrderTraversalNode(Root, action);
+    }
+
+    private void PreOrderTraversalNode(Node node, Action<int> action)
+    {
+        if (node != null)
+        {
+            action(node.Value);
+            PreOrderTraversalNode(node.Left, action);
+            PreOrderTraversalNode(node.Right, action);
+        }
+    }
+
+    public void PostOrderTraversal(Action<int> action)
+    {
+        PostOrderTraversalNode(Root, action);
+    }
+
+    private void PostOrderTraversalNode(Node node, Action<int> action)
+    {
+        if (node != null)
+        {
+            PostOrderTraversalNode(node.Left, action);
+            PostOrderTraversalNode(node.Right, action);
+            action(node.Value);
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        BinaryTree binaryTree = new BinaryTree();
+
+        binaryTree.Insert(8);
+        binaryTree.Insert(3);
+        binaryTree.Insert(10);
+        binaryTree.Insert(1);
+        binaryTree.Insert(6);
+        binaryTree.Insert(14);
+        binaryTree.Insert(4);
+        binaryTree.Insert(7);
+        binaryTree.Insert(13);
+
+        // 1 3 4 6 7 8 10 13 14
+        Console.WriteLine("In order traversal");
+        binaryTree.InOrderTraversal(value => Console.Write(value + " "));
+        Console.WriteLine("\n------");
+
+        // 8 3 1 6 4 7 10 14 13 
+        Console.WriteLine("Pre order traversal");
+        binaryTree.PreOrderTraversal(value => Console.Write(value + " "));
+        Console.WriteLine("\n------");
+
+        // 1 4 7 6 3 13 14 10 8 
+        Console.WriteLine("Post order traversal");
+        binaryTree.PostOrderTraversal(value => Console.Write(value + " "));
+        Console.WriteLine("\n------");
+
+        binaryTree.Delete(6);
+
+        // 1 3 4 7 8 10 13 14 
+        Console.WriteLine("In order traversal after deleting 6");
+        binaryTree.InOrderTraversal(value => Console.Write(value + " "));
+        Console.WriteLine("\n------");
+    }
+}
+```
+</TabsContent>
+<TabsContent value="ts">
+```ts 
+class TreeNode {
+  value: number;
+  left: TreeNode | null;
+  right: TreeNode | null;
+
+  constructor(value: number) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinaryTree {
+  root: TreeNode | null;
+
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value: number): void {
+    const newNode = new TreeNode(value);
+
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+
+  private insertNode(node: TreeNode, newNode: TreeNode) {
+    if (newNode.value < node.value) {
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode);
+      }
+    }
+  }
+
+  delete(value: number): void {
+    this.root = this.deleteNode(this.root, value);
+  }
+
+  private deleteNode(node: TreeNode | null, value: number): TreeNode | null {
+    if (node === null) {
+      return null;
+    }
+
+    if (value < node.value) {
+      node.left = this.deleteNode(node.left, value);
+    } else if (value > node.value) {
+      node.right = this.deleteNode(node.right, value);
+    } else {
+      if (node.left === null && node.right === null) {
+        node = null;
+      } else if (node.left === null) {
+        node = node.right;
+      } else if (node.right === null) {
+        node = node.left;
+      } else {
+        const minRight = this.findMinNode(node.right);
+        node.value = minRight.value;
+        node.right = this.deleteNode(node.right, minRight.value);
+      }
+    }
+    return node;
+  }
+
+  private findMinNode(node: TreeNode): TreeNode {
+    if (node.left === null) {
+      return node;
+    } else {
+      return this.findMinNode(node.left);
+    }
+  }
+
+  inOrderTraversal(callbackFn: (value: number) => void): void {
+    this.inOrderTraversalNode(this.root, callbackFn);
+  }
+
+  private inOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
+    if (node !== null) {
+      this.inOrderTraversalNode(node.left, callbackFn);
+      callbackFn(node.value);
+      this.inOrderTraversalNode(node.right, callbackFn);
+    }
+  }
+
+  preOrderTraversal(callbackFn: (value: number) => void): void {
+    this.preOrderTraversalNode(this.root, callbackFn);
+  }
+
+  private preOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
+    if (node !== null) {
+      callbackFn(node.value);
+      this.inOrderTraversalNode(node.left, callbackFn);
+      this.inOrderTraversalNode(node.right, callbackFn);
+    }
+  }
+
+  postOrderTraversal(callbackFn: (value: number) => void): void {
+    this.postOrderTraversalNode(this.root, callbackFn);
+  }
+
+  private postOrderTraversalNode(
+    node: TreeNode | null,
+    callbackFn: (value: number) => void
+  ): void {
+    if (node !== null) {
+      this.inOrderTraversalNode(node.left, callbackFn);
+      this.inOrderTraversalNode(node.right, callbackFn);
+      callbackFn(node.value);
+    }
+  }
+}
+
+const binaryTree = new BinaryTree();
+
+binaryTree.insert(8);
+binaryTree.insert(3);
+binaryTree.insert(10);
+binaryTree.insert(1);
+binaryTree.insert(6);
+binaryTree.insert(14);
+binaryTree.insert(4);
+binaryTree.insert(7);
+binaryTree.insert(13);
+
+console.log("In order traversal");
+binaryTree.inOrderTraversal((value) => console.log(value));
+console.log("---");
+
+console.log("Pre order traversal");
+binaryTree.preOrderTraversal((value) => console.log(value));
+console.log("---");
+
+console.log("Post order traversal");
+binaryTree.postOrderTraversal((value) => console.log(value));
+console.log("---");
+
+binaryTree.delete(6);
+
+console.log("In order traversal after deleting 6");
+binaryTree.inOrderTraversal((value) => console.log(value));
+console.log("---");
+```
+</TabsContent>
+</Tabs>
+
+An example binary tree (BST) is shown below
+
+<img 
+  src="https://raw.githubusercontent.com/mathewbushuru/algorithms/main/data-structures/imgs/binary-tree-traversal2.jpeg"
+  className="lg:max-w-2xl rounded-md shadow-md mx-auto"
+/>
+
+The complexities of this implementation are:
+
+1. Node insertion
+
+- The average and worst time complexity of inserting a node in a binary tree in `O(log(n))` for balanced trees and `O(n)` for skewed trees. Each insertion in a balanced binary tree reduces search space by half, while it may require traversing through all the nodes in a skewed tree.
+- The space complexity is `O(1)` as we are not using any data structures that grow the size of the tree.
+
+2. Node deletion
+
+- The average and worst time complexity if `O(log(n))` for balanced trees and `O(n)` for skewed trees.
+
+3. Traversal operations
+
+- In-order, pre-order and post-order traversals visit each node in the binary tree once.
+- The time complexity is `O(n)` where n is the number of nodes in the tree.
+- The space complexity is `O(h)` where h is the height of the tree. The recursive calls for traversing the tree occupies space in the call stack, and the maximum depth of the recursive call corresponds to the height of the tree. For a skewed tree, the space complexity degrades to `O(n)`
+
+#### Binary Search Trees
+
+This is a binary tree with a special property: For every node, the value of each node in its left subtree is less than its value, and the value of each node in is right subtree is greater than its value.
