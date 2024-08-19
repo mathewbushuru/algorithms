@@ -1,3 +1,18 @@
+# Data Structures and Algorithms
+
+- [Concepts](./concepts)
+  - [Big O](./big-o)
+- [Algorithms](./algorithms)
+  - [Sorting Algorithms](./sorting-algorithms)
+    - [Insertion Sort](./insertion-sort)
+  - [Search Algorithms](./search-algorithms)
+    - [Binary Search](./binary-search)
+- [Data Structures](./data-structures)
+  - [Arrays and Strings](./arrays-and-strings)
+  - [Trees](./trees)
+    - [Binary Trees](./binary-trees)
+    - [Binary Search Trees](./binary-search-trees)
+
 # Comprehensive Algorithms and Data Structures.
 
 This repository houses in-depth explanations to key computer science concepts, algorithms and data structures. They are implemented in `JavaScript`, `Java`, `C++`, `Python`, `TypeScript` and `C`. This repository is intended to be my online reference / notes as I learn these topics and I hope you find this information valuable.
