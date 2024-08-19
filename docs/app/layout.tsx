@@ -6,7 +6,7 @@ import "@/app/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Data Structures and Algorithms",
+  title: "Mathew  Bushuru | dsa",
   description: "Mathew Bushuru's Data Structures and Algorithms",
 };
 
