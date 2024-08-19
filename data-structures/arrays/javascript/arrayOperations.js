@@ -4,6 +4,7 @@
 const arr = []; // empty array
 const arrWithValues = [1, 2, 3, 4, 5]; // Array  with values
 const arrWithSize = new Array(5); // Array with size
+const arrWithSizePrefilled  = new Array(100).fill(-1);
 
 /**
  * Accessing elements
